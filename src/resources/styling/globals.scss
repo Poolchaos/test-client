@@ -36,6 +36,7 @@
   }
 }
 
+.white-button,
 .pink-button,
 .blue-button {
   padding: 0.5rem 1rem;
@@ -58,6 +59,18 @@
 
   &:hover {
     background: #aa1642;
+  }
+}
+
+.white-button {
+  background-color: #fff;
+  color: black;
+  .icon {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    background: #ebebeb;
   }
 }
 

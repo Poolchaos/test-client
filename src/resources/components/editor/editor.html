@@ -69,13 +69,26 @@
                 </div>
               </div>
 
-              <button
-                class="pink-button"
-                click.trigger="runTest()"
-                style="border: 2px solid white;"
-              >
-                <span class="icon" style="margin-right: 5px;">&#9654;</span> Start Automation
-              </button>
+              <section class="flex">
+                <button
+                  class="pink-button"
+                  click.trigger="runTest()"
+                  style="margin-right: 10px;"
+                >
+                  <span class="icon" style="margin-right: 5px;">&#9654;</span> Start Automation
+                </button>
+                <button
+                  class="white-button"
+                  click.trigger="editTestSuite()"
+                >
+                  <div
+                    innerhtml.bind="icons.pencil"
+                    class="small blue svg config-icon"
+                    style="margin-right: 5px;"
+                  ></div>
+                  Edit
+                </button>
+              </section>
             </div>
             
           </div>

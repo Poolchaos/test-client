@@ -78,6 +78,12 @@ export class CreatorStepThree {
     private dialogService: DialogService,
   ) {}
 
+  public bind(): void {
+    if (this.testData && this.testData.steps) {
+      this.definedSteps = [...this.testData.steps];
+    }
+  }
+
   public selectStepToAdd(type: string): void {
     console.log(' ::>> selectStepToAdd .>>> ', type);
 

@@ -124,6 +124,11 @@ export class Editor {
       });
   }
 
+  public editTestSuite(): void {
+    console.log(' ::>> this.config >>>> ', this.config);
+    this.router.navigate('test-wizard/' + this.config.testSuiteId + '/' + this.config.testId);
+  }
+
   public viewTestResult(result): void {
     console.log(' ::>> result >>>> ', result);
     this.router.navigate('view-test-result/' + this.config.testId + '-' + this.config.name + '-' + result._id);

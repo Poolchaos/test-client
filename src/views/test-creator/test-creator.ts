@@ -12,6 +12,7 @@ import './test-creator.scss';
 @autoinject
 export class TestCreator {
   private testSuiteId: string;
+  private testId: string;
   public testData: any = {};
   public testSuiteNames: string[] = [];
 
@@ -34,15 +35,31 @@ export class TestCreator {
     private dialogService: DialogService
   ) {}
 
-  public activate(params: { testSuiteId: string; }): void {
+  public activate(params: { testSuiteId: string; testId: string; }): void {
     this.testSuiteId = params.testSuiteId;
-    console.log(' ::>> testSuiteId >>> ', params.testSuiteId);
+    this.testId = params.testId;
+    console.log(' ::>> testSuiteId >>> ', params);
     
     this.activateStep(0);
 
-    // test data
-    this.testData.name = 'Basic sign in test';
-    this.testData.url = 'https://beta.zailab.com';
+    if (this.testId) {
+      this.getTest();
+    }
+  }
+
+  private getTest(): void {
+    this.httpClient
+      .createRequest(`http://localhost:9000/testsuites/${this.testSuiteId}/test/${this.testId}`)
+      .asGet()
+      .send()
+      .then(data => {
+        try {
+          this.testData = JSON.parse(data.response);
+          console.log(' ::>> this.testData >>> ', this.testData);
+        } catch(e) {
+          console.log(' > Failed to get test for creator', e);
+        }
+      });
   }
 
   private activateStep(step: number): void {
@@ -57,11 +74,19 @@ export class TestCreator {
     if (this.steps[step + 1]) {
       this.activateStep(step + 1);
     } else {
-      this.submitNewTest();
+      if (this.testData.testid) {
+        this.updateTest();
+      } else {
+        this.createTest();
+      }
     }
   }
 
-  private submitNewTest(): void {
+  private updateTest(): void {
+    // todo: still implement
+  }
+
+  private createTest(): void {
     console.log(' ::>> testData >>>>> ', this.testData);
     this.submitting = true;
 

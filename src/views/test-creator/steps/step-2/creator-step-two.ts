@@ -54,6 +54,25 @@ export class CreatorStepTwo {
   }
 
   public bind(): void {
+
+    console.log(' ::>> step 2 | testData >>> ', this.testData)
+    let perm = this.testData.permissions;
+
+    if (perm) {
+      if (perm.errorScreenShot) {
+        let item = this.configOptions.find(option => option.key ==='errorScreenShot');
+        item.selected = true;
+      }
+      if (perm.microphone) {
+        let item = this.configOptions.find(option => option.key ==='microphone');
+        item.selected = true;
+      }
+      if (perm.stepScreenshot) {
+        let item = this.configOptions.find(option => option.key ==='stepScreenshot');
+        item.selected = true;
+      }
+    }
+
     ValidationRules.customRule(
       'validUrl',
       (value, obj) => {

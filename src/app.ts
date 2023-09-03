@@ -49,6 +49,11 @@ export class App {
       moduleId: PLATFORM.moduleName('views/test-creator/test-creator'),
       title: `Studio`
     }, {
+      route: 'test-wizard/:testSuiteId/:testId',
+      name: 'test-wizard',
+      moduleId: PLATFORM.moduleName('views/test-creator/test-creator'),
+      title: `Studio`
+    }, {
       route: 'users',
       name: 'users',
       moduleId: PLATFORM.moduleName('views/users/users'),
