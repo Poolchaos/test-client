@@ -1,0 +1,266 @@
+editor {
+  display: flex;
+  height: 100%;
+  
+  .col-right {
+    width: 280px;
+    max-width: 280px;
+    padding: 10px;
+    border-left: 1px solid #373737;
+
+    .header {
+      margin: 20px auto;
+    }
+
+    .test-result {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #373737;
+      height: 25px;
+
+        
+      &.first-child {
+        border-top: 1px solid #373737;
+      }
+
+      .ongoing {
+        font-size: 12px;
+        color: rgb(38, 168, 255);
+      }
+
+      .pass-value {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+
+        .score {
+          height: 14px;
+          margin-left: 5px;
+          padding: 5px 10px;
+          border-radius: 3px;
+        }
+
+        button {
+          height: 24px;
+          background: #26a8ff;
+          outline: 0;
+          border: 0;
+          margin-left: 5px;
+          padding: 5px 10px;
+          border-radius: 3px;
+          cursor: pointer;
+
+          svg {
+            fill: white;
+          }
+
+          &:hover {
+            background: #1c86cc;
+          }
+        }
+        
+        &.passed {
+          color: rgb(93, 204, 93);
+          .score {
+            background: rgb(93, 204, 93);
+            color: white;
+          }
+        }
+
+        &.failed {
+          color: rgb(207, 102, 102);;
+          .score {
+            background: rgb(207, 102, 102);
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+.editor {
+  height: calc(100% - 2rem);
+  padding: 1rem;
+  background-color: #1e1e1e;
+  color: white;
+  font-size: 14px;
+  flex: 1;
+
+  .editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .pink-button,
+    .blue-button {
+      width: 130px;
+    }
+  }
+
+  .content-panel {
+    height: 100%;
+    overflow: hidden!important;
+  }
+
+  .step {
+    display: flex;
+    border: 1px solid #373737;
+    background: #252525;
+
+    svg {
+      fill: white;
+    }
+
+    .handle {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .flex.flex--align-center {
+      padding: 10px;
+    }
+
+    .subtext {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+    }
+
+    &.selectable {
+      &:hover {
+        border-color:rgb(38, 168, 255);
+        background: rgba(38, 168, 255, 0.1);
+      }
+    }
+  }
+  
+  
+  .tab-close {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    color: #999;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+
+  .add-test-action {
+    padding: 5px 10px;
+    margin-right: 20px;
+    border: 1px solid #252525;
+    background: #373737;
+    border-radius: 20px;
+    cursor: pointer;
+
+    .icon {
+      margin-right: 5px;
+    }
+
+    &:hover {
+      background: #4b4b4b;
+    }
+  }
+
+  .instruction {
+    color: white;
+    font-size: 16px;
+    margin: 40px auto 10px;
+    color: #26a8ff;
+  }
+
+  .browser-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0);
+    padding: 10px;
+    
+    svg {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  .web-app-config {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  .config-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .config-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .config-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+  }
+
+  .config-subtitle {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .config-value {
+    font-size: 16px;
+  }
+
+  .step-config-wrapper {
+    position: relative;
+    height: calc(100% - 80px);
+
+    .added-steps {
+      height: 100%;
+      overflow: auto;
+    }
+
+    .e2e-test-cta {
+      text-align: center;
+      padding: 20px;
+      background-color: #26a8ff;
+      color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 40px;
+      
+      .cta-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    
+      .cta-description {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+      
+      .config-details {
+        flex: 1;
+        text-align: left;
+      }
+
+      svg {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+}

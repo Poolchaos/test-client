@@ -1,0 +1,65 @@
+$full-height: 100vh;
+
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li, a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* Global Styles */
+body {
+  height: $full-height;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: #171717;
+}
+
+main {
+  height: $full-height;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-item a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-item a:hover {
+  color: #ccc;
+}
+
+header.top-menu {
+  background-color: #292a2d;
+  color: #fff;
+  padding: 1rem;
+
+  .menu-list {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .menu-item a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+  }
+  
+  .menu-item a:hover {
+    color: #ccc;
+  }
+}

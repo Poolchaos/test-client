@@ -1,0 +1,37 @@
+.view-test-results {
+  height: calc(100% - 53px);
+  color: white;
+  font-size: 14px;
+  flex: 1;
+  overflow: hidden;
+  background-color: #171717;
+  border-top: 1px solid #373737;
+  
+  h2 {
+    margin-top: 20px;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .content {
+
+    .result-total {
+      padding: 5px 10px;
+      margin-right: 20px;
+      border: 1px solid #252525;
+      background: #373737;
+      border-radius: 20px;
+
+      &.red {
+        border-bottom: 2px solid rgb(207, 102, 102);
+        padding-bottom: 3px!important;
+      }
+
+      &.green {
+        border-bottom: 2px solid rgb(93, 204, 93);
+        padding-bottom: 3px!important;
+      }
+    }
+  }
+}

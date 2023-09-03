@@ -1,0 +1,61 @@
+<template>
+  <section id="testCreator">
+    <section class="header">
+      <section class="title">STEP ${activeStep.name}</section>
+      <section class="sub-title">Craft End-to-End Testing Scenarios</section>
+      
+      <button
+        class="pink"
+        click.trigger="close()"
+        innerhtml.bind="icons.close"
+      ></button>
+    </section>
+
+    <section class="steps-wrapper">
+      <section class="steps-actions">
+        <section style="flex: 1;"></section>
+        <section style="flex: 1;"></section>
+        <section style="flex: 1;"></section>
+        <section
+          repeat.for="step of steps"
+          class="step"
+          class.bind="!step.active && !step.complete ? 'disabled' : ''"
+          style.bind="'z-index: ' + (steps.length - $index)"
+        >
+          <div
+            class="step-inner"
+            class.bind="step.active ? 'active' : ''"
+          >
+            ${step.name}
+          </div>
+        </section>
+        <section style="flex: 1;"></section>
+        <section style="flex: 1;"></section>
+        <section style="flex: 1;"></section>
+      </section>
+    </section>
+
+    <section class="steps-content">
+      <creator-step-one
+        if.bind="activeStep.name === '1'"
+        test-data.bind="testData"
+        step-configured.trigger="completeStep(0)"
+      ></creator-step-one>
+
+      <creator-step-two
+        if.bind="activeStep.name === '2'"
+        test-data.bind="testData"
+        step-back.trigger="stepBack(1)"
+        step-configured.trigger="completeStep(1)"
+      ></creator-step-two>
+
+      <creator-step-three
+        if.bind="activeStep.name === '3'"
+        test-data.bind="testData"
+        submitting.bind="submitting"
+        step-back.trigger="stepBack(2)"
+        step-configured.trigger="completeStep(2)"
+      ></creator-step-three>
+    </section>
+  </section>
+</template>

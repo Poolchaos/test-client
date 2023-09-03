@@ -1,0 +1,15 @@
+#newTestSuite {
+  .field-container {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      margin-left: 5px;
+      text-align: center;
+
+      .icon {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,200 @@
+<template>
+
+  <section class="editor">
+    
+    <section class="content-panel">
+      <h1 style="font-size: 30px;text-align: center; margin-bottom: 40px;">Configured steps for <span class="text-pink">${config.name}</span></h1>
+
+      <section class="flex step-config-wrapper">
+        <section style="width: 400px;">
+
+          <div class="web-app-config">
+
+            <div class="e2e-test-cta">
+              <h2 class="cta-title">Ready to Validate Your App?</h2>
+              <p class="cta-description">
+                Ensure your web app is flawless. Start the End-to-End test now with the following configuration:
+              </p>
+
+
+              <!-- Configuration Sections -->
+              <div class="config-section">
+                <div
+                  innerhtml.bind="icons.globe"
+                  class="white svg config-icon"
+                ></div>
+                <div class="config-details">
+                  <h3 class="config-subtitle">Website URL</h3>
+                  <p class="config-value">${config.url}</p>
+                </div>
+              </div>
+          
+              <div class="config-section">
+                <div
+                  innerhtml.bind="icons.window"
+                  class="white svg config-icon"
+                ></div>
+                <div class="config-details">
+                  <h3 class="config-subtitle">Browser</h3>
+                  <p class="config-value">${config.browser}</p>
+                </div>
+              </div>
+          
+              <div class="config-section">
+                <div
+                  innerhtml.bind="icons.mic"
+                  class="white svg config-icon"
+                ></div>
+                <div class="config-details">
+                  <h3 class="config-subtitle">Microphone</h3>
+                  <p class="config-value">
+                    Allow access to microphone: ${config.permissions.microphone ? 'Yes' : 'No'}
+                  </p>
+                </div>
+              </div>
+          
+              <div class="config-section">
+                <div
+                  innerhtml.bind="icons.pic"
+                  class="white svg config-icon"
+                ></div>
+                <div class="config-details">
+                  <h3 class="config-subtitle">Screenshot Settings</h3>
+                  <p class="config-value">
+                    Take Screenshot on Error: ${config.permissions.errorScreenShot ? 'Yes' : 'No'}
+                  </p>
+                  <p class="config-value">
+                    Screenshot After Every Step: ${config.permissions.stepScreenshot ? 'Yes' : 'No'}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                class="pink-button"
+                click.trigger="runTest()"
+                style="border: 2px solid white;"
+              >
+                <span class="icon" style="margin-right: 5px;">&#9654;</span> Start Automation
+              </button>
+            </div>
+            
+          </div>
+        </section>
+
+        <section class="added-steps" style="width: 50%;">
+          <ul style="margin: 0 auto;overflow: auto;">
+            <li
+              repeat.for="step of config.steps"
+              class="flex flex--justify-between"
+              style="padding: 5px 10px;display: flex;align-items: center;"
+            >
+              <section>${$index}&nbsp;- &nbsp;</section>
+              <section if.bind="step.name === 'wait'" class="flex--basis text--left flex">
+                Wait for&nbsp;
+                <span if.bind="!step.editing" class="text--dimmed">${step.config.durationInSeconds}</span>
+                <section class="is-relative" if.bind="step.editing">
+                  <input
+                    type="number"
+                    step="10"
+                    min="1"
+                    max="120"
+                    class="input-field"
+                    placeholder="Wait time"
+                    value.bind="step.editState.durationInSeconds"
+                    style="margin-bottom: 0;width: 50px;"
+                  />
+                </section>
+                &nbsp;seconds before continuing.
+              </section>
+
+              <section if.bind="step.name === 'text'" class="flex--basis text--left flex">
+                Type&nbsp;
+                <span class="text--dimmed" if.bind="!step.editing">${step.config.value}</span>
+                <section class="is-relative" if.bind="step.editing">
+                  <input
+                    type="text"
+                    class="input-field"
+                    placeholder="Enter you ${step.config.label}"
+                    value.bind="step.editState.value"
+                    style="margin-bottom: 0;width: 150px;"
+                  />
+                </section>
+                &nbsp;into the&nbsp;
+                <span class="text--dimmed">${step.config.label}</span>&nbsp;
+                text field.
+              </section>
+
+              <section if.bind="step.name === 'click'" class="flex--basis text--left flex">
+                Click the button labelled&nbsp;<span class="text--dimmed">${step.config.label}</span>.
+              </section>
+
+              <section if.bind="step.name === 'expectDasboard'" class="flex--basis text--left flex">
+                I expect to see the&nbsp;
+                <span class="text--dimmed" if.bind="!step.editing">${step.config.role}</span>
+                <select
+                  class="input-field"
+                  value.bind="step.editState.role"
+                  if.bind="step.editing"
+                  style="width: 140px;margin-bottom: unset;"
+                >
+                  <option>DEFAULT_USER</option>
+                  <option>Administrator</option>
+                  <option>Agent</option>
+                  <option>Team Leader</option>
+                  <option>Office Employee</option>
+                  <option>QA</option>
+                  <option>QA Manager</option>
+                  <option>Campaign Manager</option>
+                </select>
+                &nbsp;dashboard.
+              </section>
+            </li>
+          </ul>
+        </section>
+      </section>
+    </section>
+  </section>
+
+  <div class="col-right">
+    <h4 class="header">
+      Test history
+    </h4>
+
+    <div
+      if.bind="testResults.length === 0"
+      class="no-data-message"
+    >
+      No test history.
+    </div>
+    <section
+      repeat.for="result of testResults"
+      class="test-result ${$index === 0 ? 'first-child' : ''}"
+    >
+      ${result.startTime}
+
+      <section
+        class="ongoing"
+        if.bind="result.ongoing"
+      >
+        Running...
+      </section>
+      <section
+        class="pass-value"
+        class.bind="result.testPassed ? 'passed' : 'failed'"
+        if.bind="!result.ongoing"
+      >
+        ${result.testPassed ? 'Passed' : 'Failed'}
+        <section
+          class="score"
+        >
+          ${result.passed}/${result.total}
+        </section>
+        <button
+          click.trigger="viewTestResult(result)"
+          innerhtml.bind="icons.magnifyingGlass"
+          title="View result"
+        ></button>
+      </section>
+    </section>
+  </div>
+</template>

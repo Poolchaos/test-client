@@ -1,0 +1,85 @@
+<template>
+  <section class="users">
+    <h2>Configured <span class="text-pink">Users</span></h2>
+    
+    <section class="flex content-wrapper">
+      <section class="left-column">
+        <h1>Select an environment</h1>
+        <section class="col-content">
+          <button
+            class="button cta"
+            class.bind="environment.selected ? 'pink' : 'pink-border'"
+            click.trigger="selectEnvironment(environment)"
+            repeat.for="environment of environments"
+          >
+            <div
+              innerhtml.bind="icons.server"
+              class="white svg config-icon"
+            ></div>
+            ${environment.name}
+          </button>
+          <section style="width: 118px;"></section>
+        </section>
+      </section>
+      
+      <section class="right-column">
+        <section repeat.for="organisation of organisations">
+          <h2
+            class="text-pink"
+            style="
+              text-align: left;
+              margin: 10px;
+            "
+          >
+            ${organisation.name}
+          </h2>
+
+          <section if.bind="organisation.users && organisation.users.length === 0">
+            Organisation has no users.
+          </section>
+          <section class="flex">
+            <section
+              if.bind="organisation.users.length > 0"
+              class="flex flex--wrap flex--justify-left"
+              style="padding: 0 10px;"
+            >
+              <button
+                class="button cta"
+                click.trigger="selectUser(user)"
+                repeat.for="user of organisation.users"
+              >
+                <section class="name-field">${user.name}</section>
+                <div
+                  innerhtml.bind="icons.roles[user.role]"
+                  class="white svg config-icon"
+                ></div>
+                
+                <section style="text-align: left;">
+                  <section style="font-size: 16px;">${user.role}</section>
+                  <section style="font-size: 12px;">${user.email}</section>
+                  <section style="font-size: 12px;">${user.password}</section>
+                </section>
+              </button>
+            </section>
+            
+            <section style="padding: 0 10px;">
+              <button
+                class="pink button cta"
+                class.bind="environment.selected ? 'pink' : 'pink-border'"
+                click.trigger="addUser(environment)"
+                style="padding: 10px;width: 50px;height: 230px;"
+                title="Add user"
+              >
+                <div
+                  innerhtml.bind="icons.plus"
+                  class="white svg config-icon"
+                  style="margin-right: 0;"
+                ></div>
+              </button>
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>
+</template>

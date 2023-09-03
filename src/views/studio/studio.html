@@ -1,0 +1,75 @@
+<template>
+  <div class="studio">
+    <!-- <section class="config-row">
+      <section>
+        <button
+          class="config-button"
+          click.trigger="requestDirectorySelection()"
+        >
+          Open Test Directory
+        </button>
+        <button class="config-button">Save</button>
+      </section>
+      <button class="config-button" click.trigger="runAllTests()">
+        <span class="icon" style="margin-right: 5px;">&#9654;</span> Run all tests
+      </button>
+    </section> -->
+    <section class="content-section">
+      <div
+        class="file-explorer"
+      >
+        <explorer
+          test-suites.bind="testSuites"
+          test-suite-names.bind="testSuiteNames"
+
+          if.bind="testSuiteNames"
+
+          create-test-for-suite.trigger="startCreateTestForSuiteFlow($event.detail)"
+          select-file.trigger="fileSelected($event.detail)"
+        ></explorer>
+      </div>
+      <div class="content-panel">
+        <div
+          class="panel"
+        >
+          <div
+            class="tab-header"
+            if.bind="tabs.length > 0"
+          >
+            <div
+              class="tab"
+              class.bind="tab.selected ? 'selected' : ''"
+              repeat.for="tab of tabs"
+              click.delegate="selectTab(tab)"
+            >
+              <span class="tab-title">${tab.name}</span>
+              <span
+                class="tab-close"
+                click.delegate="closeTab($index, $event)"
+                if.bind="tab.name !== 'Welcome'"
+              >x</span>
+            </div>
+            <div class="tab placeholder"></div>
+          </div>
+          <div class="tab-content">
+            <div
+              repeat.for="tab of tabs"
+              class="content"
+              show.bind="tab.selected"
+            >
+              <welcome if.bind="tab.name === 'Welcome'"></welcome>
+              <editor
+                if.bind="tab.name !== 'Welcome'"
+                config.bind="tab"
+              ></editor>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- <section class="reports-row">
+      Reports content
+    </section> -->
+  </div>
+  
+</template>

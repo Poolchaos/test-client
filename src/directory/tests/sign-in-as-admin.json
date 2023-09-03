@@ -1,0 +1,38 @@
+{
+  "name": "Sign in as Admin",
+  "URL": "https://beta.zailab.com",
+  "steps": [{
+    "action": "wait",
+    "config": {
+      "durationInSeconds": 10
+    }
+  }, {
+    "action": "input",
+    "config": {
+      "selector": "input.email",
+      "value": "meryam7@zailab.com"
+    }
+  }, {
+    "action": "input",
+    "config": {
+      "selector": "input.password",
+      "value": "meryam7@zailab.com"
+    }
+  }, {
+    "action": "click",
+    "config": {
+      "target": "Sign In"
+    }
+  }, {
+    "action": "click",
+    "config": {
+      "target": "Sign In"
+    }
+  }, {
+    "action": "assertion",
+    "config": {
+      "target": "Administrator Dashboard",
+      "selector": ".someclass"
+    }
+  }]
+}

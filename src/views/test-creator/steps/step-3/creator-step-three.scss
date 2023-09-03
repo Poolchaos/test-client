@@ -1,0 +1,164 @@
+
+.wizard-step-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  justify-content: space-evenly;
+  height: 100%;
+
+  .intro-text {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: left;
+    margin: auto;
+
+    h1 {
+      font-size: 30px;
+      line-height: 36px;
+    }
+
+    .instruction {
+      text-align: center;
+    }
+  }
+
+  .instruction {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 40px;
+  }
+
+  .input-field {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    width: 400px;
+  }
+
+  .added-steps {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 310px);
+    height: calc(100% - 60px);
+    margin-right: 310px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      .actions {
+        button {
+          margin-left: 10px;
+          padding: 6px 12px;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+
+          svg {
+            width: 10px;
+            height: 10px;
+          }
+
+          &.blue:hover {
+            svg {
+              fill: #1c86cc;
+            }
+          }
+
+          &.pink:hover {
+            svg {
+              fill: #e51e5a;
+            }
+          }
+
+          &.full-blue {
+            background: #1c86cc;
+            svg {
+              fill: #fff;
+            }
+          }
+
+          &.full-pink {
+            background: #e51e5a;
+            svg {
+              fill: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .step-type {
+    width: 130px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+      border: 1px solid white;  
+    }
+  }
+
+  .left-column {
+    height: 100%;
+    background-color: #1e1e1e;
+    border: 1px solid #373737;
+    width: 310px;
+    overflow-y: auto;
+    
+    .stepGroup {
+      text-align: left;
+      cursor: pointer;
+      border-top: 1px solid #373737;
+      border-bottom: 1px solid #373737;
+      background: #3f3f3f;
+      padding: 10px;
+      margin: 0;
+    }
+
+    #js-step-item:first-child {
+      .stepGroup {
+        border-top: unset!important;
+      }
+    }
+  }
+
+  .content-panel {
+    border: 1px solid #373737;
+    border-left: unset!important;
+    height: 100%;
+
+    .input-field {
+      padding: 2px 3px 0;
+    }
+    
+    h2 {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      margin-right: 310px;
+    }
+  }
+
+  
+  .actions {
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}

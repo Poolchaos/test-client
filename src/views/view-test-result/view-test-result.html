@@ -1,0 +1,77 @@
+<template>
+  <section class="view-test-results">
+    <h2 class="flex flex--align-center flex--justify-center">
+      <span class="text-pink">${testName}</span>&nbsp;
+      <span style="font-size: 22px;"> ${testResult.startTime}</span>
+    </h2>
+
+    
+
+    <section class="content">
+      <section class="flex flex--justify-center" style="margin-bottom: 20px;">
+        <section class="result-total">
+          Starting URL <a href.bind="testUrl">${testResult.url}</a>
+        </section>
+        <section class="result-total" class.bind="testResult.total > testResult.passed ? 'red' : 'green'">
+          Tests passed ${testResult.passed}/${testResult.total}
+        </section>
+        <section class="result-total">
+          Tests skipped ${testResult.skipped}
+        </section>
+        <section class="result-total">
+          Duration ${diffTime(testResult.startTime, testResult.endTime)}
+        </section>
+        <section class="result-total">
+          User Agent ${testResult.userAgents[0]}
+        </section>
+      </section>
+      
+      <section
+        class="step"
+        repeat.for="test of testResult.fixtures[0].tests"
+      >
+        <section
+          class="flex flex--align-center"
+          style="width: 40px;align-self: flex-start;"
+        >
+          ${$index}
+        </section>
+        <section
+          class="flex flex--align-center"
+          style="width: 300px;min-width: 300px;align-self: flex-start;"
+        >
+          ${test.name}
+        </section>
+        <section
+          class="content"
+          style="padding: 10px;"
+          if.bind="test.errs && test.errs.length > 0"
+        >
+          <section repeat.for="error of test.errs" class="flex">
+            <section>
+              <section>${findErrorLine(error)}</section>
+              <!-- <section style="font-size: 14px;cursor: pointer;">
+                <a click.trigger="showError = true" if.bind="!showError">Show more</a>
+                <a click.trigger="showError = false" if.bind="showError">Show less</a>
+              </section>
+              <pre if.bind="showError">${error}</pre> -->
+              <pre>${error}</pre>
+            </section>
+            
+            <section
+              style="
+                width: 40px;
+                align-self: center;
+                padding: 5px 20px;
+                cursor: pointer;
+              "
+              click.delegate="showErrorLine(error)"
+            >
+            </section>
+          </section>
+        </section>
+        <section style="flex: 1;"></section>
+      </section>
+    </section>
+  </section>
+</template>

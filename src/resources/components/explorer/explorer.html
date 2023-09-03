@@ -1,0 +1,71 @@
+<template>
+  <div class="directory-list">
+    <div class="top-level-item">
+      <div class="item-header" click.delegate="toggleTopLevel()">
+        <div>
+          <span class="item-icon" if.bind="isTopLevelExpanded">▼</span>
+          <span class="item-icon" else>&#9654;</span>
+          <span class="item-title">E2E Tests</span>
+        </div>
+      </div>
+      <div if.bind="isTopLevelExpanded" class="sub-items">
+        <div
+          if.bind="testSuites.length === 0"
+          class="no-data-message"
+        >
+          No test suites defined.
+        </div>
+        <div
+          repeat.for="testSuite of testSuites"
+          class="sub-item"
+          click.delegate="toggleSubItem(testSuite, $event)"
+        >
+          <div class="item-header">
+            <div class="flex">
+              <span class="item-icon" if.bind="testSuite.isExpanded">▼</span>
+              <span class="item-icon" else>&#9654;</span>
+              <span class="item-title" title.bind="testSuite.name">${testSuite.name}</span>
+            </div>
+            <div class="actions" if.bind="!step.editing">
+              <button
+                class="blue"
+                click.trigger="startAddTest(testSuite, $event)"
+                innerhtml.bind="icons.plus"
+                title="Add a test"
+              ></button>
+              <button
+                class="pink"
+                click.trigger="deleteTestSuite(testSuite, $event)"
+                innerhtml.bind="icons.trash"
+                title="Delete Test Suite"
+              ></button>
+            </div>
+          </div>
+          <div
+            if.bind="testSuite.isExpanded"
+            class="tests-list"
+          >
+            <div
+              if.bind="testSuite.tests.length === 0"
+              class="no-data-message"
+            >
+              No tests in this suite.
+            </div>
+            <div
+              repeat.for="test of testSuite.tests"
+              class="test-item"
+              class.bind="selectedTest.name === test.name ? 'selected' : ''"
+              click.trigger="selectTest(testSuite._id, test, $event)"
+            >
+              ${test.name}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <new-test-suite
+      names.bind="testSuiteNames"
+      create.trigger="createTestSuite($event.detail)"
+    ></new-test-suite>
+  </div>
+</template>

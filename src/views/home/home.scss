@@ -1,0 +1,41 @@
+$header-height: 80px;
+
+.home {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  /* Header */
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, #003d66 0, #001726 100%);
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: $header-height;
+  }
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 5rem 0;
+    background: rgba(0, 61, 102, 0.2);
+    color: #fff;
+    width: 900px;
+    margin: auto;
+
+    .hero-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-description {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+  }
+}

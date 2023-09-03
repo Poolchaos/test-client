@@ -1,0 +1,92 @@
+<template>
+  <section class="dialog">
+    <section class="header">
+      Add step: ${stepType}
+      <button
+        class="pink"
+        click.trigger="close(step)"
+        innerhtml.bind="icons.close"
+      ></button>
+    </section>
+
+    <section class="body">
+
+      <section if.bind="stepType === STEP_CONSTANTS.SIGN_IN">
+        <h4>Adding this pre-defined step config, will add the following steps:</h4>
+        <ul>
+          <li class="step" repeat.for="step of PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]">
+            <section class="flex" if.bind="step.name === 'wait'">
+              Wait for&nbsp;
+              <section class="is-relative">
+                <input
+                  type="number"
+                  step="10"
+                  min="1"
+                  max="120"
+                  class="input-field"
+                  placeholder="Wait time"
+                  value.bind="step.config.durationInSeconds"
+                  style="margin-bottom: 0;width: 50px;"
+                />
+              </section>
+              &nbsp;seconds before continuing.
+            </section>
+
+            <section class="flex" if.bind="step.name === 'text'">
+              Type&nbsp;
+              <section class="is-relative">
+                <input
+                  type="text"
+                  class="input-field"
+                  placeholder="Enter you ${step.config.label}"
+                  value.bind="step.config.value"
+                  style="margin-bottom: 0;width: 150px;"
+                />
+              </section>
+              &nbsp;into the&nbsp;<span class="text--dimmed">${step.config.label}</span>&nbsp;text field.
+            </section>
+
+            <section class="flex" if.bind="step.name === 'click'">
+              Click the button labelled&nbsp;<span class="text--dimmed">${step.config.label}</span>.
+            </section>
+
+            <section class="flex" if.bind="step.name === 'expectDasboard'">
+              I expect to see the&nbsp;
+              <select
+                class="input-field"
+                value.bind="step.config.role"
+              >
+                <option>DEFAULT_USER</option>
+                <option>Administrator</option>
+                <option>Agent</option>
+                <option>Team Leader</option>
+                <option>Office Employee</option>
+                <option>QA</option>
+                <option>QA Manager</option>
+                <option>Campaign Manager</option>
+              </select>
+              &nbsp;dashboard.
+            </section>
+          </li>
+        </ul>
+      </section>
+
+    </section>
+
+    <section class="footer">
+      <button
+        class="pink-button"
+        click.trigger="close()"
+        style="margin-right: 10px;"
+      >
+        Cancel
+      </button>
+      <button
+        class="blue-button"
+        click.trigger="confirm()"
+      >
+        Insert
+      </button>
+    </section>
+  </section>
+</template>

@@ -1,0 +1,10 @@
+{
+  "name": "Load App",
+  "URL": "https://beta.zailab.com",
+  "steps": [{
+    "action": "wait",
+    "config": {
+      "durationInSeconds": 10
+    }
+  }]
+}

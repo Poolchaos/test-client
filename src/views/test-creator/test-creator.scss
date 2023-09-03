@@ -1,0 +1,107 @@
+#testCreator {
+  background-color: #171717;
+  height: calc(100% - 50px);
+  color: #ffffff;
+
+  .header {
+    position: relative;
+
+    button {
+      top: 10px;
+    }
+
+    .title {
+      color: #e51e5a;
+      font-size: 18px;
+      padding: 20px 0 0 0;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .sub-title {
+      text-align: center;
+      color: #bdbdbd;
+      font-size: 14px;
+    }
+  }
+  
+  .content-panel {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .steps-wrapper {
+    width: 100%;
+    padding: 30px 0;
+  
+    .steps-actions {
+      display: flex;
+      justify-content: space-between;
+      margin: auto;
+      
+      .step {
+        position: relative;
+        flex: 1;
+        z-index: 1;
+  
+        .step-inner {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 100%;
+          background: #aa1642;
+          width: 30px;
+          height: 30px;
+          margin: auto;
+  
+          &.active {
+            background: #e51e5a!important;
+          }
+  
+          &.done {
+            background: #e51e5a!important;
+          }
+        }
+  
+        &::before {
+          content: "";
+          position: absolute;
+          top: calc(50% - 2px);
+          right: calc(50% + 15px);
+          height: 4px;
+          width: 150%;
+          background-color: #aa1642;
+        }
+  
+        &:nth-last-child(4)::after {
+          content: "";
+          position: absolute;
+          top: calc(50% - 2px);
+          left: calc(50% + 15px);
+          height: 4px;
+          width: 150%;
+          background-color: #333333;
+          z-index: 0;
+        }
+      
+        &.disabled {
+          .step-inner {
+            background: #333333!important;
+          }
+  
+          &::before {
+            background-color: #333333!important;
+          }
+    
+          &:nth-last-child(4)::after {
+            background-color: #333333!important;
+          }
+        }
+      }
+    }
+  }
+
+  .steps-content {
+    height: calc(100% - 160px);
+    position: relative;
+  }
+}

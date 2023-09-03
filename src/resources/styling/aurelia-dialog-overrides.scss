@@ -1,0 +1,202 @@
+/* --------------------------------------- Aurelia Dialog  ------------------------------------------- */
+
+ux-dialog-overlay.active {
+  background-color: black;
+  opacity: 0.5 !important;
+}
+
+ux-dialog-container {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+ux-dialog-container > div {
+  padding: 0 !important;
+}
+
+ux-dialog {
+  position: initial !important;
+  display: inherit !important;
+  margin: auto !important;
+  width: auto !important;
+  height: auto !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: none !important;
+  padding: 0px !important;
+  background: transparent !important;
+}
+
+ux-dialog > ux-dialog-header {
+  display: block;
+  padding: 0px !important;
+  border-bottom: none !important;
+}
+
+ux-dialog > ux-dialog-footer {
+  display: block;
+  padding: 0px !important;
+  border-top: none !important;
+  text-align: right;
+}
+
+ux-dialog > ux-dialog-header > button {
+  display: none!important;
+}
+
+/* -----------------------------------==== Aurelia Dialog End ====----------------------------------------- */
+/*------override default aurelia button styles------*/
+
+ux-dialog > ux-dialog-footer button.o-button--in-prompt-footer {
+  background-color: transparent !important;
+  border-color: none !important;
+  outline: none !important;
+  margin: 0 !important;
+}
+
+ux-dialog > ux-dialog-footer button.o-button__glass-rectangle {
+  border-radius: 0 !important;
+}
+
+ux-dialog > ux-dialog-footer button.o-button__glass-rectangle:hover:enabled {
+  background-color: rgba(#003d66, .2) !important;
+  border: 1px solid #003d66 !important;
+  color: white !important;
+}
+
+/*------override default aurelia button styles End------*/
+
+.ux-pop-label {
+  color: #003d66 !important;
+}
+
+.name {
+  color: #FFD700;
+}
+
+.content_positioning {
+  top: -85px !important;
+  display: block;
+  clear: both;
+  position: relative;
+}
+
+ul.profile_items {
+  position: absolute;
+}
+
+ul.profile_items li {
+  display: block;
+  margin-bottom: 15px;
+}
+
+ux-dialog > ux-dialog-body {
+  display: block !important;
+  padding: 0px !important;
+}
+
+ux-dialog-container {
+  display: block;
+  transition: opacity .2s linear;
+  opacity: 0.2;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+  -webkit-overflow-scrolling: touch;
+  outline: 0 !important;
+  /*pointer-events: none;*/
+}
+
+button.dialog-close span {
+  /*position: absolute;
+  right: -40px;
+  top: -15px;*/
+  margin-left: 38px;
+  z-index: 300;
+  display: block;
+  font-size: 1.2em;
+}
+
+.o-form-field__input_email {
+  display: inline-block;
+  width: calc(50% - 20px);
+  height: auto;
+  padding: 0 12px;
+  color: white;
+  float: left;
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 0;
+  outline: 0;
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  &:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: white;
+  }
+}
+
+.o-form-field__email-divider {
+  margin: 0 9px;
+  float: left;
+}
+
+.o-form-field__row_email {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.dialog {
+
+  border: 1px solid #373737;
+  position: relative;
+  background-color: #171717;
+  min-width: 400px;
+  max-height: 80%;
+  color: white;
+  
+  .header {
+    background-color: #292a2d;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      fill: #e51e5a;
+      font-size: 20px;
+      font-weight: 600;
+  
+      svg, path {
+        fill: #e51e5a;
+      }
+    }
+  }
+
+  .button {
+    font-size: 14px;
+  }
+
+  .body {
+    padding: 20px;
+
+    h4 {
+      margin-top: unset;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+}

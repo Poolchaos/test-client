@@ -1,0 +1,49 @@
+<template>
+  <section class="welcome">
+    <div class="welcome-content">
+      <h1>Welcome to our App</h1>
+      <p>Your one-stop solution for user configuration and E2E testing.</p>
+      <div
+        innerhtml.bind="icons.pic"
+        class="pink svg config-icon"
+      ></div>
+      <p>Embark on your journey:</p>
+      <p>
+        - Empower your users with tailored settings<br/>
+        - Sail through smooth onboarding experiences<br/>
+        - Command and conquer your interactions
+      </p>
+    </div>
+  </section>
+  <section class="col-right">
+    <h1>Configurations</h1>
+    <section class="col-content">
+      <button
+        class="pink button cta"
+        click.trigger="runConfig(action.name)"
+        repeat.for="action of callToActions"
+      >
+        <div
+          innerhtml.bind="icons[action.icon]"
+          class="white svg config-icon"
+        ></div>
+        ${action.name}
+      </button>
+    </section>
+    
+    <h1>Interactions</h1>
+    <section class="col-content">
+      <button
+        class="pink button cta"
+        click.trigger="doSomething"
+        repeat.for="action of interactions"
+      >
+        <div
+          innerhtml.bind="icons[action.icon]"
+          class="white svg config-icon"
+        ></div>
+        ${action.name}
+      </button>
+    </section>
+  </section>
+</template>

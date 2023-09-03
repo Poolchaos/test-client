@@ -1,0 +1,9 @@
+{
+  "browsers": ["chrome"],
+  "screenshots": {
+    "path": "./screenshots/",
+    "takeOnFails": true
+  },
+  "disableNativeAutomation": "true",
+  "hostname": "localhost"
+}

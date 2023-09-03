@@ -1,0 +1,32 @@
+<template>
+  <section class="dialog confirm">
+    <section class="header">
+      Are you sure?
+      <button
+        class="pink"
+        click.trigger="close(step)"
+        innerhtml.bind="icons.close"
+      ></button>
+    </section>
+
+    <section class="body">
+      ${message}
+    </section>
+
+    <section class="footer">
+      <button
+        class="pink-button"
+        click.trigger="confirm()"
+        style="margin-right: 10px;"
+      >
+        Yes
+      </button>
+      <button
+        class="blue-button"
+        click.trigger="close()"
+      >
+        No
+      </button>
+    </section>
+  </section>
+</template>

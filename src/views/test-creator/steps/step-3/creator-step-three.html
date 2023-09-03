@@ -1,0 +1,172 @@
+<template>
+  <div class="wizard-step-3 flex">
+    <section class="flex" style="width: 100%;height: 90%">
+      <section class="is-relative left-column">
+        <section
+          id="js-step-item"
+          repeat.for="group of steps"
+        >
+          <h4
+            click.trigger="group.expanded = !group.expanded"
+            class="stepGroup"
+          >
+            <span if.bind="group.expanded">▼</span>
+            <span if.bind="!group.expanded ">&#9654;</span>
+            ${group.title}
+          </h4>
+          <section class="flex flex--wrap" if.bind="group.expanded">
+            <section
+              class="step-type flex flex--direction-cols"
+              class.bind="step.disabled ? 'u-faded-content' : ''"
+              repeat.for="step of group.list"
+              click.trigger="selectStepToAdd(step.name)"
+            >
+              <section class="blue svg" innerhtml.bind="icons[step.icon]"></section>
+              <section class="flex flex--align-center" style="margin: auto;">${step.name}</section>
+            </section>
+            <section
+              class="u-faded-content"
+              if.bind="group.list.length === 0"
+              style="margin: auto;padding: 10px;"
+            >
+              No items
+            </section>
+          </section>
+        </section>
+      </section>
+
+      <section class="content-panel">
+        <h2>Configured steps for <span class="text-pink">${testData.name}</span></h2>
+        <div class="added-steps">
+          <div
+            if.bind="definedSteps.length === 0"
+            style="
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <h4 class="text--dimmed">You have not yet added any steps.</h4>
+            To add steps, select an item on the left.
+            <section class="blue svg large" innerhtml.bind="icons.leftPointHand"></section>
+          </div>
+          <ul
+            if.bind="definedSteps.length > 0"
+            style="width: 600px;margin: 0 auto;overflow: auto;"
+          >
+            <li
+              repeat.for="step of definedSteps"
+              class="flex flex--justify-between"
+              style="padding: 5px 10px;display: flex;align-items: center;"
+            >
+              <section>${$index}&nbsp;- &nbsp;</section>
+              <section if.bind="step.name === 'wait'" class="flex--basis text--left flex">
+                Wait for&nbsp;
+                <span if.bind="!step.editing" class="text--dimmed">${step.config.durationInSeconds}</span>
+                <section class="is-relative" if.bind="step.editing">
+                  <input
+                    type="number"
+                    step="10"
+                    min="1"
+                    max="120"
+                    class="input-field"
+                    placeholder="Wait time"
+                    value.bind="step.editState.durationInSeconds"
+                    style="margin-bottom: 0;width: 50px;"
+                  />
+                </section>
+                &nbsp;seconds before continuing.
+              </section>
+  
+              <section if.bind="step.name === 'text'" class="flex--basis text--left flex">
+                Type&nbsp;
+                <span class="text--dimmed" if.bind="!step.editing">${step.config.value}</span>
+                <section class="is-relative" if.bind="step.editing">
+                  <input
+                    type="text"
+                    class="input-field"
+                    placeholder="Enter you ${step.config.label}"
+                    value.bind="step.editState.value"
+                    style="margin-bottom: 0;width: 150px;"
+                  />
+                </section>
+                &nbsp;into the&nbsp;
+                <span class="text--dimmed">${step.config.label}</span>&nbsp;
+                text field.
+              </section>
+  
+              <section if.bind="step.name === 'click'" class="flex--basis text--left flex">
+                Click the button labelled&nbsp;<span class="text--dimmed">${step.config.label}</span>.
+              </section>
+  
+              <section if.bind="step.name === 'expectDasboard'" class="flex--basis text--left flex">
+                I expect to see the&nbsp;
+                <span class="text--dimmed" if.bind="!step.editing">${step.config.role}</span>
+                <select
+                  class="input-field"
+                  value.bind="step.editState.role"
+                  if.bind="step.editing"
+                  style="width: 140px;margin-bottom: unset;"
+                >
+                  <option>DEFAULT_USER</option>
+                  <option>Administrator</option>
+                  <option>Agent</option>
+                  <option>Team Leader</option>
+                  <option>Office Employee</option>
+                  <option>QA</option>
+                  <option>QA Manager</option>
+                  <option>Campaign Manager</option>
+                </select>
+                &nbsp;dashboard.
+              </section>
+              
+              <div class="actions" if.bind="step.editing">
+                <button
+                  class="full-blue"
+                  click.trigger="confirmUpdateStep(step)"
+                  innerhtml.bind="icons.checkMark"
+                ></button>
+                <button
+                  class="full-pink"
+                  click.trigger="cancelEditStep(step)"
+                  innerhtml.bind="icons.close"
+                ></button>
+              </div>
+              <div class="actions" if.bind="!step.editing">
+                <button
+                  class="blue"
+                  click.trigger="editStep(step)"
+                  innerhtml.bind="icons.pencil"
+                  if.bind="step.name !== 'click'"
+                ></button>
+                <button
+                  class="pink"
+                  click.trigger="deleteStep(step)"
+                  innerhtml.bind="icons.close"
+                ></button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </section>
+
+    <section class="flex">
+      <button
+        class="pink-button"
+        style="padding: 20px;margin-right: 10px;"
+        click.trigger="stepBack()"
+      >
+      &lt;&nbsp;&nbsp;Back
+      </button>
+      <button
+        class="blue-button"
+        style="padding: 20px;"
+        click.trigger="submit()"
+      >
+        Finish
+      </button>
+    </section>
+  </div>
+</template>
