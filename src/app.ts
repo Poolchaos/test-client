@@ -16,6 +16,32 @@ import './app.scss';
 export class App {
   public icons = ICONS;
   public router: Router;
+  private menuCloseTimer;
+
+  public menu = {
+    file: false,
+    edit: false,
+    view: false,
+    help: false,
+  };
+  
+  public configurations = [{
+    name: 'Configure Environments',
+    icon: 'server',
+    route: 'environments'
+  }, {
+    name: 'Configure Users',
+    icon: 'user',
+    route: 'users'
+  }, {
+    name: 'Configure Numbers',
+    icon: 'hashtag',
+    route: 'numbers'
+  }, {
+    name: 'Configure Browsers',
+    icon: 'globe',
+    route: 'browsers'
+  }];
 
   constructor(
     private eventAggregator: EventAggregator
@@ -73,5 +99,31 @@ export class App {
 
   public studio(): void {
     this.router.navigate('studio');
+  }
+
+  public showMenu(menu: string): void {
+    const keys = Object.keys(this.menu);
+    keys.forEach(key => {
+      if (menu === key) {
+        this.menu[key] = !this.menu[key];
+      } else {
+        this.menu[key] = false;
+      }
+    });
+  }
+
+  public menuEnter(): void {
+    window.clearTimeout(this.menuCloseTimer);
+  }
+
+  public menuLeave(menu: string): void {
+    this.menuCloseTimer = setTimeout(() =>{
+      this.menu[menu] = false;
+    }, 1500);
+  }
+
+  public navTo(menu: string, route: string): void {
+    this.menu[menu] = false;
+    this.router.navigate(route);
   }
 }

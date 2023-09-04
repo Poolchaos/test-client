@@ -21,7 +21,7 @@
       <button
         class="pink button cta"
         click.trigger="runConfig(action.name)"
-        repeat.for="action of callToActions"
+        repeat.for="action of configurations"
       >
         <div
           innerhtml.bind="icons[action.icon]"

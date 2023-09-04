@@ -9,7 +9,7 @@ import './welcome.scss';
 export class Welcome {
   public icons = ICONS;
   
-  public callToActions = [{
+  public configurations = [{
     name: 'Configure Environments',
     icon: 'server'
   }, {

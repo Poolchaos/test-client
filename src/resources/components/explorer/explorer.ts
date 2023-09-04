@@ -35,6 +35,12 @@ export class Explorer {
   ) {}
   
   public async bind(): Promise<void> {
+    console.log(' ::>> data-check => ', this.testSuites);
+
+    this.testSuites.forEach(ts => {
+      ts.isExpanded = true;
+    });
+
     // try {
     //   let testData: any = await this.httpClient
     //     .createRequest('http://localhost:9000/tests')
@@ -100,7 +106,7 @@ export class Explorer {
           try {
             const testSuite = JSON.parse(response.response);
             console.log(' ::>> test suite added => ', testSuite);
-            this.testSuites.push(testSuite);
+            this.testSuites.push({ ...testSuite, isExpanded: true });
           } catch(e) {
             console.warn(' > Failed to parse new test suite data due to', e);
           }

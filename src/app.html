@@ -24,10 +24,35 @@
                 class="blue svg config-icon"
               ></div>
             </li>
-            <li class="menu-item"><a href="#">File</a></li>
-            <li class="menu-item"><a href="#">Edit</a></li>
-            <li class="menu-item"><a href="#">View</a></li>
-            <li class="menu-item"><a href="#">Help</a></li>
+            <li class="menu-item"><a>File</a></li>
+            <li
+              class="menu-item"
+              mouseenter.trigger="menuEnter()"
+              mouseleave.trigger="menuLeave('edit')"
+            >
+              <a click.trigger="showMenu('edit')">Edit</a>
+              <nav
+                class="sub-menu"
+                if.bind="menu.edit"
+              >
+                <ul>
+                  <li
+                    class="flex"
+                    repeat.for="item of configurations"
+                    click.trigger="navTo('edit', item.route)"
+                  >
+                    <div
+                      innerhtml.bind="icons[item.icon]"
+                      class="white svg config-icon"
+                      style="margin-right: 10px;"
+                    ></div>
+                    ${item.name}
+                  </li>
+                </ul>
+              </nav>
+            </li>
+            <li class="menu-item"><a>View</a></li>
+            <li class="menu-item"><a>Help</a></li>
           </ul>
         </nav>
       </header>
