@@ -11,8 +11,6 @@ export class Users {
   public icons = ICONS;
 
   public environments: any = [];
-  public selectedEnvironment;
-
   public organisations: any = [];
 
   constructor(
@@ -53,12 +51,9 @@ export class Users {
       });
   }
 
-  private 
-
   public selectEnvironment(environment) {
     this.environments.forEach(env => env.selected = false);
     environment.selected = true;
-    this.selectedEnvironment = environment;
 
     this.getOrganisations(environment.name);
   }

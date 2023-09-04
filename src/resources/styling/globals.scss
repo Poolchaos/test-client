@@ -485,3 +485,9 @@ svg, .browser-logo, .svg {
     }
   }
 }
+
+.input-field {
+  &.inline {
+    padding: 2px 3px 0;
+  }
+}

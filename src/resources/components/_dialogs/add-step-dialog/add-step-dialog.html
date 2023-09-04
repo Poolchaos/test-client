@@ -11,64 +11,111 @@
 
     <section class="body">
 
-      <section if.bind="stepType === STEP_CONSTANTS.SIGN_IN">
-        <h4>Adding this pre-defined step config, will add the following steps:</h4>
-        <ul>
-          <li class="step" repeat.for="step of PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]">
-            <section class="flex" if.bind="step.name === 'wait'">
-              Wait for&nbsp;
-              <section class="is-relative">
-                <input
-                  type="number"
-                  step="10"
-                  min="1"
-                  max="120"
-                  class="input-field"
-                  placeholder="Wait time"
-                  value.bind="step.config.durationInSeconds"
-                  style="margin-bottom: 0;width: 50px;"
-                />
+      <section class="flex" if.bind="stepType === STEP_CONSTANTS.SIGN_IN">
+
+        <section
+          style="
+            width: 260px;
+            margin-left: 20px;
+            border-right: 1px solid #373737;
+            padding: 0px 20px 0 0;
+          "
+        >
+          <section class="flex flex--justify-between" style="margin-bottom: 20px;">
+            <label>Environment:</label>
+            <select
+              class="input-field inline"
+              value.bind="config.environment"
+              style="margin-left: 10px;width: 150px;"
+              change.trigger="selectEnvironment({ name: config.environment })"
+            >
+              <option repeat.for="env of environments">
+                ${env.name}
+              </option>
+            </select>
+          </section>
+
+          <section
+            class="flex flex--justify-between"
+            class.bind="!config.environment ? 'u-faded-content' : ''"
+            style="margin-bottom: 20px;"
+          >
+            <label>Organisation:</label>
+            <select
+              class="input-field inline"
+              value.bind="config.organisation"
+              style="margin-left: 10px;width: 150px;"
+              change.trigger="selectOrganisation(config.organisation)"
+            >
+              <option repeat.for="organisation of organisations">
+                ${organisation.name}
+              </option>
+            </select>
+          </section>
+
+          <section class="flex flex--justify-between" style="margin-bottom: 20px;">
+            <label>Members:</label>
+            <select
+              class="input-field inline"
+              value.bind="selectedUser"
+              style="margin-left: 10px;width: 150px;"
+              change.trigger="userChanged(selectedUser)"
+            >
+              <option repeat.for="user of users">
+                ${user.name}
+              </option>
+            </select>
+          </section>
+        </section>
+
+        <section style="padding-left: 20px;">
+          <h4>Adding this pre-defined step config, will add the following steps:</h4>
+          <ul>
+            <li class="step" repeat.for="step of PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]">
+              <section class="flex" if.bind="step.name === 'wait'">
+                Wait for&nbsp;
+                <section class="is-relative">
+                  <input
+                    type="number"
+                    step="10"
+                    min="1"
+                    max="120"
+                    class="input-field inline"
+                    placeholder="Wait time"
+                    value.bind="step.config.durationInSeconds"
+                    style="margin-bottom: 0;width: 50px;"
+                  />
+                </section>
+                &nbsp;seconds before continuing.
               </section>
-              &nbsp;seconds before continuing.
-            </section>
 
-            <section class="flex" if.bind="step.name === 'text'">
-              Type&nbsp;
-              <section class="is-relative">
-                <input
-                  type="text"
-                  class="input-field"
-                  placeholder="Enter you ${step.config.label}"
-                  value.bind="step.config.value"
-                  style="margin-bottom: 0;width: 150px;"
-                />
+              <section class="flex" if.bind="step.name === 'text'">
+                Type&nbsp;
+                <!-- <section class="is-relative">
+                  <input
+                    type="text"
+                    class="input-field inline"
+                    placeholder="Enter you ${step.config.label}"
+                    value.bind="step.config.value"
+                    style="margin-bottom: 0;width: 150px;"
+                  />
+                </section> -->
+                <span class="text--pink">${step.config.value}</span>
+                &nbsp;into the&nbsp;<span class="text--pink">${step.config.label}</span>&nbsp;text field.
               </section>
-              &nbsp;into the&nbsp;<span class="text--dimmed">${step.config.label}</span>&nbsp;text field.
-            </section>
 
-            <section class="flex" if.bind="step.name === 'click'">
-              Click the button labelled&nbsp;<span class="text--dimmed">${step.config.label}</span>.
-            </section>
+              <section class="flex" if.bind="step.name === 'click'">
+                Click the button labelled&nbsp;<span class="text--pink">${step.config.label}</span>.
+              </section>
 
-            <section class="flex" if.bind="step.name === 'expectDasboard'">
-              I expect to see the&nbsp;
-              <select
-                class="input-field"
-                value.bind="step.config.role"
-              >
-                <option>DEFAULT_USER</option>
-                <option>Administrator</option>
-                <option>Agent</option>
-                <option>Team Leader</option>
-                <option>Office Employee</option>
-                <option>QA</option>
-                <option>QA Manager</option>
-                <option>Campaign Manager</option>
-              </select>
-              &nbsp;dashboard.
-            </section>
-          </li>
-        </ul>
+              <section class="flex" if.bind="step.name === 'expectDasboard'">
+                I expect to see the&nbsp;
+                <span class="text--pink">${step.config.role}</span>
+                &nbsp;dashboard.
+              </section>
+            </li>
+          </ul>
+        </section>
       </section>
 
     </section>

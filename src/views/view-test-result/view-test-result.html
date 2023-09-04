@@ -9,18 +9,6 @@
 
     <section class="content">
       <section class="flex flex--justify-center" style="margin-bottom: 20px;">
-        <section class="result-total pink">
-          <section class="label">
-            Browser
-          </section>
-          <section class="value">${testResult.userAgents[0]}</section>
-        </section>
-        <section class="result-total blue">
-          <section class="label">
-            URL
-          </section>
-          <section class="value">${testResult.url}</section>
-        </section>
         <section
           class="result-total"
           class.bind="testResult.total > testResult.passed ? 'failed' : 'passed'"
@@ -41,6 +29,18 @@
             Duration
           </section>
           <section class="value">${diffTime(testResult.startTime, testResult.endTime)}</section>
+        </section>
+        <section class="result-total blue">
+          <section class="label">
+            URL
+          </section>
+          <section class="value">${testResult.url}</section>
+        </section>
+        <section class="result-total pink">
+          <section class="label">
+            Browser
+          </section>
+          <section class="value">${testResult.userAgents[0]}</section>
         </section>
       </section>
       

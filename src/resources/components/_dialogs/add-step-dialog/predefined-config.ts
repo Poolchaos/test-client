@@ -11,14 +11,14 @@ export const PREDEFINED_STEP_CONFIG = {
     name: 'text',
     config: {
       selector: "input[placeholder='Email']",
-      value: "tiaan+285@zailab.com",
+      value: "",
       label: 'Email'
     }
   }, {
     name: 'text',
     config: {
       selector: "input[placeholder='Password']",
-      value: "Test1234",
+      value: "",
       label: 'Password'
     }
   }, {
@@ -35,7 +35,7 @@ export const PREDEFINED_STEP_CONFIG = {
   }, {
     name: 'expectDasboard',
     config: {
-      role: 'Agent'
+      role: ''
     }
   }]
 };
