@@ -2,6 +2,8 @@ import { autoinject } from 'aurelia-framework';
 import { DialogController } from 'aurelia-dialog';
 import { HttpClient } from 'aurelia-http-client';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { STEP_CONSTANTS } from '../../../../views/test-creator/steps/step-constants';
 import { PREDEFINED_STEP_CONFIG } from './predefined-config';
 import { ICONS } from '../../../constants/icons';
@@ -122,7 +124,11 @@ export class AddStepDialog {
     console.log(' ::>> config >>>> ', config);
     if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
       const data = JSON.parse(JSON.stringify(PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]));
-      this.dialogController.ok(data);
+      this.dialogController.ok([{
+        groupId: uuidv4(),
+        groupName: STEP_CONSTANTS.SIGN_IN,
+        steps: data
+      }]);
     }
   }
 

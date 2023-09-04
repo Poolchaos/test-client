@@ -25,7 +25,8 @@
     "moment": "^2.29.4",
     "prismjs": "^1.29.0",
     "testcafe": "^3.1.0",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",

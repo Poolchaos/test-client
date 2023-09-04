@@ -103,22 +103,27 @@ export class CreatorStepThree {
       });
   }
 
-  public editStep(step: any): void {
+  public editStep = (step: any): void => {
     step.editing = true;
     step.editState = { ...step.config };
   }
 
-  public cancelEditStep(step): void {
+  public cancelEditStep = (step): void => {
     step.editing = false;
     step.editState;
   }
 
-  public confirmUpdateStep(step): void {
+  public confirmUpdateStep = (step): void => {
 
   }
 
-  public deleteStep(step): void {
+  public deleteStepGroup = (group: { groupId: string }): void => {
+    this.definedSteps = this.definedSteps.filter(step => step.groupId !== group.groupId);
+  }
+
+  public deleteStep = (step): void => {
     // add confirm delete
+    // this.definedSteps = this.definedSteps.filter()
   }
 
   public submit(): void {

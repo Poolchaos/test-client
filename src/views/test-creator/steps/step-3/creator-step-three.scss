@@ -52,7 +52,7 @@
       list-style: none;
       padding: 0;
 
-      .actions {
+      .actions, .group-actions {
         button {
           margin-left: 10px;
           padding: 6px 12px;
@@ -155,10 +155,46 @@
   }
 
   
-  .actions {
+  .actions, .group-actions {
     svg {
       width: 10px;
       height: 10px;
     }
   }
+
+  .group {
+    position: relative;
+    border: 1px solid #e51e5a;
+    border-radius: 5px;
+    padding: 20px 0 5px 0;
+    margin-top: 20px;
+
+    .group-name {
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      margin: 0;
+      background: #171717;
+      padding: 0 10px;
+    }
+
+    .group-actions {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: #171717;
+      padding-right: 10px;
+    }
+  }
+}
+.down-arrow {
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  width: 5px;
+  height: 5px;
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000; /* Change the color to your desired color */
+  transform: rotate(-45deg);
+  cursor: pointer;
 }
