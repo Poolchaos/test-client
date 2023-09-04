@@ -9,8 +9,11 @@ welcome {
     .col-content {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-around;
+      justify-content: flex-start;
       align-items: flex-start;
+      button {
+        margin: 0 2px 5px;
+      }
     }
     h1 {
       font-size: 20px;

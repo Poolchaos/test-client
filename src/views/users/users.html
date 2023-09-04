@@ -23,12 +23,18 @@
       </section>
       
       <section class="right-column">
+        <div
+          if.bind="organisations.length === 0"
+          class="no-data-message"
+        >
+          No organisations has been set up.
+        </div>
         <section repeat.for="organisation of organisations">
           <h2
             class="text-pink"
             style="
               text-align: left;
-              margin: 10px;
+              margin: 5px 15px;
             "
           >
             ${organisation.name}
@@ -40,8 +46,8 @@
           <section class="flex">
             <section
               if.bind="organisation.users.length > 0"
-              class="flex flex--wrap flex--justify-left"
-              style="padding: 0 10px;"
+              class="flex flex--wrap flex--justify-left flex--basis"
+              style="padding: 0 5px;"
             >
               <button
                 class="button cta"
@@ -67,7 +73,7 @@
                 class="pink button cta"
                 class.bind="environment.selected ? 'pink' : 'pink-border'"
                 click.trigger="addUser(environment)"
-                style="padding: 10px;width: 50px;height: 230px;"
+                style="padding: 10px;width: 80px;height: 230px;"
                 title="Add user"
               >
                 <div
@@ -75,10 +81,34 @@
                   class="white svg config-icon"
                   style="margin-right: 0;"
                 ></div>
+                <div
+                  innerhtml.bind="icons.user"
+                  class="white svg config-icon"
+                  style="margin-right: 0;"
+                ></div>
               </button>
             </section>
           </section>
         </section>
+        
+        <button
+          class="pink button cta"
+          class.bind="environment.selected ? 'pink' : 'pink-border'"
+          click.trigger="addUser(environment)"
+          style="padding: 10px;min-height: 80px; margin: 30px 10px 10px;"
+          title="Add organisation"
+        >
+          <div
+            innerhtml.bind="icons.plus"
+            class="white svg config-icon"
+            style="margin-right: 0;"
+          ></div>
+          <div
+            innerhtml.bind="icons.organisation"
+            class="white svg config-icon"
+            style="margin-right: 0;"
+          ></div>
+        </button>
       </section>
     </section>
   </section>

@@ -13,20 +13,14 @@ export class Welcome {
     name: 'Configure Environments',
     icon: 'server'
   }, {
+    name: 'Configure Organisations',
+    icon: 'organisation'
+  }, {
     name: 'Configure Users',
     icon: 'user'
-  }, {
-    name: 'Configure Numbers',
-    icon: 'hashtag'
-  }, {
-    name: 'Configure Browsers',
-    icon: 'globe'
   }];
   
   public interactions = [{
-    name: 'Managing Interactions',
-    icon: 'gear'
-  }, {
     name: 'Calls',
     icon: 'phone'
   }, {
@@ -49,7 +43,10 @@ export class Welcome {
 
   public runConfig(action): void {
     console.log(' ::>> action >>>> ', action)
-    if (action === 'Configure Users') {
+    if (
+      action === 'Configure Organisations' ||
+      action === 'Configure Users'
+    ) {
       this.router.navigate('users');
     }
   }
