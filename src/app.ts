@@ -60,12 +60,7 @@ export class App {
     config.title = 'ZaiAutoTests';
     config.options.pushState = true;
     config.map([{
-      route: '',
-      name: 'home',
-      moduleId: PLATFORM.moduleName('views/home/home'),
-      title: `Home`
-    }, {
-      route: 'studio',
+      route: ['', 'studio'],
       name: 'studio',
       moduleId: PLATFORM.moduleName('views/studio/studio'),
       title: `Studio`
