@@ -60,12 +60,7 @@ export class App {
     config.title = 'ZaiAutoTests';
     config.options.pushState = true;
     config.map([{
-      route: '',
-      name: 'home',
-      moduleId: PLATFORM.moduleName('views/home/home'),
-      title: `Home`
-    }, {
-      route: 'studio',
+      route: ['', 'studio'],
       name: 'studio',
       moduleId: PLATFORM.moduleName('views/studio/studio'),
       title: `Studio`
@@ -95,10 +90,12 @@ export class App {
 
   public home(): void {
     this.router.navigate('');
+    this.closeMenus();
   }
 
-  public studio(): void {
-    this.router.navigate('studio');
+  private closeMenus(): void {
+    const keys = Object.keys(this.menu);
+    keys.forEach(key => this.menu[key] = false);
   }
 
   public showMenu(menu: string): void {
