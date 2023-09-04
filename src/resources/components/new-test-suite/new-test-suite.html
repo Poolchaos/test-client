@@ -11,21 +11,24 @@
         type="string"
         value.bind="name & validate"
         placeholder="Name you test suite."
+        class="flex--basis"
       />
-      
-      <button
-        class="blue-button"
-        class.bind="!name || name.length === 0 || !validName ? 'u-faded-content' : ''"
-        click.delegate="submit()"
-      >
-        <span class="icon">&#10004;</span>
-      </button>
-      <button
-        class="pink-button"
-        click.delegate="disable()"
-      >
-        <span class="icon">&#10008;</span>
-      </button>
+      <section class="flex" style="margin-top: 10px;">
+        <button
+          class="blue-button flex--basis"
+          class.bind="!name || name.length === 0 || !validName ? 'u-faded-content' : ''"
+          click.delegate="submit()"
+        >
+          <span class="icon">&#10004;</span> Confirm
+        </button>
+        <button
+          class="pink-button flex--basis"
+          click.delegate="disable()"
+          style="margin-left: 5px;"
+        >
+          <span class="icon">&#10008;</span> Cancel
+        </button>
+      </section>
     </div>
   </div>
 </template>

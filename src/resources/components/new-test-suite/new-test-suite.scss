@@ -1,11 +1,14 @@
 #newTestSuite {
   .field-container {
-    display: flex;
-    justify-content: space-between;
+
+    input {
+      width: calc(100% - 16px);
+    }
 
     button {
-      margin-left: 5px;
       text-align: center;
+      display: flex;
+      justify-content: space-around;
 
       .icon {
         margin: 0;
