@@ -17,20 +17,63 @@
   .content {
 
     .result-total {
-      padding: 5px 10px;
+      display: flex;
       margin-right: 20px;
-      border: 1px solid #252525;
-      background: #373737;
-      border-radius: 20px;
+      border-radius: 3px;
 
-      &.red {
-        border-bottom: 2px solid rgb(207, 102, 102);
-        padding-bottom: 3px!important;
+      .label {
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 900;
+        background: #373737;
       }
 
-      &.green {
-        border-bottom: 2px solid rgb(93, 204, 93);
-        padding-bottom: 3px!important;
+      .value {
+        padding: 5px 10px;
+        color: white;
+        font-weight: 600;
+      }
+
+      &.passed {
+        border: 1px solid rgb(93, 204, 93);
+        .value {
+          background: rgb(93, 204, 93);
+        }
+      }
+
+      &.failed {
+        border: 1px solid rgb(207, 102, 102);
+        .value {
+          background: rgb(207, 102, 102);
+        }
+      }
+
+      &.blue {
+        border: 1px solid rgb(3, 117, 182);
+        .value {
+          background: rgb(3, 117, 182);
+        }
+      }
+
+      &.orange {
+        border: 1px solid rgb(245, 129, 66);
+        .value {
+          background: rgb(245, 129, 66);
+        }
+      }
+
+      &.purple {
+        border: 1px solid rgb(138, 53, 218);
+        .value {
+          background: rgb(138, 53, 218);
+        }
+      }
+
+      &.pink {
+        border: 1px solid rgb(218, 53, 75);
+        .value {
+          background: rgb(218, 53, 75);
+        }
       }
     }
   }

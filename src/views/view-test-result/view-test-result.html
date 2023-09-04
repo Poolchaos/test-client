@@ -9,20 +9,38 @@
 
     <section class="content">
       <section class="flex flex--justify-center" style="margin-bottom: 20px;">
-        <section class="result-total">
-          Starting URL <a href.bind="testUrl">${testResult.url}</a>
+        <section class="result-total pink">
+          <section class="label">
+            Browser
+          </section>
+          <section class="value">${testResult.userAgents[0]}</section>
         </section>
-        <section class="result-total" class.bind="testResult.total > testResult.passed ? 'red' : 'green'">
-          Tests passed ${testResult.passed}/${testResult.total}
+        <section class="result-total blue">
+          <section class="label">
+            URL
+          </section>
+          <section class="value">${testResult.url}</section>
         </section>
-        <section class="result-total">
-          Tests skipped ${testResult.skipped}
+        <section
+          class="result-total"
+          class.bind="testResult.total > testResult.passed ? 'failed' : 'passed'"
+        >
+          <section class="label">
+            ${testResult.total > testResult.passed ? 'Failed' : 'Passed'}
+          </section>
+          <section class="value">${testResult.passed}/${testResult.total}</section>
         </section>
-        <section class="result-total">
-          Duration ${diffTime(testResult.startTime, testResult.endTime)}
+        <section class="result-total orange">
+          <section class="label">
+            Skipped
+          </section>
+          <section class="value">${testResult.skipped}</section>
         </section>
-        <section class="result-total">
-          User Agent ${testResult.userAgents[0]}
+        <section class="result-total purple">
+          <section class="label">
+            Duration
+          </section>
+          <section class="value">${diffTime(testResult.startTime, testResult.endTime)}</section>
         </section>
       </section>
       
