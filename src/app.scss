@@ -69,31 +69,32 @@ header.top-menu {
     }
   }
 
-  .sub-menu {
-    position: absolute;
-    top: 35px;
-    left: -10px;
-    width: 230px;
-    background: #292a2d;
-    padding: 5px 0;
-    z-index: 10;
-    border-top:unset!important;
-    border: 1px solid #373737;
-    border-bottom: 4px solid #e51e5a;
-    box-shadow: 0 5px 5px rgba(255, 255, 255, 0.2);
+}
 
-    ul {
-      list-style-type: none;
-      margin: 0;
-    }
+.sub-menu {
+  position: absolute;
+  top: 35px;
+  left: -10px;
+  width: 230px;
+  background: #292a2d;
+  padding: 5px 0;
+  z-index: 10;
+  border-top:unset!important;
+  border: 1px solid #373737;
+  border-bottom: 4px solid #e51e5a;
+  box-shadow: 0 5px 5px rgba(255, 255, 255, 0.2);
 
-    li {
-      padding: 8px 10px;
+  ul {
+    list-style-type: none;
+    margin: 0;
+  }
 
-      &:hover {
-        background: #373737;
-        cursor: pointer;
-      }
+  li {
+    padding: 8px 10px;
+
+    &:hover {
+      background: #373737;
+      cursor: pointer;
     }
   }
 }

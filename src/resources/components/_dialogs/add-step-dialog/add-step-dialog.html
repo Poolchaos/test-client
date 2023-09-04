@@ -53,7 +53,7 @@
             </select>
           </section>
 
-          <section class="flex flex--justify-between" style="margin-bottom: 20px;">
+          <!-- <section class="flex flex--justify-between" style="margin-bottom: 20px;">
             <label>Members:</label>
             <select
               class="input-field inline"
@@ -65,6 +65,77 @@
                 ${user.name}
               </option>
             </select>
+          </section> -->
+
+          <section
+            class="flex flex--justify-between is-relative"
+            style="margin-bottom: 20px;"
+          >
+            <label>Members:</label>
+            <section
+              class="dropdown-wrapper"
+              mouseenter.trigger="menuEnter()"
+              mouseleave.trigger="menuLeave()"
+            >
+              <section
+                class="flex flex--align-center hoverable"
+                style="color: black; text-align: center;"
+                if.bind="selectedUser"
+                click.trigger="showMenu()"
+              >
+                <div
+                  innerhtml.bind="icons.roles[config.user.role]"
+                  class="pink svg config-icon"
+                  style="margin-right: 5px;"
+                ></div>
+                <section>
+                  <section>${config.user.name}</section>
+                  <section class="text-blue">${config.user.role}</section>
+                </section>
+              </section>
+              <section 
+                class="no-data-message hoverable"
+                if.bind="!selectedUser"
+                click.trigger="showMenu()"
+              >
+                No user selected.
+              </section>
+              <nav
+                class="sub-menu"
+                if.bind="users.length > 0 && userSelectionEnabled"
+              >
+                <section 
+                  class="no-data-message"
+                  style="width: 145px; height: 36px;"
+                  if.bind="!users || users.length === 0"
+                >
+                  No user to select.
+                </section>
+              </nav>
+              <nav
+                class="sub-menu"
+                if.bind="users.length > 0 && userSelectionEnabled"
+              >
+                <ul>
+                  <li
+                    class="flex flex--align-center"
+                    repeat.for="user of users"
+                    click.trigger="selectUser(user)"
+                  >
+                    <div
+                      innerhtml.bind="icons.roles[user.role]"
+                      class="pink svg config-icon"
+                      style="margin-right: 10px;"
+                    ></div>
+                    <section>
+                      <section>${user.name}</section>
+                      <section class="text-blue">${user.role}</section>
+                    </section>
+                  </li>
+                </ul>
+              </nav>
+
+            </section>
           </section>
         </section>
 
@@ -100,17 +171,17 @@
                     style="margin-bottom: 0;width: 150px;"
                   />
                 </section> -->
-                <span class="text--pink">${step.config.value}</span>
-                &nbsp;into the&nbsp;<span class="text--pink">${step.config.label}</span>&nbsp;text field.
+                <span class="text-pink">${step.config.value}</span>
+                &nbsp;into the&nbsp;<span class="text-pink">${step.config.label}</span>&nbsp;text field.
               </section>
 
               <section class="flex" if.bind="step.name === 'click'">
-                Click the button labelled&nbsp;<span class="text--pink">${step.config.label}</span>.
+                Click the button labelled&nbsp;<span class="text-pink">${step.config.label}</span>.
               </section>
 
               <section class="flex" if.bind="step.name === 'expectDasboard'">
                 I expect to see the&nbsp;
-                <span class="text--pink">${step.config.role}</span>
+                <span class="text-pink">${step.config.role}</span>
                 &nbsp;dashboard.
               </section>
             </li>

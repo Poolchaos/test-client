@@ -8,3 +8,29 @@
     }
   }
 }
+
+.dropdown-wrapper {
+  padding: 2px 3px 0;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  border-bottom: 2px solid white;
+  background: white;
+  width: 145px;
+  font-size: 13px;
+
+  .sub-menu {
+    left: unset;
+    right: 0;
+    top: calc(100% + 10px);
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-top: 1px solid #373737!important;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

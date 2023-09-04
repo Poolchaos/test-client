@@ -20,6 +20,8 @@ export class AddStepDialog {
   public users: any = [];
 
   public selectedUser: any;
+  public menuCloseTimer: any;
+  public userSelectionEnabled: boolean = false;
 
   public config = {
     environment: 'Prod',
@@ -86,14 +88,16 @@ export class AddStepDialog {
     if (organisation.users && organisation.users.length > 0) {
       this.users = organisation.users;
       console.log(' ::>> selectOrg >>>> uers = ', this.users);
-      this.userChanged(this.users[0]);
+      this.selectUser(this.users[0]);
     } else {
       this.users = [];
     }
   }
 
-  public userChanged(userData: string): void {
+  public selectUser(userData: string): void {
     console.log(' ::>> userChanged >>>> ', userData, this.users);
+    this.selectedUser = userData;
+    this.userSelectionEnabled = false;
     this.config.user = typeof userData === 'string' ? this.users.find(user => user.name === userData) : userData;
     console.log(' ::>> this.config.user >>>>> ', this.config.user);
 
@@ -124,5 +128,19 @@ export class AddStepDialog {
 
   public close(): void {
     this.dialogController.cancel();
+  }
+  
+  public showMenu(): void {
+    this.userSelectionEnabled = true;
+  }
+
+  public menuEnter(): void {
+    window.clearTimeout(this.menuCloseTimer);
+  }
+
+  public menuLeave(): void {
+    this.menuCloseTimer = setTimeout(() =>{
+      this.userSelectionEnabled = false;
+    }, 1500);
   }
 }

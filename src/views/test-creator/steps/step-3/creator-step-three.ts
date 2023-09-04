@@ -84,6 +84,11 @@ export class CreatorStepThree {
     }
   }
 
+  public attached(): void {
+    // this is for testing only
+    this.selectStepToAdd('Sign in');
+  }
+
   public selectStepToAdd(type: string): void {
     console.log(' ::>> selectStepToAdd .>>> ', type);
 
