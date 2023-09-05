@@ -1,52 +1,8 @@
-<template
-  bindable="
-    number,
-    test,
-    encodeimage,
-    showimage
-  "
->
-  <section
-    class="is-relative"
-    style="
-      margin: 10px;
-      background: #292a2d;
-      border-radius: 0 0 10px 10px;
-      overflow: hidden;
-    "
-  >
-    <section
-      class="flex flex--align-center flex--justify-center"
-      style="
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        width: 30px;
-        height: 30px;
-        border-radius: 30px;
-        background: #e51e5a;
-        font-size: 11px;
-        font-weight: 600;
-        z-index: 10;
-      "
-    >
-      ${number}
-    </section> 
-
-    <image
-      src.bind="'data:image/png;base64,' + test.thumbnail"
-      click.trigger="showimage(test, number)"
-    />
-    
-    <section
-      class="flex flex--wrap"
-      style="
-        width:250px;
-        padding: 5px 10px 10px;
-        overflow: hidden;
-        font-size: 11px;
-      "
-    >
+<template>
+  <section class="dialog image-dialog">
+    <section class="header">
+      
+      ${number}&nbsp;-&nbsp;
       <section class="" if.bind="test.name === 'wait'">
         Wait for&nbsp;
         <span class="text-pink">${test.config.durationInSeconds}</span>
@@ -70,6 +26,27 @@
         <span class="text-pink">${test.config.role}</span>
         &nbsp;dashboard.
       </section>
+
+
+      <button
+        class="pink"
+        click.trigger="close(step)"
+        innerhtml.bind="icons.close"
+      ></button>
+    </section>
+
+    <section class="body">
+      <image src.bind="'data:image/png;base64,' + test.image" />
+    </section>
+
+    <section class="footer">
+      <button
+        class="pink-button"
+        click.trigger="confirm()"
+        style="margin-right: 10px;"
+      >
+        Confirm
+      </button>
     </section>
   </section>
 </template>

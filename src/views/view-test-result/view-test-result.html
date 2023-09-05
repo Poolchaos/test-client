@@ -104,13 +104,14 @@
               <test-result-template
                 number.bind="($parentIndex + 1) + '.' + ($index + 1)"
                 test.bind="groupTest"
-                encodeimage.bind="encodeImage"
+                showimage.bind="showImage"
               ></test-result-template>
             </section>
             <test-result-template
               if.bind="!test.groupName"
               number.bind="$index + 1"
               test.bind="test"
+              showimage.bind="showImage"
             ></test-result-template>
           </section>
         </section>

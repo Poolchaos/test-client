@@ -1,10 +1,13 @@
 import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
+import { DialogService } from 'aurelia-dialog';
 import Prism from 'prismjs';
+
+import { ImageDialog } from './../../resources/components/_dialogs/image-dialog/image-dialog';
 
 import './view-test-result.scss';
 
-@autoinject
+@autoinject()
 export class ViewTestResult {
   private testId: string;
   private testName: string;
@@ -19,7 +22,8 @@ export class ViewTestResult {
   }];
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private dialogService: DialogService
   ) {}
 
   public activate(params): void {
@@ -114,37 +118,12 @@ export class ViewTestResult {
     return response.replace('| ', '');
   }
 
-  // public showErrorLine(error: string): void {
-  //   this.config.steps.forEach(step => step.error = false);
-
-  //   let errorLine = this.findErrorLine(error);
-  //   console.log(' ::>> showErrorLine >>>> ', errorLine);
-
-  //   let matches = errorLine.match(/(\w+)\s*\(\s*'([\w\s\.-]+)'\s*\)/);
-
-  //   if (matches && matches.length === 3) {
-  //     let action = matches[1];
-  //     let value = matches[2];
-
-  //     console.log("Action:", action);
-  //     console.log("Value:", value);
-
-      
-  //     let brokenStep = this.config.steps.find(step => step.config.selector === value);
-
-  //     brokenStep.error = true;
-
-  //     console.log(' ::>> brokenStep = ', brokenStep)
-  //   } else {
-  //     console.log("Unable to extract action and value.");
-  //   }
-  // }
-
-  public encodeImage = (imageBuffer: ArrayBufferLike) => {
-    const imageByteArray = new Uint8Array(imageBuffer);
-    const blob = new Blob([imageByteArray], { type: 'image/png' });
-    const dataURL = URL.createObjectURL(blob);
-    return imageByteArray;
+  public showImage = (step, number): void => {
+    this.dialogService
+      .open({
+        viewModel: ImageDialog,
+        model: { step, number }
+      })
   }
 }
 
