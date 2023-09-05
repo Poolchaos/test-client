@@ -12,17 +12,29 @@
 
     <section class="body">
 
-      <section class="flex" if.bind="stepType === STEP_CONSTANTS.SIGN_IN">
+      <section
+        class="flex"
+        if.bind="
+          stepType === STEP_CONSTANTS.SIGN_IN ||
+          stepType === STEP_CONSTANTS.REGISTER
+        "
+      >
 
         <section
           style="
             width: 260px;
-            margin-left: 20px;
             border-right: 1px solid #373737;
             padding: 0px 20px 0 0;
           "
+          if.bind="
+            stepType === STEP_CONSTANTS.SIGN_IN ||
+            stepType === STEP_CONSTANTS.REGISTER
+          "
         >
-          <section class="flex flex--justify-between" style="margin-bottom: 20px;">
+          <section
+            class="flex flex--justify-between"
+            style="margin-bottom: 20px;"
+          >
             <label>Environment:</label>
             <select
               class="input-field inline"
@@ -40,6 +52,7 @@
             class="flex flex--justify-between"
             class.bind="!config.environment ? 'u-faded-content' : ''"
             style="margin-bottom: 20px;"
+            if.bind="stepType === STEP_CONSTANTS.SIGN_IN"
           >
             <label>Organisation:</label>
             <select
@@ -54,23 +67,10 @@
             </select>
           </section>
 
-          <!-- <section class="flex flex--justify-between" style="margin-bottom: 20px;">
-            <label>Members:</label>
-            <select
-              class="input-field inline"
-              value.bind="selectedUser"
-              style="margin-left: 10px;width: 150px;"
-              change.trigger="userChanged(selectedUser)"
-            >
-              <option repeat.for="user of users">
-                ${user.name}
-              </option>
-            </select>
-          </section> -->
-
           <section
             class="flex flex--justify-between is-relative"
             style="margin-bottom: 20px;"
+            if.bind="stepType === STEP_CONSTANTS.SIGN_IN"
           >
             <label>Members:</label>
             <section
@@ -145,7 +145,11 @@
         <section style="padding-left: 20px;">
           <h4>Adding this pre-defined step config, will add the following steps:</h4>
           <ul>
-            <li class="step" repeat.for="step of PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]">
+            <li
+              class="step"
+              repeat.for="step of PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]"
+              if.bind="stepType === STEP_CONSTANTS.SIGN_IN"
+            >
               <section class="flex" if.bind="step.name === 'wait'">
                 Wait for&nbsp;
                 <section class="is-relative">
@@ -177,8 +181,61 @@
 
               <section class="flex" if.bind="step.name === 'Expect Content'">
                 I expect to see the&nbsp;
-                <span class="text-pink">${step.config.role}</span>
-                &nbsp;dashboard.
+                <span if.bind="step.config.role">
+                  <span class="text-pink">${step.config.role}</span>
+                  &nbsp;dashboard.
+                </span>
+                <span if.bind="step.config.selector">
+                  <span class="text-pink">${step.config.label}</span>
+                  &nbsp;view.
+                </span>
+              </section>
+            </li>
+
+            <li
+              class="step"
+              repeat.for="step of PREDEFINED_REGISTER_STEP_CONFIG[STEP_CONSTANTS.REGISTER]"
+              if.bind="stepType === STEP_CONSTANTS.REGISTER"
+            >
+              <section class="flex" if.bind="step.name === 'wait'">
+                Wait for&nbsp;
+                <section class="is-relative">
+                  <input
+                    type="number"
+                    step="10"
+                    min="1"
+                    max="120"
+                    class="input-field inline"
+                    placeholder="Wait time"
+                    value.bind="step.config.durationInSeconds"
+                    style="margin-bottom: 0;width: 50px;"
+                  />
+                </section>
+                &nbsp;seconds before continuing.
+              </section>
+
+              <section class="flex" if.bind="step.name === 'text'">
+                Type&nbsp;
+                <span class="text-pink">${step.config.value}</span>
+                &nbsp;into the&nbsp;<span class="text-pink">${step.config.label}</span>&nbsp;text field.
+              </section>
+
+              <section class="flex" if.bind="step.name === 'Click Element'">
+                Click the&nbsp;
+                <span class="text-pink">${step.config.targetType}</span>&nbsp;labelled&nbsp;
+                <span class="text-pink">${step.config.label}</span>.
+              </section>
+
+              <section class="flex" if.bind="step.name === 'Expect Content'">
+                I expect to see the&nbsp;
+                <span if.bind="step.config.role">
+                  <span class="text-pink">${step.config.role}</span>
+                  &nbsp;dashboard.
+                </span>
+                <span if.bind="step.config.selector">
+                  <span class="text-pink">${step.config.label}</span>
+                  &nbsp;view.
+                </span>
               </section>
             </li>
           </ul>

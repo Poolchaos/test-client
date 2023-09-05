@@ -20,6 +20,7 @@ export class CreatorStepThree {
     expanded: true,
     list: [
       { name: STEP_CONSTANTS.REGISTER, icon: 'lock' },
+      { name: STEP_CONSTANTS.COMPLETE_REGISTRATION, icon: 'lock' },
       { name: STEP_CONSTANTS.SIGN_IN, icon: 'key' },
     ]
   }, {

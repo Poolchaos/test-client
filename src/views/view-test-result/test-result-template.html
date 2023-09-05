@@ -65,10 +65,16 @@
         <span class="text-pink">${test.config.label}</span>.
       </section>
 
-      <section class="" if.bind="test.name === 'Expect Content'">
+      <section class="flex" if.bind="step.name === 'Expect Content'">
         I expect to see the&nbsp;
-        <span class="text-pink">${test.config.role}</span>
-        &nbsp;dashboard.
+        <span if.bind="step.config.role">
+          <span class="text-pink">${step.config.role}</span>
+          &nbsp;dashboard.
+        </span>
+        <span if.bind="step.config.selector">
+          <span class="text-pink">${step.config.label}</span>
+          &nbsp;view.
+        </span>
       </section>
     </section>
   </section>

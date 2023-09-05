@@ -1,6 +1,7 @@
 export const STEP_CONSTANTS = {
   SIGN_IN: 'Sign in',
   REGISTER: 'Register',
+  COMPLETE_REGISTRATION: 'Complete Registration',
 
   CHECK_ELEMENT_CONTENT: 'Check Element Content',
   CHECK_ELEMENT_ATTRIBUTE: 'Check Element Attribute',

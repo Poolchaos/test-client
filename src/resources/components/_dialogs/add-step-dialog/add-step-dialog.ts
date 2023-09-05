@@ -6,9 +6,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { STEP_CONSTANTS } from '../../../../views/test-creator/steps/step-constants';
 import { PREDEFINED_STEP_CONFIG } from './predefined-config';
+import { PREDEFINED_REGISTER_STEP_CONFIG } from './predefined-register-config';
 import { ICONS } from '../../../constants/icons';
 
 import './add-step-dialog.scss';
+
 @autoinject
 export class AddStepDialog {
 
@@ -16,6 +18,7 @@ export class AddStepDialog {
   public stepType: string;
   public STEP_CONSTANTS = STEP_CONSTANTS;
   public PREDEFINED_STEP_CONFIG = {...PREDEFINED_STEP_CONFIG};
+  public PREDEFINED_REGISTER_STEP_CONFIG = {...PREDEFINED_REGISTER_STEP_CONFIG};
   
   public environments: any = [];
   public organisations: any = [];
@@ -28,7 +31,7 @@ export class AddStepDialog {
   public config = {
     environment: 'Prod',
     organisation: null,
-    user: null,
+    user: null
   };
 
   public step: any = {
@@ -50,17 +53,25 @@ export class AddStepDialog {
       this.isEditing = true;
     }
 
-    console.log(' ::>> sign in >>>> 0 ', data.type, STEP_CONSTANTS.SIGN_IN);
     if (data.type === STEP_CONSTANTS.SIGN_IN) {
-      console.log(' ::>> sign in >>>> 1 ');
       if (data.step) {
-        console.log(' ::>> sign in >>>> 2 ');
         this.PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN] = data.step.steps;
         this.email = data.step.steps.find(_step => _step.config.label === 'Email').config.value;
-        console.log(' ::>> sign in >>>> 3 ', this.email);
       }
 
       this.getEnvironments();
+    } if (data.type === STEP_CONSTANTS.REGISTER) {
+      if (data.step) {
+        this.PREDEFINED_REGISTER_STEP_CONFIG[STEP_CONSTANTS.REGISTER] = data.step.steps;
+      }
+      console.log(' ::>> registration data >>> ', PREDEFINED_REGISTER_STEP_CONFIG[STEP_CONSTANTS.REGISTER]);
+      this.getEnvironments();
+      
+    } if (data.type === STEP_CONSTANTS.COMPLETE_REGISTRATION) {
+      if (data.step) {
+        this.PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.COMPLETE_REGISTRATION] = data.step.steps;
+      }
+      
     } else if (data.type === STEP_CONSTANTS.CLICK_ELEMENT) {
       this.step.config = {
         targetType: 'button'
@@ -87,7 +98,9 @@ export class AddStepDialog {
   public selectEnvironment(environment) {
     this.organisations = [];
     this.users = [];
-    this.getOrganisations(environment.name);
+    if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
+      this.getOrganisations(environment.name);
+    }
   }
 
   private getOrganisations(environment: string): void {
@@ -156,21 +169,31 @@ export class AddStepDialog {
   }
 
   public confirm(): void {
-    if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
-      const data = JSON.parse(JSON.stringify(PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]));
 
+    if (
+      this.stepType === STEP_CONSTANTS.SIGN_IN ||
+      this.stepType === STEP_CONSTANTS.REGISTER
+    ) {
+      let data;
+      if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
+        data = JSON.parse(JSON.stringify(PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]));
+      }
+      
+      if (this.stepType === STEP_CONSTANTS.REGISTER) {
+        data = JSON.parse(JSON.stringify(PREDEFINED_REGISTER_STEP_CONFIG[STEP_CONSTANTS.REGISTER]));
+      }
       const URL = this.environments.find(env => env.name === this.config.environment).url;
 
       console.log(' ::>> config >>>> ', {
         env: this.config.environment,
         URL,
         groupId: uuidv4(),
-        groupName: STEP_CONSTANTS.SIGN_IN,
+        groupName: this.stepType,
         steps: data
       });
       this.dialogController.ok([{
         groupId: uuidv4(),
-        groupName: STEP_CONSTANTS.SIGN_IN,
+        groupName: this.stepType,
         url: URL,
         steps: data
       }]);

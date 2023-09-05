@@ -14,7 +14,7 @@
   <section>${index}&nbsp;-&nbsp;</section>
     <section if.bind="step.name === 'wait'" class="flex--basis text--left flex">
       Wait for&nbsp;
-      <span if.bind="!step.editing" class="text--dimmed">${step.config.durationInSeconds}</span>
+      <span if.bind="!step.editing" class="text-pink">${step.config.durationInSeconds}</span>
       <section class="is-relative" if.bind="step.editing">
         <input
           type="number"
@@ -32,7 +32,7 @@
 
     <section if.bind="step.name === 'text'" class="flex--basis text--left flex">
       Type&nbsp;
-      <span class="text--dimmed" if.bind="!step.editing">${step.config.value}</span>
+      <span class="text-pink" if.bind="!step.editing">${step.config.value}</span>
       <section class="is-relative" if.bind="step.editing">
         <input
           type="text"
@@ -43,35 +43,41 @@
         />
       </section>
       &nbsp;into the&nbsp;
-      <span class="text--dimmed">${step.config.label}</span>&nbsp;
+      <span class="text-pink">${step.config.label}</span>&nbsp;
       text field.
     </section>
     <section if.bind="step.name === 'Click Element'" class="flex--basis text--left flex">
       Click the&nbsp;
-      <span class="text--dimmed">${step.config.targetType}</span>
+      <span class="text-pink">${step.config.targetType}</span>
       &nbsp;labelled&nbsp;
-      <span class="text--dimmed">${step.config.label}</span>.
+      <span class="text-pink">${step.config.label}</span>.
     </section>
 
     <section if.bind="step.name === 'Expect Content'" class="flex--basis text--left flex">
       I expect to see the&nbsp;
-      <span class="text--dimmed" if.bind="!step.editing">${step.config.role}</span>
-      <select
-        class="input-field"
-        value.bind="step.editState.role"
-        if.bind="step.editing"
-        style="width: 140px;margin-bottom: unset;"
-      >
-        <option>DEFAULT_USER</option>
-        <option>Administrator</option>
-        <option>Agent</option>
-        <option>Team Leader</option>
-        <option>Office Employee</option>
-        <option>QA</option>
-        <option>QA Manager</option>
-        <option>Campaign Manager</option>
-      </select>
-      &nbsp;dashboard.
+      <span if.bind="step.config.role">
+      <span class="text-pink" if.bind="!step.editing">${step.config.role}</span>
+        <select
+          class="input-field"
+          value.bind="step.editState.role"
+          if.bind="step.editing"
+          style="width: 140px;margin-bottom: unset;"
+        >
+          <option>DEFAULT_USER</option>
+          <option>Administrator</option>
+          <option>Agent</option>
+          <option>Team Leader</option>
+          <option>Office Employee</option>
+          <option>QA</option>
+          <option>QA Manager</option>
+          <option>Campaign Manager</option>
+        </select>
+        &nbsp;dashboard.
+      </span>
+      <span if.bind="step.config.selector">
+        <span class="text-pink">${step.config.label}</span>
+        &nbsp;view.
+      </span>
     </section>
     
     <div class="actions" if.bind="step.editing">
