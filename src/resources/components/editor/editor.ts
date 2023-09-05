@@ -69,7 +69,7 @@ export class Editor {
 
 
     this.httpClient
-      .createRequest(`http://localhost:9000/testresults`)
+      .createRequest(`http://localhost:9000/automate/results`)
       .asGet()
       .withParams({ testId: this.config.testId })
       .send()
@@ -111,7 +111,7 @@ export class Editor {
     });
 
     this.httpClient
-      .createRequest('http://localhost:9000/run-test')
+      .createRequest('http://localhost:9000/automate')
       .asPost()
       .withContent(this.config)
       .send()

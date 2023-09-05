@@ -1,4 +1,5 @@
 <template>
+  <require from="../../../views/test-creator/steps/step-3/step-template.html"></require>
 
   <section class="editor">
     
@@ -18,7 +19,7 @@
 
 
               <!-- Configuration Sections -->
-              <div class="config-section">
+              <!-- <div class="config-section">
                 <div
                   innerhtml.bind="icons.globe"
                   class="white svg config-icon"
@@ -27,7 +28,7 @@
                   <h3 class="config-subtitle">Website URL</h3>
                   <p class="config-value">${config.url}</p>
                 </div>
-              </div>
+              </div> -->
           
               <div class="config-section">
                 <div
@@ -95,74 +96,59 @@
         </section>
 
         <section class="added-steps" style="width: 50%;">
-          <ul style="margin: 0 auto;overflow: auto;">
+
+          <ul
+            if.bind="config.steps.length > 0"
+            style="
+              margin: 0 auto;
+              overflow: auto;
+              list-style-type: none;
+            "
+          >
             <li
               repeat.for="step of config.steps"
+              if.bind="step.groupName"
+              class="group-steps"
+            >
+              <h2 class="group-name">${$index + 1} - ${step.groupName}</h2>
+              <step-template
+                class="flex flex--justify-between"
+                style="padding: 5px 10px;display: flex;align-items: center;"
+
+                repeat.for="innerStep of step.steps"
+                index.bind="($parent.$index + 1) + '.' + ($index + 1)"
+                step.bind="innerStep"
+                icons.bind="icons"
+                disableactions.bind="true"
+
+                confirmupdatestep.bind="confirmUpdateStep"
+                canceleditstep.bind="cancelEditStep"
+                editstep.bind="editStep"
+                deletestep.bind="deleteStep"
+              ></step-template>
+            </li>
+            <li
+              repeat.for="step of definedSteps"
               class="flex flex--justify-between"
               style="padding: 5px 10px;display: flex;align-items: center;"
+              if.bind="!step.groupName"
             >
-              <section>${$index}&nbsp;- &nbsp;</section>
-              <section if.bind="step.name === 'wait'" class="flex--basis text--left flex">
-                Wait for&nbsp;
-                <span if.bind="!step.editing" class="text--dimmed">${step.config.durationInSeconds}</span>
-                <section class="is-relative" if.bind="step.editing">
-                  <input
-                    type="number"
-                    step="10"
-                    min="1"
-                    max="120"
-                    class="input-field"
-                    placeholder="Wait time"
-                    value.bind="step.editState.durationInSeconds"
-                    style="margin-bottom: 0;width: 50px;"
-                  />
-                </section>
-                &nbsp;seconds before continuing.
-              </section>
+              <step-template
+                class="flex flex--justify-between"
+                style="padding: 5px 10px;display: flex;align-items: center;"
 
-              <section if.bind="step.name === 'text'" class="flex--basis text--left flex">
-                Type&nbsp;
-                <span class="text--dimmed" if.bind="!step.editing">${step.config.value}</span>
-                <section class="is-relative" if.bind="step.editing">
-                  <input
-                    type="text"
-                    class="input-field"
-                    placeholder="Enter you ${step.config.label}"
-                    value.bind="step.editState.value"
-                    style="margin-bottom: 0;width: 150px;"
-                  />
-                </section>
-                &nbsp;into the&nbsp;
-                <span class="text--dimmed">${step.config.label}</span>&nbsp;
-                text field.
-              </section>
+                index.bind="$index + 1"
+                step.bind="step"
+                icons.bind="icons"
 
-              <section if.bind="step.name === 'click'" class="flex--basis text--left flex">
-                Click the button labelled&nbsp;<span class="text--dimmed">${step.config.label}</span>.
-              </section>
-
-              <section if.bind="step.name === 'expectDasboard'" class="flex--basis text--left flex">
-                I expect to see the&nbsp;
-                <span class="text--dimmed" if.bind="!step.editing">${step.config.role}</span>
-                <select
-                  class="input-field"
-                  value.bind="step.editState.role"
-                  if.bind="step.editing"
-                  style="width: 140px;margin-bottom: unset;"
-                >
-                  <option>DEFAULT_USER</option>
-                  <option>Administrator</option>
-                  <option>Agent</option>
-                  <option>Team Leader</option>
-                  <option>Office Employee</option>
-                  <option>QA</option>
-                  <option>QA Manager</option>
-                  <option>Campaign Manager</option>
-                </select>
-                &nbsp;dashboard.
-              </section>
+                confirmupdatestep.bind="confirmUpdateStep"
+                canceleditstep.bind="cancelEditStep"
+                editstep.bind="editStep"
+                deletestep.bind="deleteStep"
+              ></step-template>
             </li>
           </ul>
+
         </section>
       </section>
     </section>

@@ -22,9 +22,10 @@ export const PREDEFINED_STEP_CONFIG = {
       label: 'Password'
     }
   }, {
-    name: 'click',
+    name: 'Click Element',
     config: {
-      target: ".c-zbutton.c-zbutton--pink.c-zbutton--large.qa-sign-in-button",
+      selector: ".c-zbutton.c-zbutton--pink.c-zbutton--large.qa-sign-in-button",
+      targetType: 'button',
       label: 'Sign In'
     }
   }, {
@@ -33,7 +34,7 @@ export const PREDEFINED_STEP_CONFIG = {
       durationInSeconds: 20
     }
   }, {
-    name: 'expectDasboard',
+    name: 'Expect Content',
     config: {
       role: ''
     }

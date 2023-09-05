@@ -86,7 +86,7 @@ export class CreatorStepThree {
 
   public attached(): void {
     // this is for testing only
-    this.selectStepToAdd('Sign in');
+    // this.selectStepToAdd('Sign in');
   }
 
   public selectStepToAdd(type: string): void {
@@ -99,6 +99,7 @@ export class CreatorStepThree {
           console.log(' ::>> output > ', response.output);
 
           this.definedSteps = this.definedSteps.concat([...response.output]);
+          console.log(' ::>> this.definedSteps >>>> ', this.definedSteps);
         }
       });
   }

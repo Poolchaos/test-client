@@ -488,3 +488,30 @@ svg, .browser-logo, .svg {
     padding: 2px 3px 0;
   }
 }
+
+
+
+.group-steps {
+  position: relative;
+  border: 1px solid #e51e5a;
+  border-radius: 5px;
+  padding: 20px 0 5px 0;
+  margin-top: 20px;
+
+  .group-name {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: #171717;
+    margin: 0!important;
+    padding: 0 10px!important;
+  }
+
+  .group-actions {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #171717;
+    padding-right: 10px;
+  }
+}

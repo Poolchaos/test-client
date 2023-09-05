@@ -36,7 +36,7 @@ export class ViewTestResult {
 
   private async getTestResult(): Promise<void> {
     this.httpClient
-      .createRequest(`http://localhost:9000/testresults/${this.testId}`)
+      .createRequest(`http://localhost:9000/automate/results/${this.testId}`)
       .asGet()
       .withParams({
         testResultId: this.testResultId
@@ -53,8 +53,8 @@ export class ViewTestResult {
           }
           console.log(' ::>> result.startTime >>>> ', testResult.startTime);
 
-          testResult.startTime = moment(testResult.startTime).format('DD/MM/YYYY HH:mm:ss');
-          testResult.endTime = moment(testResult.endTime).format('DD/MM/YYYY HH:mm:ss');
+          testResult.startTime = formatDateToDDMMYYYYHHMMSS(testResult.startTime);
+          testResult.endTime = formatDateToDDMMYYYYHHMMSS(testResult.endTime);
           testResult.testPassed = testResult.passed === testResult.total;
 
           this.testResult = testResult;
@@ -64,21 +64,19 @@ export class ViewTestResult {
       });
   }
   
-  public formatTime(time: string): string {
-    return moment(time).format('ddd, DD MMM YYYY [00:00:00 GMT]');
-  }
 
   public diffTime(startTime: string, endTime: string): string {
-    const startMoment = moment(startTime);
-    const endMoment = moment(endTime);
+    // const startMoment = moment(startTime);
+    // const endMoment = moment(endTime);
 
-    // Calculate the difference between the two moments
-    const duration = moment.duration(endMoment.diff(startMoment));
+    // // Calculate the difference between the two moments
+    // const duration = moment.duration(endMoment.diff(startMoment));
 
-    // Format the duration as desired
-    const formattedDuration = `${Math.floor(duration.asHours())}h ${duration.minutes()}m ${duration.seconds()}s`;
+    // // Format the duration as desired
+    // const formattedDuration = `${Math.floor(duration.asHours())}h ${duration.minutes()}m ${duration.seconds()}s`;
 
-    return formattedDuration;
+    // return formattedDuration;
+    return 'diff to be determined';
   }
 
   public findErrorLine(errorMessage: string) {
@@ -125,4 +123,17 @@ export class ViewTestResult {
   //     console.log("Unable to extract action and value.");
   //   }
   // }
+}
+
+function formatDateToDDMMYYYYHHMMSS(dateString) {
+  const date = new Date(dateString);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+  const year = String(date.getFullYear());
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 }

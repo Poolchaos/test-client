@@ -8,6 +8,7 @@ export const STEP_CONSTANTS = {
   CHECK_NO_TEXT_PRESENT: 'Check No Text Present',
   CHECK_TEXT_PRESENCE: 'Check Text Presence',
   CHECK_URL_CONTENT: 'Check URL Content',
+  EXPECT_CONTENT: 'Expect Content',
 
   OPEN_NEW_WINDOW: 'Open New Browser Window',
   SWITCH_TO_WINDOW: 'Switch to Another Window',

@@ -31,6 +31,10 @@ export class AddStepDialog {
     user: null,
   };
 
+  public step: any = {
+    config: {}
+  };
+
   constructor(
     private dialogController: DialogController,
     private httpClient: HttpClient
@@ -39,7 +43,14 @@ export class AddStepDialog {
   public activate(stepType: string): void {
     console.log(' ::>> load config for ', stepType);
     this.stepType = stepType;
-    this.getEnvironments();
+
+    if (stepType === STEP_CONSTANTS.SIGN_IN) {
+      this.getEnvironments();
+    } else if (stepType === STEP_CONSTANTS.CLICK_ELEMENT) {
+      this.step.config = {
+        targetType: 'button'
+      };
+    }
   }
 
   private getEnvironments(): void {
@@ -112,23 +123,54 @@ export class AddStepDialog {
           step.config.value = this.config.user.email;
         } else if (step.config.label === 'Password') {
           step.config.value = this.config.user.password;
-        } else if (step.name === 'expectDasboard') {
+        } else if (step.name === 'Expect Content') {
           step.config.role = this.config.user.role;
+
+          if (step.config.role === 'Administrator') {
+            step.config.selector = '.o-page-header__title.is-dashboard';
+          }
         }
       });
 
     }
   }
 
-  public confirm(config: any[]): void {
-    console.log(' ::>> config >>>> ', config);
+  public confirm(): void {
     if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
       const data = JSON.parse(JSON.stringify(PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]));
-      this.dialogController.ok([{
+
+      const URL = this.environments.find(env => env.name === this.config.environment).url;
+
+      console.log(' ::>> config >>>> ', {
+        env: this.config.environment,
+        URL,
         groupId: uuidv4(),
         groupName: STEP_CONSTANTS.SIGN_IN,
         steps: data
+      });
+      this.dialogController.ok([{
+        groupId: uuidv4(),
+        groupName: STEP_CONSTANTS.SIGN_IN,
+        url: URL,
+        steps: data
       }]);
+
+    } else {
+      const payload = {
+        name: this.stepType,
+        config: {
+          ...this.step.config,
+          selector: `
+            ${this.step.config.targetType}[aria-label="${this.step.config.label}"],
+            ${this.step.config.targetType}[placeholder="${this.step.config.label}"],
+            ${this.step.config.targetType}[title="${this.step.config.label}"],
+            ${this.step.config.targetType}[alt="${this.step.config.label}"]
+          `
+        }
+      };
+
+      console.log(' ::>> add step >>> ', payload);
+      this.dialogController.ok([payload]);
     }
   }
 

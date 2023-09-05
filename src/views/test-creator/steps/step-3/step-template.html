@@ -11,7 +11,7 @@
     deletestep,
   "
 >
-  <section>${index}&nbsp;- &nbsp;</section>
+  <section>${index}&nbsp;-&nbsp;</section>
     <section if.bind="step.name === 'wait'" class="flex--basis text--left flex">
       Wait for&nbsp;
       <span if.bind="!step.editing" class="text--dimmed">${step.config.durationInSeconds}</span>
@@ -46,12 +46,14 @@
       <span class="text--dimmed">${step.config.label}</span>&nbsp;
       text field.
     </section>
-
-    <section if.bind="step.name === 'click'" class="flex--basis text--left flex">
-      Click the button labelled&nbsp;<span class="text--dimmed">${step.config.label}</span>.
+    <section if.bind="step.name === 'Click Element'" class="flex--basis text--left flex">
+      Click the&nbsp;
+      <span class="text--dimmed">${step.config.targetType}</span>
+      &nbsp;labelled&nbsp;
+      <span class="text--dimmed">${step.config.label}</span>.
     </section>
 
-    <section if.bind="step.name === 'expectDasboard'" class="flex--basis text--left flex">
+    <section if.bind="step.name === 'Expect Content'" class="flex--basis text--left flex">
       I expect to see the&nbsp;
       <span class="text--dimmed" if.bind="!step.editing">${step.config.role}</span>
       <select
@@ -89,7 +91,7 @@
         class="blue"
         click.trigger="editStep(step)"
         innerhtml.bind="icons.pencil"
-        if.bind="step.name !== 'click'"
+        if.bind="step.name !== 'Click Element'"
       ></button>
       <button
         class="pink"

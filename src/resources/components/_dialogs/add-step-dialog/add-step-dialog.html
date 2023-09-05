@@ -1,4 +1,5 @@
 <template>
+
   <section class="dialog">
     <section class="header">
       Add step: ${stepType}
@@ -177,11 +178,13 @@
                 &nbsp;into the&nbsp;<span class="text-pink">${step.config.label}</span>&nbsp;text field.
               </section>
 
-              <section class="flex" if.bind="step.name === 'click'">
-                Click the button labelled&nbsp;<span class="text-pink">${step.config.label}</span>.
+              <section class="flex" if.bind="step.name === 'Click Element'">
+                Click the&nbsp;
+                <span class="text-pink">${step.config.targetType}</span>&nbsp;labelled&nbsp;
+                <span class="text-pink">${step.config.label}</span>.
               </section>
 
-              <section class="flex" if.bind="step.name === 'expectDasboard'">
+              <section class="flex" if.bind="step.name === 'Expect Content'">
                 I expect to see the&nbsp;
                 <span class="text-pink">${step.config.role}</span>
                 &nbsp;dashboard.
@@ -189,6 +192,28 @@
             </li>
           </ul>
         </section>
+      </section>
+
+      
+      <section class="flex flex--align-center" if.bind="stepType === STEP_CONSTANTS.CLICK_ELEMENT">
+        Click the&nbsp;
+        <select
+          class="input-field inline"
+          value.bind="step.config.targetType"
+        >
+          <option disabled>Select a type</option>
+          <option>button</option>
+          <option>element</option>
+        </select>
+        &nbsp;labelled&nbsp;
+        <input
+          type="text"
+          class="input-field inline"
+          placeholder="Enter a label"
+          value.bind="step.config.label"
+          style="margin: 0;width: 100px;"
+        />.
+        <section class="flex--basis"></section>
       </section>
 
     </section>

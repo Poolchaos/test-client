@@ -124,7 +124,7 @@ export class Studio {
 
   public runAllTests(): void {
     this.httpClient
-      .createRequest('http://localhost:9000/run-all-tests')
+      .createRequest('http://localhost:9000/automate/all')
       .asPost()
       .withContent({
         scriptName: 'test name'

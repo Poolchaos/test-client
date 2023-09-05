@@ -60,9 +60,9 @@
             <li
               repeat.for="step of definedSteps"
               if.bind="step.groupName"
-              class="group"
+              class="group-steps"
             >
-              <h2 class="group-name text-pink">${step.groupName}</h2>
+              <h2 class="group-name">${$index + 1} ${step.groupName}</h2>
               <section class="group-actions">
                 <button
                   class="blue"
@@ -100,7 +100,10 @@
               if.bind="!step.groupName"
             >
               <step-template
-                index.bind="$index"
+                class="flex flex--justify-between"
+                style="padding: 5px 10px;display: flex;align-items: center;"
+
+                index.bind="$index + 1"
                 step.bind="step"
                 icons.bind="icons"
 
