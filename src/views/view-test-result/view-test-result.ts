@@ -1,6 +1,6 @@
 import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
-import moment from 'moment';
+import Prism from 'prismjs';
 
 import './view-test-result.scss';
 
@@ -11,6 +11,7 @@ export class ViewTestResult {
   private testResultId: string;
 
   public testResult;
+  public tests;
 
   constructor(
     private httpClient: HttpClient
@@ -47,7 +48,6 @@ export class ViewTestResult {
           const testResult = JSON.parse(data.response);
           console.log(' ::>> testResults >>>> ', testResult);
 
-
           if (testResult.startTime.indexOf('Z') < 0) {
             testResult.startTime = parseInt(testResult.startTime);
           }
@@ -58,6 +58,17 @@ export class ViewTestResult {
           testResult.testPassed = testResult.passed === testResult.total;
 
           this.testResult = testResult;
+          this.tests = testResult.fixtures[0].tests[0].steps;
+
+          setTimeout(() => {
+            Prism.highlight(
+              testResult.generatedTest,
+              Prism.languages.javascript,
+              'javascript'
+            );
+          }, 1000)
+
+          console.log(' ::>> this.tests >>>> ', this.tests);
         } catch(e) {
           console.error(e);
         }
@@ -123,6 +134,13 @@ export class ViewTestResult {
   //     console.log("Unable to extract action and value.");
   //   }
   // }
+
+  public encodeImage = (imageBuffer: ArrayBufferLike) => {
+    const imageByteArray = new Uint8Array(imageBuffer);
+    const blob = new Blob([imageByteArray], { type: 'image/png' });
+    const dataURL = URL.createObjectURL(blob);
+    return imageByteArray;
+  }
 }
 
 function formatDateToDDMMYYYYHHMMSS(dateString) {

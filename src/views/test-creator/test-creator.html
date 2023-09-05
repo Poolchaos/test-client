@@ -37,20 +37,20 @@
 
     <section class="steps-content">
       <creator-step-one
-        if.bind="activeStep.name === '1'"
+        if.bind="activeStep.name === '1' && testData"
         test-data.bind="testData"
         step-configured.trigger="completeStep(0)"
       ></creator-step-one>
 
       <creator-step-two
-        if.bind="activeStep.name === '2'"
+        if.bind="activeStep.name === '2' && testData"
         test-data.bind="testData"
         step-back.trigger="stepBack(1)"
         step-configured.trigger="completeStep(1)"
       ></creator-step-two>
 
       <creator-step-three
-        if.bind="activeStep.name === '3'"
+        if.bind="activeStep.name === '3' && testData"
         test-data.bind="testData"
         submitting.bind="submitting"
         step-back.trigger="stepBack(2)"

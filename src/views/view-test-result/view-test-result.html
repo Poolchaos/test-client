@@ -1,6 +1,8 @@
 <template>
+  <require from="./test-result-template.html"></require>
+
   <section class="view-test-results">
-    <h2 class="flex flex--align-center flex--justify-center">
+    <h2 class="flex flex--align-center flex--justify-center" style="margin-bottom: 20px;">
       <span class="text-pink">${testName}</span>&nbsp;
       <span style="font-size: 22px;"> ${testResult.startTime}</span>
     </h2>
@@ -8,7 +10,10 @@
     
 
     <section class="content">
-      <section class="flex flex--justify-center" style="margin-bottom: 20px;">
+      <section
+        class="flex flex--justify-center"
+        style="border-bottom: 1px solid #373737;padding-bottom: 20px;"
+      >
         <section
           class="result-total"
           class.bind="testResult.total > testResult.passed ? 'failed' : 'passed'"
@@ -30,13 +35,13 @@
           </section>
           <section class="value">${diffTime(testResult.startTime, testResult.endTime)}</section>
         </section>
-        <section class="result-total blue">
+        <!-- <section class="result-total blue">
           <section class="label">
             URL
           </section>
           <section class="value">${testResult.url}</section>
-        </section>
-        <section class="result-total pink">
+        </section> -->
+        <section class="result-total blue">
           <section class="label">
             Browser
           </section>
@@ -44,51 +49,81 @@
         </section>
       </section>
       
-      <section
-        class="step"
-        repeat.for="test of testResult.fixtures[0].tests"
-      >
+      
+      <section class="flex test-blocks">
         <section
-          class="flex flex--align-center"
-          style="width: 40px;align-self: flex-start;"
+          class="step"
+          repeat.for="test of tests"
+          style="
+            width: 610px;
+            border-right: 1px solid #373737;
+          "
         >
-          ${$index}
-        </section>
-        <section
-          class="flex flex--align-center"
-          style="width: 300px;min-width: 300px;align-self: flex-start;"
-        >
-          ${test.name}
-        </section>
-        <section
-          class="content"
-          style="padding: 10px;"
-          if.bind="test.errs && test.errs.length > 0"
-        >
-          <section repeat.for="error of test.errs" class="flex">
-            <section>
-              <section>${findErrorLine(error)}</section>
-              <!-- <section style="font-size: 14px;cursor: pointer;">
-                <a click.trigger="showError = true" if.bind="!showError">Show more</a>
-                <a click.trigger="showError = false" if.bind="showError">Show less</a>
-              </section>
-              <pre if.bind="showError">${error}</pre> -->
-              <pre>${error}</pre>
-            </section>
-            
-            <section
+          <section
+            class="flex flex--wrap is-relative"
+            class.bind="test.groupName ? 'flex--justify-center' : ''"
+            style.bind="test.groupName ? 'border: 1px solid #e51e5a;padding-top: 20px;margin: 20px 10px;border-radius: 5px;' : ''"
+          >
+            <h2
+              class="text-white"
               style="
-                width: 40px;
-                align-self: center;
-                padding: 5px 20px;
-                cursor: pointer;
+                position: absolute;
+                top: -10px;
+                left: 20px;
+                text-align: left;
+                margin: 0;
+                font-size: 20px;
+                padding: 0 10px;
+                background: #171717;
               "
-              click.delegate="showErrorLine(error)"
             >
+              ${$index + 1} - ${test.name || test.groupName}
+            </h2>
+            <h2
+              if.bind="test.groupName"
+              class="text-blue"
+              style="
+                position: absolute;
+                top: -7px;
+                right: 20px;
+                margin: 0;
+                font-size: 14px;
+                padding: 0 10px;
+                background: #171717;
+              "
+            >
+              ${testResult.fixtures[0].tests[0].steps[0].url}
+            </h2>
+            <section
+              if.bind="test.groupName"
+              repeat.for="groupTest of test.steps"
+              class="is-relative;"
+            >
+              <test-result-template
+                number.bind="($parentIndex + 1) + '.' + ($index + 1)"
+                test.bind="groupTest"
+                encodeimage.bind="encodeImage"
+              ></test-result-template>
             </section>
+            <test-result-template
+              if.bind="!test.groupName"
+              number.bind="$index + 1"
+              test.bind="test"
+            ></test-result-template>
           </section>
         </section>
-        <section style="flex: 1;"></section>
+
+        <section style="width: 50%;">
+          <!-- <pre
+            lang="javascript"
+            innerhtml.bind="testResult.generatedTest"
+            style="font-size: 12px;"
+          ></pre> -->
+
+          <pre>
+            <code class="language-javascript">${testResult.generatedTest}</code>
+          </pre>
+        </section>
       </section>
     </section>
   </section>

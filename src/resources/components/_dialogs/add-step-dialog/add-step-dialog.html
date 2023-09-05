@@ -165,15 +165,6 @@
 
               <section class="flex" if.bind="step.name === 'text'">
                 Type&nbsp;
-                <!-- <section class="is-relative">
-                  <input
-                    type="text"
-                    class="input-field inline"
-                    placeholder="Enter you ${step.config.label}"
-                    value.bind="step.config.value"
-                    style="margin-bottom: 0;width: 150px;"
-                  />
-                </section> -->
                 <span class="text-pink">${step.config.value}</span>
                 &nbsp;into the&nbsp;<span class="text-pink">${step.config.label}</span>&nbsp;text field.
               </section>
@@ -230,7 +221,7 @@
         class="blue-button"
         click.trigger="confirm()"
       >
-        Insert
+        ${isEditing ? 'Update' : 'Insert'}
       </button>
     </section>
   </section>

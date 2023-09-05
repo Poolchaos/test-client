@@ -34,19 +34,34 @@ export class AddStepDialog {
   public step: any = {
     config: {}
   };
+  private email;
+  public isEditing;
 
   constructor(
     private dialogController: DialogController,
     private httpClient: HttpClient
   ) {}
 
-  public activate(stepType: string): void {
-    console.log(' ::>> load config for ', stepType);
-    this.stepType = stepType;
+  public activate(data: { type: string, step: any }): void {
+    console.log(' ::>> load config for ', JSON.parse(JSON.stringify(data)));
+    this.stepType = data.type;
 
-    if (stepType === STEP_CONSTANTS.SIGN_IN) {
+    if (data.step) {
+      this.isEditing = true;
+    }
+
+    console.log(' ::>> sign in >>>> 0 ', data.type, STEP_CONSTANTS.SIGN_IN);
+    if (data.type === STEP_CONSTANTS.SIGN_IN) {
+      console.log(' ::>> sign in >>>> 1 ');
+      if (data.step) {
+        console.log(' ::>> sign in >>>> 2 ');
+        this.PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN] = data.step.steps;
+        this.email = data.step.steps.find(_step => _step.config.label === 'Email').config.value;
+        console.log(' ::>> sign in >>>> 3 ', this.email);
+      }
+
       this.getEnvironments();
-    } else if (stepType === STEP_CONSTANTS.CLICK_ELEMENT) {
+    } else if (data.type === STEP_CONSTANTS.CLICK_ELEMENT) {
       this.step.config = {
         targetType: 'button'
       };
@@ -101,7 +116,12 @@ export class AddStepDialog {
     if (organisation.users && organisation.users.length > 0) {
       this.users = organisation.users;
       console.log(' ::>> selectOrg >>>> uers = ', this.users);
-      this.selectUser(this.users[0]);
+      if (this.email) {
+        let user = this.users.find(user => user.email === this.email);
+        this.selectUser(user);
+      } else {
+        this.selectUser(this.users[0]);
+      }
     } else {
       this.users = [];
     }

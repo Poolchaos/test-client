@@ -16,7 +16,7 @@ export class CreatorStepThree {
   public definedSteps = [];
 
   public steps = [{
-    title: 'Predefined Zailab Actions',
+    title: 'Sub Tests',
     expanded: true,
     list: [
       { name: STEP_CONSTANTS.REGISTER, icon: 'lock' },
@@ -67,10 +67,6 @@ export class CreatorStepThree {
       { name: STEP_CONSTANTS.CHECKBOX, icon: 'checkbox' },
       // Add more prompt steps
     ]
-  }, {
-    title: 'Sub Tests',
-    expanded: false,
-    list: []
   }];
   
   constructor(
@@ -79,6 +75,7 @@ export class CreatorStepThree {
   ) {}
 
   public bind(): void {
+    console.log(' ::>> this.testData >>>> ', this.testData);
     if (this.testData && this.testData.steps) {
       this.definedSteps = [...this.testData.steps];
     }
@@ -89,16 +86,20 @@ export class CreatorStepThree {
     // this.selectStepToAdd('Sign in');
   }
 
-  public selectStepToAdd(type: string): void {
+  public selectStepToAdd(type: string, step?: any): void {
     console.log(' ::>> selectStepToAdd .>>> ', type);
 
     this.dialogService
-      .open({ viewModel: AddStepDialog, model: type })
+      .open({ viewModel: AddStepDialog, model: { type, step }})
       .whenClosed(response => {
         if (!response.wasCancelled) {
           console.log(' ::>> output > ', response.output);
 
-          this.definedSteps = this.definedSteps.concat([...response.output]);
+          if (step) {
+            this.definedSteps[this.definedSteps.indexOf(step)] = [...response.output];
+          } else {
+            this.definedSteps = this.definedSteps.concat([...response.output]);
+          }
           console.log(' ::>> this.definedSteps >>>> ', this.definedSteps);
         }
       });
@@ -107,6 +108,10 @@ export class CreatorStepThree {
   public editStep = (step: any): void => {
     step.editing = true;
     step.editState = { ...step.config };
+
+    console.log(' ::>> editStep => ', step);
+
+    this.selectStepToAdd(step.name || step.groupName, step);
   }
 
   public cancelEditStep = (step): void => {

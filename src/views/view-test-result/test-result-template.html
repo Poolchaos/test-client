@@ -1,0 +1,70 @@
+<template
+  bindable="
+    number,
+    test,
+    encodeimage
+  "
+>
+  <section
+    class="is-relative"
+    style="
+      margin: 10px;
+      background: #292a2d;
+      border-radius: 0 0 10px 10px;
+      overflow: hidden;
+    "
+  >
+    <section
+      class="flex flex--align-center flex--justify-center"
+      style="
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        background: #e51e5a;
+        font-size: 11px;
+        font-weight: 600;
+        z-index: 10;
+      "
+    >
+      ${number}
+    </section> 
+    <image src.bind="'data:image/png;base64,' + test.thumbnail" />
+    
+    <section
+      class="flex flex--wrap"
+      style="
+        width:250px;
+        padding: 5px 10px 10px;
+        overflow: hidden;
+        font-size: 11px;
+      "
+    >
+      <section class="" if.bind="test.name === 'wait'">
+        Wait for&nbsp;
+        <span class="text-pink">${test.config.durationInSeconds}</span>
+        &nbsp;seconds before continuing.
+      </section>
+
+      <section class="" if.bind="test.name === 'text'">
+        Type&nbsp;
+        <span class="text-pink">${test.config.value}</span>
+        &nbsp;into the&nbsp;<span class="text-pink">${test.config.label}</span>&nbsp;text field.
+      </section>
+
+      <section class="" if.bind="test.name === 'Click Element'">
+        Click the&nbsp;
+        <span class="text-pink">${test.config.targetType}</span>&nbsp;labelled&nbsp;
+        <span class="text-pink">${test.config.label}</span>.
+      </section>
+
+      <section class="" if.bind="test.name === 'Expect Content'">
+        I expect to see the&nbsp;
+        <span class="text-pink">${test.config.role}</span>
+        &nbsp;dashboard.
+      </section>
+    </section>
+  </section>
+</template>

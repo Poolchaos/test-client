@@ -13,7 +13,7 @@ import './test-creator.scss';
 export class TestCreator {
   private testSuiteId: string;
   private testId: string;
-  public testData: any = {};
+  public testData: any;
   public testSuiteNames: string[] = [];
 
   public submitting: boolean;
@@ -40,10 +40,12 @@ export class TestCreator {
     this.testId = params.testId;
     console.log(' ::>> testSuiteId >>> ', params);
     
-    this.activateStep(2);
+    this.activateStep(0);
 
     if (this.testId) {
       this.getTest();
+    } else {
+      this.testData = {};
     }
   }
 
