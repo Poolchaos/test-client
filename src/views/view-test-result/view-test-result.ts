@@ -12,6 +12,11 @@ export class ViewTestResult {
 
   public testResult;
   public tests;
+  
+  public tabs: any[] = [{
+    name: 'Generated Test',
+    selected: true
+  }];
 
   constructor(
     private httpClient: HttpClient

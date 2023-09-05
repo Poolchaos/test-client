@@ -77,69 +77,6 @@
     text-align: center;
     color: white;
   }
-
-  .panel {
-    display: flex;
-    flex-direction: column;
-    height: 100%!important;
-    color: white;
-  
-    .tab-header {
-      display: flex;
-      background-color: #252525;
-      color: white;
-      height: 55px;
-    }
-  
-    .tab {
-      font-size: 14px;
-      border-top: 1px solid #373737;
-      border-bottom: 1px solid #373737;
-      border-right: 1px solid #373737;
-      padding: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s;
-  
-      .tab-title {
-        flex: 1;
-      }
-  
-      .tab-close {
-        margin-left: 0.5rem;
-        cursor: pointer;
-        color: #999;
-        padding: 2px 5px;
-  
-        &:hover {
-          color: white;
-        }
-      }
-
-      &.selected {
-        background-color: #1e1e1e!important;
-        border-top: 3px solid #e51e5a;
-        border-left: 1px solid #373737;
-        border-right: 1px solid #373737;
-        border-bottom: unset;
-      }
-
-      &.placeholder {
-        flex: 1;
-      }
-    }
-  
-    .tab-content {
-      flex: 1;
-      overflow: auto;
-      background-color: #1e1e1e;
-      border: 1px solid #373737;
-      border-top: none;
-      
-      .content {
-        height:100%;
-      }
-    }
-  }
   
 }
 
