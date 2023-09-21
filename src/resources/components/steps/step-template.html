@@ -37,7 +37,7 @@
         <input
           type="text"
           class="input-field"
-          placeholder="Enter you ${step.config.label}"
+          placeholder="Enter your ${step.config.label}"
           value.bind="step.editState.value"
           style="margin-bottom: 0;width: 150px;"
         />
@@ -46,6 +46,22 @@
       <span class="text-pink">${step.config.label}</span>&nbsp;
       text field.
     </section>
+
+    <section if.bind="step.name === 'Press Keyboard Key'" class="flex--basis text--left flex">
+      Press the&nbsp;
+      <span class="text-pink" if.bind="!step.editing">${step.config.selector}</span>
+      <section class="is-relative" if.bind="step.editing">
+        <input
+          type="text"
+          class="input-field"
+          placeholder="Enter your ${step.config.label}"
+          value.bind="step.editState.value"
+          style="margin-bottom: 0;width: 150px;"
+        />
+      </section>
+      &nbsp;key on the keyboard.
+    </section>
+
     <section if.bind="step.name === 'Click Element'" class="flex--basis text--left flex">
       Click the&nbsp;
       <span class="text-pink">${step.config.targetType}</span>

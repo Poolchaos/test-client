@@ -131,10 +131,6 @@ export class CreatorStepThree {
 
   }
 
-  public deleteStepGroup = (group: { groupId: string }): void => {
-    this.definedSteps = this.definedSteps.filter(step => step.groupId !== group.groupId);
-  }
-
   public deleteStep = (step): void => {
     // add confirm delete
     // this.definedSteps = this.definedSteps.filter()

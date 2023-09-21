@@ -1,0 +1,84 @@
+steps {
+  flex: 1;
+
+  .added-steps {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 60px);
+    margin: auto;
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      .actions, .group-actions {
+        button {
+          margin-left: 10px;
+          padding: 6px 12px;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+
+          svg {
+            width: 10px;
+            height: 10px;
+          }
+
+          &.blue:hover {
+            svg {
+              fill: #1c86cc;
+            }
+          }
+
+          &.pink:hover {
+            svg {
+              fill: #e51e5a;
+            }
+          }
+
+          &.full-blue {
+            background: #1c86cc;
+            svg {
+              fill: #fff;
+            }
+          }
+
+          &.full-pink {
+            background: #e51e5a;
+            svg {
+              fill: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  .group-steps {
+    position: relative;
+    border: 1px solid #e51e5a;
+    border-radius: 5px;
+    padding: 20px 0 5px 0;
+    margin-top: 20px;
+
+    .group-name {
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      background: #171717;
+      margin: 0!important;
+      padding: 0 10px!important;
+    }
+
+    .group-actions {
+      position: absolute;
+      top: -30px;
+      right: -5px;
+      background: #171717;
+      padding: 15px 15px 10px 15px;
+    }
+  }
+}

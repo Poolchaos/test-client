@@ -1,0 +1,72 @@
+<template>
+  <require from="./step-template.html"></require>
+  
+  <section class="added-steps">
+    <ul
+      if.bind="steps.length > 0"
+      style="
+        margin: 0 auto;
+        list-style-type: none;
+      "
+    >
+      <li
+        repeat.for="step of steps"
+        if.bind="step.groupName"
+        class="group-steps"
+      >
+        <h2 class="group-name">${$index + 1} ${step.groupName}</h2>
+        <section class="group-actions" if.bind="editable">
+          <!-- <button
+            class="blue"
+            click.trigger="editStep(step)"
+            innerhtml.bind="icons.pencil"
+            if.bind="step.name !== 'click'"
+          ></button> -->
+          <button
+            class="pink button"
+            click.trigger="deleteStepGroup(step)"
+            innerhtml.bind="icons.close"
+            style="margin-left: 0px;"
+          ></button>
+        </section>
+        <step-template
+          class="flex flex--justify-between"
+          style="padding: 5px 10px;display: flex;align-items: center;"
+
+          repeat.for="innerStep of step.steps"
+          index.bind="($parent.$index + 1) + '.' + ($index + 1)"
+          step.bind="innerStep"
+          icons.bind="icons"
+          disableactions.bind="true"
+
+          confirmupdatestep.bind="confirmUpdateStep"
+          canceleditstep.bind="cancelEditStep"
+          editstep.bind="editStep"
+          deletestep.bind="deleteStep"
+        ></step-template>
+      </li>
+      <li
+        repeat.for="step of definedSteps"
+        class="flex flex--justify-between"
+        style="padding: 5px 10px;display: flex;align-items: center;"
+        if.bind="!step.groupName"
+      >
+        <step-template
+          class="flex flex--justify-between"
+          style="padding: 5px 10px;display: flex;align-items: center;"
+
+          index.bind="$index + 1"
+          step.bind="step"
+          icons.bind="icons"
+          disableactions.bind="!editable"
+
+          confirmupdatestep.bind="confirmUpdateStep"
+          canceleditstep.bind="cancelEditStep"
+          editstep.bind="editStep"
+          deletestep.bind="deleteStep"
+        ></step-template>
+      </li>
+    </ul>
+
+  </section>
+</template>

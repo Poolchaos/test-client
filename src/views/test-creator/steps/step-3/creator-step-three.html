@@ -1,5 +1,4 @@
 <template>
-  <require from="./step-template.html"></require>
 
   <div class="wizard-step-3 flex">
     <section class="flex" style="width: 100%;height: 90%">
@@ -53,9 +52,26 @@
             To add steps, select an item on the left.
             <section class="blue svg large" innerhtml.bind="icons.leftPointHand"></section>
           </div>
-          <ul
+
+          <section
+            style="
+              width: 90%;
+              height:100%;
+              margin: 0 auto;
+              overflow: auto;
+              padding: 0 20px;
+            "
+          >
+            <steps
+              steps.bind="definedSteps"
+              editable.bind="true"
+              if.bind="definedSteps.length > 0"
+            ></steps>
+          </section>
+
+          <!-- <ul
             if.bind="definedSteps.length > 0"
-            style="width: 600px;margin: 0 auto;overflow: auto;padding: 0 20px;"
+            
           >
             <li
               repeat.for="step of definedSteps"
@@ -127,7 +143,7 @@
                 deletestep.bind="deleteStep"
               ></step-template>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </section>
     </section>

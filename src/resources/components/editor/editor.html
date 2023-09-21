@@ -1,5 +1,4 @@
 <template>
-  <require from="../../../views/test-creator/steps/step-3/step-template.html"></require>
 
   <section class="editor">
     
@@ -7,7 +6,23 @@
       <h1 style="font-size: 30px;text-align: center; margin-bottom: 40px;">Configured steps for <span class="text-pink">${config.name}</span></h1>
 
       <section class="flex step-config-wrapper">
-        <section class="added-steps">
+
+        
+
+
+
+
+
+        <steps
+          steps.bind="config.steps"
+          editable.bind="false"
+        ></steps>
+
+
+
+
+
+        <!-- <section class="added-steps">
           <ul
             if.bind="config.steps.length > 0"
             style="
@@ -60,7 +75,7 @@
             </li>
           </ul>
 
-        </section>
+        </section> -->
       </section>
     </section>
   </section>

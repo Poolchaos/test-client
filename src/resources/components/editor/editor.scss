@@ -108,6 +108,8 @@ editor {
   }
 
   .content-panel {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     overflow: hidden!important;
   }
@@ -232,11 +234,7 @@ editor {
   .step-config-wrapper {
     position: relative;
     height: calc(100% - 80px);
-
-    .added-steps {
-      height: 100%;
-      overflow: auto;
-    }
+    flex: 1;
 
     .e2e-test-cta {
       text-align: center;
