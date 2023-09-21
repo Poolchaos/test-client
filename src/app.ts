@@ -34,14 +34,20 @@ export class App {
     icon: 'user',
     route: 'users'
   }, {
+    name: 'Configure API Requests',
+    icon: 'yandex',
+    route: 'api-requests'
+  }, {
     name: 'Configure Numbers',
     icon: 'hashtag',
     route: 'numbers'
-  }, {
-    name: 'Configure Browsers',
-    icon: 'globe',
-    route: 'browsers'
-  }];
+  }
+  // , {
+  //   name: 'Configure Browsers',
+  //   icon: 'globe',
+  //   route: 'browsers'
+  // }
+  ];
 
   constructor(
     private eventAggregator: EventAggregator

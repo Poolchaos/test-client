@@ -3,7 +3,9 @@
   <section class="editor">
     
     <section class="content-panel">
-      <h1 style="font-size: 30px;text-align: center; margin-bottom: 40px;">Configured steps for <span class="text-pink">${config.name}</span></h1>
+      <h1 style="font-size: 24px;text-align: center; margin-bottom: 40px;">
+        Configured steps for <span class="text-pink">${config.name}</span>
+      </h1>
 
       <section class="flex step-config-wrapper">
 
@@ -15,7 +17,9 @@
 
         <steps
           steps.bind="config.steps"
-          editable.bind="false"
+          test-suite-id.bind="config.testSuiteId"
+          test-id.bind="config.testId"
+          editable.bind="true"
         ></steps>
 
 
