@@ -27,13 +27,15 @@
                   Headers:
                 </label> 
                 <ul class="text-blue" if.bind="request.headers.length > 0">
+                  <li>{</li>
                   <li
                     repeat.for="entry of request.headers"
                     if.bind="request.headers.length > 0"
                   >
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <label>${entry[0]}: </label>${entry[1]}
                   </li>
-                  <li if.bind="request.headers.length === 0">--</li>
+                  <li>}</li>
                 </ul>
                 <ul class="text-blue" if.bind="request.headers.length === 0">
                   <li>{}</li>
