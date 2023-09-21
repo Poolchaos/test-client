@@ -95,6 +95,11 @@ export class App {
       name: 'environments',
       moduleId: PLATFORM.moduleName('views/environment/environment'),
       title: `Environments`
+    }, {
+      route: 'api-requests',
+      name: 'api-requests',
+      moduleId: PLATFORM.moduleName('views/api-requests/api-requests'),
+      title: `API Requests`
     }]);
     this.router = router;
   }

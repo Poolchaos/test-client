@@ -1,0 +1,90 @@
+<template>
+  <div class="page">
+    <h2>Configured <span class="text-pink">API Requests</span></h2>
+    
+    <section class="flex content-wrapper">
+
+      <section class="flex" style="width: 100%;">
+        <section
+          class="flex flex--wrap flex--justify-left flex--basis"
+          style="padding: 0 5px;align-content: flex-start;"
+        >
+          <button
+            class="button cta"
+            click.trigger="selectRequests(request)"
+            repeat.for="request of requests"
+            style="min-width: 400px;height: unset;"
+          >
+            <section class="name-field">${request.name}</section>
+            
+            <section style="text-align: left;max-width: 100%;overflow: hidden;font-size: 16px;">
+              <section>
+                URL: <span class="text-blue">${request.url}</span>
+              </section>
+
+              <section>
+                <label style="border-bottom: 2px solid #e51e5a;">
+                  Headers:
+                </label> 
+                <ul class="text-blue" if.bind="request.headers.length > 0">
+                  <li
+                    repeat.for="entry of request.headers"
+                    if.bind="request.headers.length > 0"
+                  >
+                    <label>${entry[0]}: </label>${entry[1]}
+                  </li>
+                  <li if.bind="request.headers.length === 0">--</li>
+                </ul>
+                <ul class="text-blue" if.bind="request.headers.length === 0">
+                  <li>{}</li>
+                </ul>
+              </section>
+
+              <section>
+                <label style="border-bottom: 2px solid #e51e5a;">
+                  Query Params:
+                </label> 
+                <ul class="text-blue" if.bind="request.queryParams.length > 0">
+                  <li>{</li>
+                  <li
+                    repeat.for="entry of request.queryParams"
+                    if.bind="request.queryParams.length > 0"
+                  >
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>${entry[0]}: </label>${entry[1]}
+                  </li>
+                  <li if.bind="request.queryParams.length === 0">&nbsp;</li>
+                  <li>}</li>
+                </ul>
+                <ul class="text-blue" if.bind="request.queryParams.length === 0">
+                  <li>{}</li>
+                </ul>
+              </section>
+
+              <section>
+                <label style="border-bottom: 2px solid #e51e5a;">
+                  Body:
+                </label> 
+                <ul class="text-blue" if.bind="request.body.length > 0">
+                  <li>{</li>
+                  <li
+                    repeat.for="entry of request.body"
+                    if.bind="request.body.length > 0"
+                  >
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>${entry[0]}: </label>${entry[1]}
+                  </li>
+                  <li>}</li>
+                </ul>
+                <ul class="text-blue" if.bind="request.body.length === 0">
+                  <li>{}</li>
+                </ul>
+              </section>
+            </section>
+          </button>
+        </section>
+      </section>
+
+    </section>
+  </div>
+</template>

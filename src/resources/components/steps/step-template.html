@@ -14,7 +14,7 @@
   <section>${index}.&nbsp;&nbsp;</section>
     <section if.bind="step.name === 'wait'" class="flex--basis text--left flex">
       Wait for&nbsp;
-      <span if.bind="!step.editing" class="text-pink">${step.config.durationInSeconds}</span>
+      <span if.bind="!step.editing" class="text-blue">${step.config.durationInSeconds}</span>
       <section class="is-relative" if.bind="step.editing">
         <input
           type="number"
@@ -32,7 +32,7 @@
 
     <section if.bind="step.name === 'text'" class="flex--basis text--left flex">
       Type&nbsp;
-      <span class="text-pink" if.bind="!step.editing">${step.config.value}</span>
+      <span class="text-blue" if.bind="!step.editing">${step.config.value}</span>
       <section class="is-relative" if.bind="step.editing">
         <input
           type="text"
@@ -43,13 +43,13 @@
         />
       </section>
       &nbsp;into the&nbsp;
-      <span class="text-pink">${step.config.label}</span>&nbsp;
+      <span class="text-blue">${step.config.label}</span>&nbsp;
       text field
     </section>
 
     <section if.bind="step.name === 'Press Keyboard Key'" class="flex--basis text--left flex">
       Press the&nbsp;
-      <span class="text-pink" if.bind="!step.editing">${step.config.selector}</span>
+      <span class="text-blue" if.bind="!step.editing">${step.config.selector}</span>
       <section class="is-relative" if.bind="step.editing">
         <input
           type="text"
@@ -64,15 +64,15 @@
 
     <section if.bind="step.name === 'Click Element'" class="flex--basis text--left flex">
       Click the&nbsp;
-      <span class="text-pink">${step.config.targetType}</span>
+      <span class="text-blue">${step.config.targetType}</span>
       &nbsp;labelled&nbsp;
-      <span class="text-pink">${step.config.label}</span>
+      <span class="text-blue">${step.config.label}</span>
     </section>
 
     <section if.bind="step.name === 'Expect Content'" class="flex--basis text--left flex">
       <span if.bind="step.config.role">
         I expect to see the&nbsp;
-        <span class="text-pink" if.bind="!step.editing">${step.config.role}</span>
+        <span class="text-blue" if.bind="!step.editing">${step.config.role}</span>
         <select
           class="input-field"
           value.bind="step.editState.role"
@@ -94,13 +94,13 @@
         I expect to see&nbsp;
       </span>
       <span if.bind="step.config.selector">
-        <span class="text-pink">${step.config.label}</span>
+        <span class="text-blue">${step.config.label}</span>
       </span>
     </section>
 
     <section if.bind="step.name === 'Trigger a predefined API call'" class="flex--basis text--left flex">
       Trigger the&nbsp;
-      <span class="text-pink">${step.config.name}</span>
+      <span class="text-blue">${step.config.name}</span>
       &nbsp;request
     </section>
 
@@ -109,7 +109,7 @@
       class="flex--basis text--left flex"
     >
       Expect a&nbsp;
-      <span class="text-pink">${step.config.status}</span>
+      <span class="text-blue">${step.config.status}</span>
       &nbsp;response
     </section>
     
