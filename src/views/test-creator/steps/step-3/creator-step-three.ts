@@ -22,6 +22,7 @@ export class CreatorStepThree {
       { name: STEP_CONSTANTS.REGISTER, icon: 'lock' },
       { name: STEP_CONSTANTS.COMPLETE_REGISTRATION, icon: 'lock' },
       { name: STEP_CONSTANTS.SIGN_IN, icon: 'key' },
+      { name: STEP_CONSTANTS.OUTBOUND_CALL, icon: 'phone' },
     ]
   }, {
     title: 'Verify page content',
@@ -47,7 +48,7 @@ export class CreatorStepThree {
     ]
   }, {
     title: 'User Interaction',
-    expanded: true,
+    expanded: false,
     list: [
       { name: STEP_CONSTANTS.HOVER_OVER_ELEMENT, icon: 'mouse' },
       { name: STEP_CONSTANTS.PRESS_KEY, icon: 'keyboard' },
@@ -67,6 +68,12 @@ export class CreatorStepThree {
       { name: STEP_CONSTANTS.RADIO_BUTTON, icon: 'radioButton' },
       { name: STEP_CONSTANTS.CHECKBOX, icon: 'checkbox' },
       // Add more prompt steps
+    ]
+  }, {
+    title: 'API Calls',
+    expanded: true,
+    list: [
+      { name: STEP_CONSTANTS.REQUEST, icon: 'yandex' },
     ]
   }];
   

@@ -1,0 +1,40 @@
+<template>
+  <div class="page">
+    <h2>Configured <span class="text-pink">Environments</span></h2>
+    
+    <section class="flex content-wrapper">
+
+      <section class="flex" style="width: 100%;">
+        <section
+          class="flex flex--wrap flex--justify-left flex--basis"
+          style="padding: 0 5px;align-content: flex-start;"
+        >
+          <button
+            class="button cta"
+            click.trigger="selectEnvironment(environment)"
+            repeat.for="environment of environments"
+            style="width: 300px;min-width: 300px;max-width: 300px;"
+          >
+            <section class="name-field">${environment.name}</section>
+            
+            <section style="text-align: left;max-width: 100%;overflow: hidden;">
+              <section style="font-size: 16px;">${environment.url}</section>
+              <!-- <section
+                style="
+                  font-size: 16px;
+                  text-overflow: ellipsis;
+                  width: 100%;
+                  overflow: hidden;
+                  white-space: nowrap;
+                "
+              >
+                Token: ${environment.token}
+              </section> -->
+            </section>
+          </button>
+        </section>
+      </section>
+
+    </section>
+  </div>
+</template>

@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { STEP_CONSTANTS } from '../../../../views/test-creator/steps/step-constants';
 import { PREDEFINED_STEP_CONFIG } from './predefined-config';
 import { PREDEFINED_REGISTER_STEP_CONFIG } from './predefined-register-config';
+import { CALL_STEP_CONFIG } from './predefined-make-outbound-call';
+
 import { ICONS } from '../../../constants/icons';
 
 import './add-step-dialog.scss';
@@ -19,6 +21,7 @@ export class AddStepDialog {
   public STEP_CONSTANTS = STEP_CONSTANTS;
   public PREDEFINED_STEP_CONFIG = {...PREDEFINED_STEP_CONFIG};
   public PREDEFINED_REGISTER_STEP_CONFIG = {...PREDEFINED_REGISTER_STEP_CONFIG};
+  public CALL_STEP_CONFIG = {...CALL_STEP_CONFIG};
   
   public environments: any = [];
   public organisations: any = [];
@@ -46,6 +49,17 @@ export class AddStepDialog {
   ) {}
 
   public activate(data: { type: string, step: any }): void {
+
+
+    this.httpClient.configure(req => {
+      req.withHeader('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJQRVJNSVNTSU9OUyI6IntcIkJVU0lORVNTX1BBUlRORVJTXCI6W10sXCJURUFNU1wiOltcImZiY2EwYTc0LWJkOTUtNDk4NS1hMWE3LTUxNjBkNzAxN2YyM1wiLFwiM2M0ZDBiNGMtM2M2NC00Y2JiLTg0MTYtZmExZWNkYTg5ZTQ1XCIsXCI3ZDI3NjE2MC00MDg0LTQ0MTYtYTg3OS02ZTkzOTgzZjdkMzZcIixcIjdiY2IzZjQyLWRiZTAtNDBmZC04NzA2LWJkYzdmNzBiNWM1YlwiXSxcIkNPTlRBQ1RfQ0VOVFJFU1wiOltdfSIsIm5iZiI6MTY5NDAyMTk5NSwiaXNzIjoiemFpbGFiIiwiVVNFUiI6IntcInVzZXJJZFwiOlwiMDZhOTA2ZjYtZDdlMy00MmEwLTllNWEtMzcxOTc1ZmUyOTYyXCIsXCJ1c2VybmFtZVwiOm51bGwsXCJvcmdhbmlzYXRpb25JZFwiOlwiNDc2N2M5OTktNzhmYi00OWNiLTg4MGUtNGZmNmU0ZjdlMjhjXCIsXCJyb2xlc1wiOlt7XCJvcmdhbmlzYXRpb25JZFwiOlwiNDc2N2M5OTktNzhmYi00OWNiLTg4MGUtNGZmNmU0ZjdlMjhjXCIsXCJhY2NvdW50VHlwZVwiOlwiT1JHQU5JU0FUSU9OXCIsXCJyb2xlXCI6XCJBR0VOVFwiLFwibWVtYmVySWRcIjpcIjE4Nzg3YTlhLWMzOGUtNGVmYS05NTlhLThkMjBjY2E0NTY3MFwifV19IiwiaWF0IjoxNjk0MDIxOTk1LCJqdGkiOiJlMWI4ZjE4MC0yOWU4LTQ1NzktODM5YS04ZDlhZTA2NDhjMTYifQ.a3VNC-MJo4Ov85zPc7qu_Ckls5Ii3lc6CABYVKis1iHyFTJ_X6eL36alqSP8GqrNGQ9nT3DTKUhh3Efu-Th2Mg');
+      req.withHeader('Session', '96892755-762c-459a-97f8-05f217407479');
+    });
+
+
+
+
+
     console.log(' ::>> load config for ', JSON.parse(JSON.stringify(data)));
     this.stepType = data.type;
 
@@ -76,6 +90,43 @@ export class AddStepDialog {
       this.step.config = {
         targetType: 'button'
       };
+      
+    } else if (data.type === STEP_CONSTANTS.REQUEST) {
+      console.log(' ::>> request >>>>>>');
+      
+      this.step = {
+        name: data.type,
+        config: {
+          URL: 'https://za.dev1.zailab.com/v1/telephony/calls',
+          method: 'Post',
+          headers: [{
+            Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJQRVJNSVNTSU9OUyI6IntcIkJVU0lORVNTX1BBUlRORVJTXCI6W10sXCJURUFNU1wiOltcImZiY2EwYTc0LWJkOTUtNDk4NS1hMWE3LTUxNjBkNzAxN2YyM1wiLFwiM2M0ZDBiNGMtM2M2NC00Y2JiLTg0MTYtZmExZWNkYTg5ZTQ1XCIsXCI3ZDI3NjE2MC00MDg0LTQ0MTYtYTg3OS02ZTkzOTgzZjdkMzZcIixcIjdiY2IzZjQyLWRiZTAtNDBmZC04NzA2LWJkYzdmNzBiNWM1YlwiXSxcIkNPTlRBQ1RfQ0VOVFJFU1wiOltdfSIsIm5iZiI6MTY5NDAyMTk5NSwiaXNzIjoiemFpbGFiIiwiVVNFUiI6IntcInVzZXJJZFwiOlwiMDZhOTA2ZjYtZDdlMy00MmEwLTllNWEtMzcxOTc1ZmUyOTYyXCIsXCJ1c2VybmFtZVwiOm51bGwsXCJvcmdhbmlzYXRpb25JZFwiOlwiNDc2N2M5OTktNzhmYi00OWNiLTg4MGUtNGZmNmU0ZjdlMjhjXCIsXCJyb2xlc1wiOlt7XCJvcmdhbmlzYXRpb25JZFwiOlwiNDc2N2M5OTktNzhmYi00OWNiLTg4MGUtNGZmNmU0ZjdlMjhjXCIsXCJhY2NvdW50VHlwZVwiOlwiT1JHQU5JU0FUSU9OXCIsXCJyb2xlXCI6XCJBR0VOVFwiLFwibWVtYmVySWRcIjpcIjE4Nzg3YTlhLWMzOGUtNGVmYS05NTlhLThkMjBjY2E0NTY3MFwifV19IiwiaWF0IjoxNjk0MDIxOTk1LCJqdGkiOiJlMWI4ZjE4MC0yOWU4LTQ1NzktODM5YS04ZDlhZTA2NDhjMTYifQ.a3VNC-MJo4Ov85zPc7qu_Ckls5Ii3lc6CABYVKis1iHyFTJ_X6eL36alqSP8GqrNGQ9nT3DTKUhh3Efu-Th2Mg',
+            'Content-Type': 'application/json'
+          }],
+          body: {
+            from: "flaap+4@zailab.com",
+            to: "+27712569431",
+            metadata: {
+              flowId: "a8fb46a6-cb2b-463e-8d3f-e38896af8b86",
+              isClickToDial: true
+            },
+            webhookAdditionalProperties: null
+          }
+        }
+      };
+
+      
+      // this.httpClient
+      //   .createRequest(this.step.config.URL)
+      //   .asPost()
+      //   .withContent(this.step.config.data)
+      //   .send()
+      //   .then(() => {
+      //     console.log(' ::>> click to dial success ');
+      //   })
+      //   .catch(e => {
+      //     console.log(' ::>> click to dial fail ', e);
+      //   });
     }
   }
 
@@ -144,7 +195,14 @@ export class AddStepDialog {
     console.log(' ::>> userChanged >>>> ', userData, this.users);
     this.selectedUser = userData;
     this.userSelectionEnabled = false;
-    this.config.user = typeof userData === 'string' ? this.users.find(user => user.name === userData) : userData;
+    // this.config.user = typeof userData === 'string' ? this.users.find(user => user.name === userData) : userData;
+
+    this.config.user = {
+      email: 'flaap+272@zailab.com',
+      password: 'Test1234',
+      name: 'Ana Mayer',
+      role: 'Agent'
+    };
     console.log(' ::>> this.config.user >>>>> ', this.config.user);
 
     if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
@@ -161,6 +219,8 @@ export class AddStepDialog {
 
           if (step.config.role === 'Administrator') {
             step.config.selector = '.o-page-header__title.is-dashboard';
+          } else if (step.config.role === 'Agent') {
+            step.config.selector = 'z-contact-controller';
           }
         }
       });
@@ -172,17 +232,31 @@ export class AddStepDialog {
 
     if (
       this.stepType === STEP_CONSTANTS.SIGN_IN ||
-      this.stepType === STEP_CONSTANTS.REGISTER
+      this.stepType === STEP_CONSTANTS.REGISTER ||
+      this.stepType === STEP_CONSTANTS.OUTBOUND_CALL
     ) {
-      let data;
+      let data, URL;
       if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
         data = JSON.parse(JSON.stringify(PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]));
+        URL = this.environments.find(env => env.name === this.config.environment).url;
       }
       
       if (this.stepType === STEP_CONSTANTS.REGISTER) {
         data = JSON.parse(JSON.stringify(PREDEFINED_REGISTER_STEP_CONFIG[STEP_CONSTANTS.REGISTER]));
+        URL = this.environments.find(env => env.name === this.config.environment).url;
       }
-      const URL = this.environments.find(env => env.name === this.config.environment).url;
+
+      let payload = {
+        groupId: uuidv4(),
+        groupName: this.stepType,
+        url: 'https://latest.conversations.dev1.zailab.com/',
+        steps: data
+      };
+      
+      if (this.stepType === STEP_CONSTANTS.OUTBOUND_CALL) {
+        payload.steps = JSON.parse(JSON.stringify(CALL_STEP_CONFIG[STEP_CONSTANTS.OUTBOUND_CALL]));
+        delete payload.url;
+      }
 
       console.log(' ::>> config >>>> ', {
         env: this.config.environment,
@@ -191,12 +265,39 @@ export class AddStepDialog {
         groupName: this.stepType,
         steps: data
       });
-      this.dialogController.ok([{
+      this.dialogController.ok([payload]);
+
+    } else if(this.stepType === STEP_CONSTANTS.REQUEST) {
+      
+      const payload = {
+        name: this.stepType,
+        config: {
+          ...this.step.config
+        }
+      };
+
+      let value = [{
         groupId: uuidv4(),
         groupName: this.stepType,
-        url: URL,
-        steps: data
-      }]);
+        url: 'https://latest.conversations.dev1.zailab.com/',
+        steps: [{
+          name: 'wait',
+          config: {
+            durationInSeconds: 30
+          }
+        },
+          this.step,
+        {
+          name: 'wait',
+          config: {
+            durationInSeconds: 30
+          }
+        }]
+      }];
+
+      console.log(' ::>> value => ', value);
+
+      this.dialogController.ok(value);
 
     } else {
       const payload = {

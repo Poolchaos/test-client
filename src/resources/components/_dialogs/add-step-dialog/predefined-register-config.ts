@@ -95,7 +95,7 @@ const randomIndex = Math.floor(Math.random() * phoneNumberList.length);
 const registerData = [{
   name: 'wait',
   config: {
-    durationInSeconds: 20
+    durationInSeconds: 5
   }
 }, {
   name: 'Click Element',
@@ -142,7 +142,7 @@ const registerData = [{
 }, {
   name: 'Click Element',
   config: {
-    selector: "button:is([textContent='Register'])",
+    selector: `button:[text()="Register"]`,
     targetType: 'button',
     label: 'Register'
   }

@@ -84,6 +84,11 @@ export class App {
       name: 'view-test-result',
       moduleId: PLATFORM.moduleName('views/view-test-result/view-test-result'),
       title: `Users`
+    }, {
+      route: 'environments',
+      name: 'environments',
+      moduleId: PLATFORM.moduleName('views/environment/environment'),
+      title: `Environments`
     }]);
     this.router = router;
   }

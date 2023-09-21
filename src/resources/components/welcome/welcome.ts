@@ -9,16 +9,16 @@ import './welcome.scss';
 export class Welcome {
   public icons = ICONS;
   
-  public configurations = [{
-    name: 'Configure Environments',
-    icon: 'server'
-  }, {
-    name: 'Configure Organisations',
-    icon: 'organisation'
-  }, {
-    name: 'Configure Users',
-    icon: 'user'
-  }];
+  // public configurations = [{
+  //   name: 'Configure Environments',
+  //   icon: 'server'
+  // }, {
+  //   name: 'Configure Organisations',
+  //   icon: 'organisation'
+  // }, {
+  //   name: 'Configure Users',
+  //   icon: 'user'
+  // }];
   
   public interactions = [{
     name: 'Calls',
@@ -48,6 +48,10 @@ export class Welcome {
       action === 'Configure Users'
     ) {
       this.router.navigate('users');
+    } else if (
+      action === 'Configure Environments'
+    ) {
+      this.router.navigate('environments');
     }
   }
 }

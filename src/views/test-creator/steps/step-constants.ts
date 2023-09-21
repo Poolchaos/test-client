@@ -2,6 +2,7 @@ export const STEP_CONSTANTS = {
   SIGN_IN: 'Sign in',
   REGISTER: 'Register',
   COMPLETE_REGISTRATION: 'Complete Registration',
+  OUTBOUND_CALL: 'Outbound Call',
 
   CHECK_ELEMENT_CONTENT: 'Check Element Content',
   CHECK_ELEMENT_ATTRIBUTE: 'Check Element Attribute',
@@ -27,5 +28,7 @@ export const STEP_CONSTANTS = {
   NUMBER_INPUT: 'Prompt for Number Input',
   DATE_INPUT: 'Prompt for Date Input',
   RADIO_BUTTON: 'Prompt for Radio Button',
-  CHECKBOX: 'Prompt for Checkbox'
+  CHECKBOX: 'Prompt for Checkbox',
+  
+  REQUEST: 'Trigger an API call',
 };

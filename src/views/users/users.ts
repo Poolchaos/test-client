@@ -3,8 +3,6 @@ import { HttpClient } from 'aurelia-http-client';
 
 import { ICONS } from 'resources/constants/icons';
 
-import './users.scss';
-
 @autoinject
 export class Users {
 

@@ -13,6 +13,7 @@
       background: #292a2d;
       border-radius: 0 0 10px 10px;
       overflow: hidden;
+      width: 270px;
     "
   >
     <section
@@ -35,6 +36,7 @@
 
     <image
       src.bind="'data:image/png;base64,' + test.thumbnail"
+      class.bind="test.image ? 'hasImage' : ''"
       click.trigger="showimage(test, number)"
     />
     
@@ -47,32 +49,32 @@
         font-size: 11px;
       "
     >
-      <section class="" if.bind="test.name === 'wait'">
+      <section if.bind="test.name === 'wait'">
         Wait for&nbsp;
         <span class="text-pink">${test.config.durationInSeconds}</span>
         &nbsp;seconds before continuing.
       </section>
 
-      <section class="" if.bind="test.name === 'text'">
+      <section if.bind="test.name === 'text'">
         Type&nbsp;
         <span class="text-pink">${test.config.value}</span>
         &nbsp;into the&nbsp;<span class="text-pink">${test.config.label}</span>&nbsp;text field.
       </section>
 
-      <section class="" if.bind="test.name === 'Click Element'">
+      <section if.bind="test.name === 'Click Element'">
         Click the&nbsp;
         <span class="text-pink">${test.config.targetType}</span>&nbsp;labelled&nbsp;
         <span class="text-pink">${test.config.label}</span>.
       </section>
 
-      <section class="flex" if.bind="step.name === 'Expect Content'">
+      <section if.bind="test.name === 'Expect Content'">
         I expect to see the&nbsp;
-        <span if.bind="step.config.role">
-          <span class="text-pink">${step.config.role}</span>
+        <span if.bind="test.config.role">
+          <span class="text-pink">${test.config.role}</span>
           &nbsp;dashboard.
         </span>
-        <span if.bind="step.config.selector">
-          <span class="text-pink">${step.config.label}</span>
+        <span if.bind="test.config.selector">
+          <span class="text-pink">${test.config.label}</span>
           &nbsp;view.
         </span>
       </section>

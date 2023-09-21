@@ -5,7 +5,7 @@
         <div>
           <span class="item-icon" if.bind="isTopLevelExpanded">▼</span>
           <span class="item-icon" else>&#9654;</span>
-          <span class="item-title">Test Groups</span>
+          <span class="item-title">Test Suites</span>
         </div>
       </div>
       <div if.bind="isTopLevelExpanded" class="sub-items">
@@ -26,19 +26,42 @@
               <span class="item-icon" else>&#9654;</span>
               <span class="item-title" title.bind="testSuite.name">${testSuite.name}</span>
             </div>
-            <div class="actions" if.bind="!step.editing">
-              <button
-                class="blue"
-                click.trigger="startAddTest(testSuite, $event)"
-                innerhtml.bind="icons.plus"
-                title="Add a test"
-              ></button>
-              <button
+            <div class="flex actions" if.bind="!step.editing">
+              <div class="is-relative">
+                <button
+                  class="blue"
+                  click.trigger="toggleMenu(testSuite, $event)"
+                  mouseleave.trigger="menuLeave(testSuite)"
+                  innerhtml.bind="icons.bars"
+                  title="Add a test"
+                ></button>
+                <nav
+                  if.bind="testSuite.showMenu"
+                  mouseenter.trigger="menuEnter()"
+                  mouseleave.trigger="menuLeave(testSuite)"
+                >
+                  <ul>
+                    <li>
+                      <span innerhtml.bind="icons.folder"></span>
+                      New Folder
+                    </li>
+                    <li click.trigger="startAddTest(testSuite, $event)">
+                      <span innerhtml.bind="icons.plus"></span>
+                      New Test Suite
+                    </li>
+                    <li click.trigger="deleteTestSuite(testSuite, $event)">
+                      <span innerhtml.bind="icons.trash"></span>
+                      Delete
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <!-- <button
                 class="pink"
                 click.trigger="deleteTestSuite(testSuite, $event)"
                 innerhtml.bind="icons.trash"
                 title="Delete Test Suite"
-              ></button>
+              ></button> -->
             </div>
           </div>
           <div
@@ -56,6 +79,7 @@
               class="test-item"
               class.bind="selectedTest.name === test.name ? 'selected' : ''"
               click.trigger="selectTest(testSuite._id, test, $event)"
+              title.bind="test.name"
             >
               ${test.name}
             </div>

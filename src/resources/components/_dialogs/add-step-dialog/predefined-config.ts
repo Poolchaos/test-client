@@ -3,7 +3,7 @@ import { STEP_CONSTANTS } from "../../../../views/test-creator/steps/step-consta
 const signInData = [{
   name: 'wait',
   config: {
-    durationInSeconds: 20
+    durationInSeconds: 5
   }
 }, {
   name: 'text',

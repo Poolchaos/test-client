@@ -17,6 +17,7 @@ interface ITestSuite {
     name: string;
   }[];
   isExpanded?: boolean;
+  showMenu?: boolean;
 }
 
 @inject(Element, HttpClient, DialogService)
@@ -27,6 +28,7 @@ export class Explorer {
   public isTopLevelExpanded: boolean = true;
 
   public icons = ICONS;
+  private menuCloseTimer;
 
   constructor(
     private element: Element,
@@ -92,6 +94,26 @@ export class Explorer {
         console.log('Single-clicked!');
       }, 300); // Adjust the debounce time as needed
     }
+  }
+
+  public toggleMenu(testSuite: ITestSuite, event: Event): void {
+    event && event.stopPropagation();
+    this.testSuites.forEach(test => {
+      if (test._id !== testSuite._id)
+      test.showMenu = false
+    });
+
+    testSuite.showMenu = !testSuite.showMenu
+  }
+
+  public menuEnter(): void {
+    window.clearTimeout(this.menuCloseTimer);
+  }
+
+  public menuLeave(testSuite: ITestSuite): void {
+    this.menuCloseTimer = setTimeout(() =>{
+      testSuite.showMenu = false;
+    }, 500);
   }
 
   public createTestSuite(data: any): void {

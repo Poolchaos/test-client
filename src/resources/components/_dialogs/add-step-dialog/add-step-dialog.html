@@ -26,10 +26,6 @@
             border-right: 1px solid #373737;
             padding: 0px 20px 0 0;
           "
-          if.bind="
-            stepType === STEP_CONSTANTS.SIGN_IN ||
-            stepType === STEP_CONSTANTS.REGISTER
-          "
         >
           <section
             class="flex flex--justify-between"
@@ -264,6 +260,41 @@
         <section class="flex--basis"></section>
       </section>
 
+      
+      <section class="flex flex--align-center" if.bind="stepType === STEP_CONSTANTS.REQUEST">
+        <table style="width: 100%;">
+          <tr>
+            <td>URL: </td>
+            <td>
+              <div class="flex">
+                <input
+                  type="text inline"
+                  class="input-field"
+                  placeholder="Enter a API URL"
+                  value.bind="step.config.label"
+                  style="margin: 0;width: 100%;"
+                />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Method: </td>
+            <td>
+              <select
+                class="input-field"
+                value.bind="step.config.targetType"
+                style="width: 100px;"
+              >
+                <option disabled>Select a method</option>
+                <option>GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>DELETE</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </section>
     </section>
 
     <section class="footer">
