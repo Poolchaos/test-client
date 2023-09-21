@@ -3,6 +3,9 @@ editor {
   height: 100%;
   
   .col-right {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
     width: 280px;
     max-width: 280px;
     padding: 10px;
@@ -45,7 +48,7 @@ editor {
 
         button {
           height: 24px;
-          background: #26a8ff;
+          background: rgb(240, 240, 240);
           outline: 0;
           border: 0;
           margin-left: 5px;
@@ -54,11 +57,13 @@ editor {
           cursor: pointer;
 
           svg {
-            fill: white;
+            width: 10px;
+            height: 10px;
+            fill: 373737;
           }
 
           &:hover {
-            background: #1c86cc;
+            fill: #1c86cc;
           }
         }
         
