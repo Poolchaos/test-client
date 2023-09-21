@@ -81,28 +81,13 @@
             >
               ${$index + 1} - ${test.name || test.groupName}
             </h2>
-            <h2
-              if.bind="test.groupName"
-              class="text-blue"
-              style="
-                position: absolute;
-                top: -7px;
-                right: 20px;
-                margin: 0;
-                font-size: 14px;
-                padding: 0 10px;
-                background: #171717;
-              "
-            >
-              ${testResult.fixtures[0].tests[0].steps[0].url}
-            </h2>
             <section
               if.bind="test.groupName"
               repeat.for="groupTest of test.steps"
               class="is-relative;"
             >
               <test-result-template
-                number.bind="($parentIndex + 1) + '.' + ($index + 1)"
+                number.bind="($parent.$index + 1) + '.' + ($index + 1)"
                 test.bind="groupTest"
                 showimage.bind="showImage"
               ></test-result-template>
@@ -116,7 +101,7 @@
           </section>
         </section>
 
-        <section class="flex--basis">
+        <!-- <section class="flex--basis">
 
 
           <div class="content-panel">
@@ -148,7 +133,7 @@
             </div>
           </div>
 
-        </section>
+        </section> -->
       </section>
     </section>
   </section>

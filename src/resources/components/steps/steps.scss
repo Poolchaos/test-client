@@ -34,7 +34,8 @@ steps {
 
           &.pink:hover {
             svg {
-              fill: #e51e5a;
+              fill: #fff;
+              // fill: #e51e5a;
             }
           }
 
@@ -75,10 +76,10 @@ steps {
 
     .group-actions {
       position: absolute;
-      top: -30px;
-      right: -5px;
+      top: -18px;
+      right: -15px;
       background: #1e1e1e;
-      padding: 15px 15px 10px 15px;
+      padding: 5px 15px 5px 0px;
     }
   }
 }
