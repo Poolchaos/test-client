@@ -26,6 +26,16 @@
     }
   }
 
+  .no-content {
+    height: calc(100% - 53px);
+    width: calc(100% - 312px);
+    margin-right: 312px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden!important;
+  }
+
   .instruction {
     color: white;
     font-size: 16px;
@@ -86,6 +96,10 @@
     border: 1px solid #373737;
     border-left: unset!important;
     height: 100%;
+
+    .added-steps {
+      height: calc(100% - 23px);
+    }
 
     .input-field {
       padding: 2px 3px 0;

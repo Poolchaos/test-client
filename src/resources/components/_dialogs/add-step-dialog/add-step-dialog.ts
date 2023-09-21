@@ -24,6 +24,7 @@ export class AddStepDialog {
   public CALL_STEP_CONFIG = {...CALL_STEP_CONFIG};
   
   public environments: any = [];
+  public requestApis: any = [];
   public organisations: any = [];
   public users: any = [];
 
@@ -31,7 +32,7 @@ export class AddStepDialog {
   public menuCloseTimer: any;
   public userSelectionEnabled: boolean = false;
 
-  public config = {
+  public config: any = {
     environment: 'Prod',
     organisation: null,
     user: null
@@ -80,6 +81,9 @@ export class AddStepDialog {
       }
       console.log(' ::>> registration data >>> ', PREDEFINED_REGISTER_STEP_CONFIG[STEP_CONSTANTS.REGISTER]);
       this.getEnvironments();
+      
+    } if (data.type === STEP_CONSTANTS.REQUEST) {
+      this.getRequestApis();
       
     } if (data.type === STEP_CONSTANTS.COMPLETE_REGISTRATION) {
       if (data.step) {
@@ -146,12 +150,37 @@ export class AddStepDialog {
       });
   }
 
+  private getRequestApis(): void {
+    this.httpClient
+      .createRequest(`http://localhost:9000/requests`)
+      .asGet()
+      .send()
+      .then(data => {
+        try {
+          this.requestApis = JSON.parse(data.response);
+          this.config.name = 'Select a request';
+          console.log(' ::>> environments >>> ', this.requestApis);
+          this.selectEnvironment(this.requestApis[0]);
+        } catch(e) {
+          console.log(' > Failed to get environments', e);
+        }
+      });
+  }
+
   public selectEnvironment(environment) {
     this.organisations = [];
     this.users = [];
     if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
       this.getOrganisations(environment.name);
     }
+  }
+
+  public selectRequest(data: any): void {
+    let apiRequest = this.requestApis.find(api => api.name === data.name);
+    this.config = {
+      ...apiRequest
+    };
+    console.log(' ::>> selectRequest >>>> ', this.config, data);
   }
 
   private getOrganisations(environment: string): void {
@@ -272,27 +301,23 @@ export class AddStepDialog {
       const payload = {
         name: this.stepType,
         config: {
-          ...this.step.config
+          ...this.config
         }
       };
 
       let value = [{
         groupId: uuidv4(),
         groupName: this.stepType,
-        url: 'https://latest.conversations.dev1.zailab.com/',
-        steps: [{
-          name: 'wait',
-          config: {
-            durationInSeconds: 30
+        steps: [
+          payload,
+          {
+            name: STEP_CONSTANTS.EXPECT_RESPONSE,
+            config: {
+              status: 200,
+              timeout: 50000
+            }
           }
-        },
-          this.step,
-        {
-          name: 'wait',
-          config: {
-            durationInSeconds: 30
-          }
-        }]
+        ]
       }];
 
       console.log(' ::>> value => ', value);

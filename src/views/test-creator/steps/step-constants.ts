@@ -30,5 +30,6 @@ export const STEP_CONSTANTS = {
   RADIO_BUTTON: 'Prompt for Radio Button',
   CHECKBOX: 'Prompt for Checkbox',
   
-  REQUEST: 'Trigger an API call',
+  REQUEST: 'Trigger a predefined API call',
+  EXPECT_RESPONSE: 'Expect Response',
 };

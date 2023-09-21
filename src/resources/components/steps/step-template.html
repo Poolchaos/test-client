@@ -95,6 +95,21 @@
         &nbsp;view.
       </span>
     </section>
+
+    <section if.bind="step.name === 'Trigger a predefined API call'" class="flex--basis text--left flex">
+      Trigger the&nbsp;
+      <span class="text-pink">${step.config.name}</span>
+      &nbsp;request.
+    </section>
+
+    <section
+      if.bind="step.name === 'Expect Response'"
+      class="flex--basis text--left flex"
+    >
+      Expect a&nbsp;
+      <span class="text-pink">${step.config.status}</span>
+      &nbsp;response.
+    </section>
     
     <div class="actions" if.bind="step.editing">
       <button

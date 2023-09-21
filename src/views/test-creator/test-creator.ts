@@ -23,8 +23,7 @@ export class TestCreator {
 
   public steps: any = [
     { name: '1', complete: false, active: false, partial: false },
-    { name: '2', complete: false, active: false, partial: false },
-    { name: '3', complete: false, active: false, partial: false }
+    { name: '2', complete: false, active: false, partial: false }
   ];
   public activeStep: any;
 
@@ -40,7 +39,7 @@ export class TestCreator {
     this.testId = params.testId;
     console.log(' ::>> testSuiteId >>> ', params);
     
-    this.activateStep(2);
+    this.activateStep(1);
 
     if (this.testId) {
       this.getTest();

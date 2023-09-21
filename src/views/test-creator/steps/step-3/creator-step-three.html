@@ -41,12 +41,7 @@
         <div class="added-steps">
           <div
             if.bind="definedSteps.length === 0"
-            style="
-              height: 100%;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-            "
+            class="no-content"
           >
             <h4 class="text--dimmed">You have not yet added any steps.</h4>
             To add steps, select an item on the left.
@@ -63,87 +58,12 @@
             "
           >
             <steps
-              steps.bind="definedSteps"
+              steps.two-way="definedSteps"
               editable.bind="true"
               if.bind="definedSteps.length > 0"
             ></steps>
           </section>
 
-          <!-- <ul
-            if.bind="definedSteps.length > 0"
-            
-          >
-            <li
-              repeat.for="step of definedSteps"
-              if.bind="step.groupName"
-              class="group-steps"
-            >
-              <h2 class="group-name">${$index + 1} ${step.groupName}</h2>
-              <h2
-                class="text-blue"
-                style="
-                  position: absolute;
-                  top: -7px;
-                  right: 105px;
-                  margin: 0;
-                  font-size: 14px;
-                  padding: 0 10px;
-                  background: #171717;
-                "
-              >
-                ${step.url}
-              </h2>
-              <section class="group-actions">
-                <button
-                  class="blue"
-                  click.trigger="editStep(step)"
-                  innerhtml.bind="icons.pencil"
-                  if.bind="step.name !== 'click'"
-                ></button>
-                <button
-                  class="pink"
-                  click.trigger="deleteStepGroup(step)"
-                  innerhtml.bind="icons.close"
-                  style="margin-left: 0px;"
-                ></button>
-              </section>
-              <step-template
-                class="flex flex--justify-between"
-                style="padding: 5px 10px;display: flex;align-items: center;"
-
-                repeat.for="innerStep of step.steps"
-                index.bind="($parent.$index + 1) + '.' + ($index + 1)"
-                step.bind="innerStep"
-                icons.bind="icons"
-                disableactions.bind="true"
-
-                confirmupdatestep.bind="confirmUpdateStep"
-                canceleditstep.bind="cancelEditStep"
-                editstep.bind="editStep"
-                deletestep.bind="deleteStep"
-              ></step-template>
-            </li>
-            <li
-              repeat.for="step of definedSteps"
-              class="flex flex--justify-between"
-              style="padding: 5px 10px;display: flex;align-items: center;"
-              if.bind="!step.groupName"
-            >
-              <step-template
-                class="flex flex--justify-between"
-                style="padding: 5px 10px;display: flex;align-items: center;"
-
-                index.bind="$index + 1"
-                step.bind="step"
-                icons.bind="icons"
-
-                confirmupdatestep.bind="confirmUpdateStep"
-                canceleditstep.bind="cancelEditStep"
-                editstep.bind="editStep"
-                deletestep.bind="deleteStep"
-              ></step-template>
-            </li>
-          </ul> -->
         </div>
       </section>
     </section>

@@ -42,19 +42,12 @@
         step-configured.trigger="completeStep(0)"
       ></creator-step-one>
 
-      <creator-step-two
+      <creator-step-three
         if.bind="activeStep.name === '2' && testData"
         test-data.bind="testData"
+        submitting.bind="submitting"
         step-back.trigger="stepBack(1)"
         step-configured.trigger="completeStep(1)"
-      ></creator-step-two>
-
-      <creator-step-three
-        if.bind="activeStep.name === '3' && testData"
-        test-data.bind="testData"
-        submitting.bind="submitting"
-        step-back.trigger="stepBack(2)"
-        step-configured.trigger="completeStep(2)"
       ></creator-step-three>
     </section>
   </section>

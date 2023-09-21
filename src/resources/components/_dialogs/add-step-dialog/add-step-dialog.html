@@ -262,7 +262,41 @@
 
       
       <section class="flex flex--align-center" if.bind="stepType === STEP_CONSTANTS.REQUEST">
-        <table style="width: 100%;">
+        
+        <section
+          class="flex flex--justify-between"
+          style="margin-bottom: 20px;"
+        >
+          <label>Request:</label>
+          <select
+            class="input-field inline"
+            value.bind="config.name"
+            style="margin-left: 10px;width: 150px;"
+            change.trigger="selectRequest(config)"
+          >
+            <option disabled selected>Select a request</option>
+            <option repeat.for="request of requestApis">
+              ${request.name}
+            </option>
+          </select>
+        </section>
+
+
+        <!-- <table style="width: 100%;">
+          <tr>
+            <td>Name: </td>
+            <td>
+              <div class="flex">
+                <input
+                  type="text inline"
+                  class="input-field"
+                  placeholder="Enter a name fro the request"
+                  value.bind="step.config.name"
+                  style="margin: 0;width: 100%;"
+                />
+              </div>
+            </td>
+          </tr>
           <tr>
             <td>URL: </td>
             <td>
@@ -293,7 +327,7 @@
               </select>
             </td>
           </tr>
-        </table>
+        </table> -->
       </section>
     </section>
 
