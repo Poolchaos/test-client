@@ -50,6 +50,11 @@ steps {
             svg {
               fill: #fff;
             }
+
+            &:hover {
+              background: #aa1642;
+              box-shadow: inset 0 0 0 2px #aa1642;
+            }
           }
         }
       }
@@ -71,6 +76,7 @@ steps {
       background: #1e1e1e;
       margin: 0!important;
       padding: 0 10px!important;
+      font-size: 20px;
     }
 
     .group-actions {

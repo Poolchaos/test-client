@@ -10,6 +10,7 @@ export class Steps {
   @bindable({ attribute: 'test-id' }) public testId: string;
   @bindable public steps: any[] = [];
   @bindable public editable: boolean;
+  @bindable public deletable: boolean;
 
   public icons = ICONS;
 

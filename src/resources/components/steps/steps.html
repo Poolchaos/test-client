@@ -16,29 +16,30 @@
       >
         <section if.bind="step.groupName">
           <h2 class="group-name">${$index + 1} ${step.groupName}</h2>
-          <section class="group-actions" if.bind="editable">
+          <section class="group-actions" if.bind="editable || deletable">
             <button
               class="blue"
               click.trigger="editTestSuite(step)"
               innerhtml.bind="icons.pencil"
-              if.bind="step.name !== 'click'"
+              if.bind="step.name !== 'click' && editable"
             ></button>
             <button
               class="pink button"
               click.trigger="deleteStepGroup(step)"
               innerhtml.bind="icons.close"
               style="margin-left: 0px;"
+              if.bind="deletable"
             ></button>
           </section>
           <step-template
             class="flex flex--justify-between"
-            style="padding: 5px 10px;display: flex;align-items: center;"
+            style="padding: 5px 10px;display: flex;align-items: center;font-size: 14px;"
 
             repeat.for="innerStep of step.steps"
             index.bind="($parent.$index + 1) + '.' + ($index + 1)"
             step.bind="innerStep"
             icons.bind="icons"
-            disableactions.bind="true"
+            disableactions.bind="!editable"
 
             confirmupdatestep.bind="confirmUpdateStep"
             canceleditstep.bind="cancelEditStep"
@@ -49,12 +50,13 @@
         <section if.bind="!step.groupName">
           <step-template
           class="flex flex--justify-between"
-          style="padding: 5px 10px;display: flex;align-items: center;"
+          style="padding: 5px 10px;display: flex;align-items: center;font-size: 14px;"
 
           index.bind="$index + 1"
           step.bind="step"
           icons.bind="icons"
           disableactions.bind="!editable"
+          disabledelete.bind="!deletable"
 
           confirmupdatestep.bind="confirmUpdateStep"
           canceleditstep.bind="cancelEditStep"
