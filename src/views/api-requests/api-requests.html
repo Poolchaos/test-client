@@ -11,19 +11,32 @@
         >
           <button
             class="button cta"
-            click.trigger="selectRequests(request)"
+            click.trigger="selectRequest(request)"
             repeat.for="request of requests"
-            style="min-width: 400px;height: unset;"
+            style="
+              min-width: 400px;
+              height: unset;
+              padding: 40px 15px 15px;
+              align-items: flex-start;
+              justify-content: flex-start;
+            "
           >
             <section class="name-field">${request.name}</section>
             
-            <section style="text-align: left;max-width: 100%;overflow: hidden;font-size: 16px;">
+            <section
+              style="
+                text-align: left;
+                max-width: 100%;
+                overflow: hidden;
+                font-size: 16px;
+              "
+            >
               <section>
                 URL: <span class="text-blue">${request.url}</span>
               </section>
 
               <section>
-                <label style="border-bottom: 2px solid #e51e5a;">
+                <label>
                   Headers:
                 </label> 
                 <ul class="text-blue" if.bind="request.headers.length > 0">
@@ -31,9 +44,15 @@
                   <li
                     repeat.for="entry of request.headers"
                     if.bind="request.headers.length > 0"
-                  >
+                    style="
+                      text-overflow: ellipsis;
+                      width: 100%;
+                      overflow: hidden;
+                      white-space: nowrap;
+                    ">
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <label>${entry[0]}: </label>${entry[1]}
+                    <label>${entry[0]}: </label>
+                    <span title.bind="entry[1]">${entry[1]}</span>
                   </li>
                   <li>}</li>
                 </ul>
@@ -43,7 +62,7 @@
               </section>
 
               <section>
-                <label style="border-bottom: 2px solid #e51e5a;">
+                <label>
                   Query Params:
                 </label> 
                 <ul class="text-blue" if.bind="request.queryParams.length > 0">
@@ -64,7 +83,7 @@
               </section>
 
               <section>
-                <label style="border-bottom: 2px solid #e51e5a;">
+                <label>
                   Body:
                 </label> 
                 <ul class="text-blue" if.bind="request.body.length > 0">
@@ -87,6 +106,21 @@
         </section>
       </section>
 
+            
+      <section style="padding: 0 10px;">
+        <button
+          class="pink button cta"
+          click.trigger="addApiRequest()"
+          style="padding: 10px;width: 80px;height: 80px;"
+          title="Add API Request"
+        >
+          <div
+            innerhtml.bind="icons.plus"
+            class="white svg config-icon"
+            style="margin-right: 0;"
+          ></div>
+        </button>
+      </section>
     </section>
   </div>
 </template>

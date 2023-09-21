@@ -39,7 +39,7 @@ export class TestCreator {
     this.testId = params.testId;
     console.log(' ::>> testSuiteId >>> ', params);
     
-    this.activateStep(1);
+    this.activateStep(0);
 
     if (this.testId) {
       this.getTest();

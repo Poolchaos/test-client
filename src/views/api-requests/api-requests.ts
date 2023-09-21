@@ -1,5 +1,6 @@
 import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
+import { ICONS } from 'resources/constants/icons';
 
 interface IEnvironemnt {
   _id: string;
@@ -11,6 +12,7 @@ interface IEnvironemnt {
 @autoinject
 export class APIRequests {
   
+  public icons = ICONS;
   public requests: any = [];
 
   constructor(
@@ -50,5 +52,9 @@ export class APIRequests {
 
   public selectRequest(request: IEnvironemnt) {
     console.log(' ::>> select request >>>> ', request);
+  }
+
+  public addApiRequest(): void {
+    
   }
 }

@@ -3,23 +3,24 @@
   <section class="editor">
     
     <section class="content-panel">
-      <h1 style="font-size: 24px;text-align: center; margin-bottom: 40px;">
-        Configured steps for <span class="text-pink">${config.name}</span>
-      </h1>
+      <div class="flex flex--justify-between">
+        <h1 style="font-size: 24px;text-align: center; margin-bottom: 20px;">
+          Configured steps for <span class="text-pink">${config.name}</span>
+        </h1>
+
+        <button
+          class="blue"
+          click.trigger="edit()"
+          innerhtml.bind="icons.pencil"
+        ></button>
+      </div>
 
       <section class="flex step-config-wrapper">
-
-        
-
-
-
-
 
         <steps
           steps.bind="config.steps"
           test-suite-id.bind="config.testSuiteId"
           test-id.bind="config.testId"
-          editable.bind="true"
         ></steps>
 
 

@@ -125,7 +125,10 @@ export class Editor {
   }
 
   public viewTestResult(result): void {
-    console.log(' ::>> result >>>> ', result);
     this.router.navigate('view-test-result/' + this.config.testId + '-' + this.config.name + '-' + result._id);
+  }
+
+  public edit(): void {
+    this.router.navigate('test-wizard/' + this.config.testSuiteId + '/' + this.config.testId);
   }
 }
