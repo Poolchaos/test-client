@@ -18,7 +18,7 @@
         <section style="flex: 1;"></section>
         <section
           repeat.for="step of steps"
-          class="step"
+          class="step ${step.complete ? 'complete' : ''}"
           class.bind="!step.active && !step.complete ? 'disabled' : ''"
           style.bind="'z-index: ' + (steps.length - $index)"
         >

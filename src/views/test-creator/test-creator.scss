@@ -82,6 +82,20 @@
           background-color: #333333;
           z-index: 0;
         }
+
+        &.complete {
+  
+          &:nth-last-child(4)::after {
+            content: "";
+            position: absolute;
+            top: calc(50% - 2px);
+            left: calc(50% + 15px);
+            height: 4px;
+            width: 150%;
+            background-color: #aa1642;
+            z-index: 0;
+          }
+        }
       
         &.disabled {
           .step-inner {

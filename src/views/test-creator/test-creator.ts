@@ -38,6 +38,9 @@ export class TestCreator {
     this.testSuiteId = params.testSuiteId;
     this.testId = params.testId;
     console.log(' ::>> testSuiteId >>> ', params);
+    if (this.testSuiteId && this.testId) {
+      this.steps.forEach(step => step.complete = true);
+    }
     
     this.activateStep(0);
 
