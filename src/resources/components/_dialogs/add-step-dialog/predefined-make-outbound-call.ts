@@ -67,7 +67,8 @@ const makeOutboundCallData = [ {
 }, {
   name: 'Expect Content',
   config: {
-    selector: '.c-dial-button.c-dial-button--size-small.c-dial-button--background-green'
+    selector: '.c-dial-button.c-dial-button--size-small.c-dial-button--background-green',
+    label: 'Click to dial button'
   }
 }, {
   name: 'Click Element',

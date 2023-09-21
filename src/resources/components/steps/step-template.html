@@ -11,7 +11,7 @@
     deletestep,
   "
 >
-  <section>${index}&nbsp;-&nbsp;</section>
+  <section>${index}.&nbsp;&nbsp;</section>
     <section if.bind="step.name === 'wait'" class="flex--basis text--left flex">
       Wait for&nbsp;
       <span if.bind="!step.editing" class="text-pink">${step.config.durationInSeconds}</span>
@@ -27,7 +27,7 @@
           style="margin-bottom: 0;width: 50px;"
         />
       </section>
-      &nbsp;seconds before continuing.
+      &nbsp;seconds before continuing
     </section>
 
     <section if.bind="step.name === 'text'" class="flex--basis text--left flex">
@@ -44,7 +44,7 @@
       </section>
       &nbsp;into the&nbsp;
       <span class="text-pink">${step.config.label}</span>&nbsp;
-      text field.
+      text field
     </section>
 
     <section if.bind="step.name === 'Press Keyboard Key'" class="flex--basis text--left flex">
@@ -59,20 +59,20 @@
           style="margin-bottom: 0;width: 150px;"
         />
       </section>
-      &nbsp;key on the keyboard.
+      &nbsp;key on the keyboard
     </section>
 
     <section if.bind="step.name === 'Click Element'" class="flex--basis text--left flex">
       Click the&nbsp;
       <span class="text-pink">${step.config.targetType}</span>
       &nbsp;labelled&nbsp;
-      <span class="text-pink">${step.config.label}</span>.
+      <span class="text-pink">${step.config.label}</span>
     </section>
 
     <section if.bind="step.name === 'Expect Content'" class="flex--basis text--left flex">
-      I expect to see the&nbsp;
       <span if.bind="step.config.role">
-      <span class="text-pink" if.bind="!step.editing">${step.config.role}</span>
+        I expect to see the&nbsp;
+        <span class="text-pink" if.bind="!step.editing">${step.config.role}</span>
         <select
           class="input-field"
           value.bind="step.editState.role"
@@ -88,18 +88,20 @@
           <option>QA Manager</option>
           <option>Campaign Manager</option>
         </select>
-        &nbsp;dashboard.
+        &nbsp;dashboard
+      </span>
+      <span else>
+        I expect to see&nbsp;
       </span>
       <span if.bind="step.config.selector">
         <span class="text-pink">${step.config.label}</span>
-        &nbsp;view.
       </span>
     </section>
 
     <section if.bind="step.name === 'Trigger a predefined API call'" class="flex--basis text--left flex">
       Trigger the&nbsp;
       <span class="text-pink">${step.config.name}</span>
-      &nbsp;request.
+      &nbsp;request
     </section>
 
     <section
@@ -108,7 +110,7 @@
     >
       Expect a&nbsp;
       <span class="text-pink">${step.config.status}</span>
-      &nbsp;response.
+      &nbsp;response
     </section>
     
     <div class="actions" if.bind="step.editing">
