@@ -7,9 +7,10 @@ import { ICONS } from 'resources/constants/icons';
 
 import toastr from 'toastr';
 
-import './resources/styling/globals.scss';
-import './resources/styling/aurelia-dialog-overrides.scss';
-import './resources/styling/toastr.css';
+import './assets/styles/globals.scss';
+import './assets/styles/aurelia-dialog-overrides.scss';
+import './assets/styles/toastr.css';
+import './assets/styles/theme.scss';
 import './app.scss';
 
 @autoinject
@@ -26,6 +27,10 @@ export class App {
   };
   
   public configurations = [{
+    name: 'Admin login',
+    icon: 'lock',
+    route: 'login'
+  }, {
     name: 'Configure Environments',
     icon: 'server',
     route: 'environments'
@@ -66,6 +71,13 @@ export class App {
     config.title = 'ZaiAutoTests';
     config.options.pushState = true;
     config.map([{
+      route: 'login',
+      name: 'login',
+      moduleId: PLATFORM.moduleName('views/login/login'),
+      nav: true,
+      title: 'Login',
+      auth: false
+    }, {
       route: ['', 'studio'],
       name: 'studio',
       moduleId: PLATFORM.moduleName('views/studio/studio'),
@@ -137,6 +149,10 @@ export class App {
 
   public navTo(menu: string, route: string): void {
     this.menu[menu] = false;
+    if (route === 'login') {
+      this.router.navigate(route);
+      return;
+    }
     this.router.navigate(route);
   }
 }

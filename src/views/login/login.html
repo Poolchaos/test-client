@@ -1,0 +1,58 @@
+<template>
+  <div id="login">
+    <div class="small-wrapper bordered--5 white container centered">
+      <h1 class="black-text flex flex--justify-center margin--bottom-50">
+        <img src="../../assets/images/zai-logo.png" />
+        <div class="spacer-v--10"></div>
+      </h1>
+
+      <div class="login-form left">
+        <form>
+          <div class="input row">
+            <i innerhtml.bind="icons.user" style="margin: 0 10px;"></i>
+            <input
+              type="text"
+              value.bind="identity & validate"
+              placeholder="Please enter your username."
+              class="icon small-font"
+              keyup.trigger="clearErrors()"
+            />
+          </div>
+          <div class="input row">
+            <i innerhtml.bind="icons.lock" style="margin: 0 10px;"></i>
+            <input
+              type="password"
+              value.bind="password & validate"
+              placeholder="Please enter your password."
+              class="icon small-font"
+              keyup.trigger="clearErrors()"
+            />
+          </div>
+
+          <div class="row">
+            <ul if.bind="validation.errors">
+              <li repeat.for="error of validation.errors">
+                ${error.message}
+              </li>
+            </ul>
+            <div if.bind="error">${error}</div>
+
+            <div class="spacer--20"></div>
+            <div class="centered">
+              <button
+                class="button"
+                disabled.bind="submitted"
+                click.trigger="login()">Login</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="centered">
+              Don't have login credentials, click <a click.trigger="goBack()">here</a> to go back.
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
