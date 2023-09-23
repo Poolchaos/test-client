@@ -12,7 +12,13 @@ export function configure(aurelia: Aurelia): void {
     })
     .plugin(PLATFORM.moduleName('aurelia-validation'))
     .feature(PLATFORM.moduleName('resources/index'))
-    .feature(PLATFORM.moduleName('views/test-creator/steps/index'));
+    .feature(PLATFORM.moduleName('views/test-creator/steps/index'))
+    .plugin(PLATFORM.moduleName('aurelia-configuration'), config => {
+      config.setEnvironments({
+        'local': ['localhost:8080'],
+        'dev1': ['zai-test-client.kube.api.dev1.zailab.com']
+      });
+    });;
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
 

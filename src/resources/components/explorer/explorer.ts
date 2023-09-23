@@ -45,7 +45,7 @@ export class Explorer {
 
     // try {
     //   let testData: any = await this.httpClient
-    //     .createRequest('http://localhost:9000/tests')
+    //     .createRequest('tests')
     //     .asGet()
     //     .send()
     //     .catch(e =>{})
@@ -120,7 +120,7 @@ export class Explorer {
     console.log(' ::>> createTestSuite ', data);
     try {
       this.httpClient
-        .createRequest('http://localhost:9000/testsuites')
+        .createRequest('testsuites')
         .asPost()
         .withContent({ name: data })
         .send()
@@ -163,7 +163,7 @@ export class Explorer {
       .whenClosed(response => {
         if (!response.wasCancelled) {
           this.httpClient
-            .createRequest('http://localhost:9000/testsuites/' + testSuite._id)
+            .createRequest('testsuites/' + testSuite._id)
             .asDelete()
             .send()
             .then(() => {

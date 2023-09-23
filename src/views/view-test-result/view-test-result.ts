@@ -46,7 +46,7 @@ export class ViewTestResult {
 
   private async getTestResult(): Promise<void> {
     this.httpClient
-      .createRequest(`http://localhost:9000/automate/results/${this.testId}`)
+      .createRequest(`automate/results/${this.testId}`)
       .asGet()
       .withParams({
         testResultId: this.testResultId

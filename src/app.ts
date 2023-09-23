@@ -14,6 +14,7 @@ import './assets/styles/aurelia-dialog-overrides.scss';
 import './assets/styles/toastr.css';
 import './assets/styles/theme.scss';
 import './app.scss';
+import { AppService } from 'app-service';
 
 @autoinject
 export class App {
@@ -60,7 +61,8 @@ export class App {
 
   constructor(
     private eventAggregator: EventAggregator,
-    public dataStore: DataStore
+    public dataStore: DataStore,
+    public appService: AppService
   ) {
     toastr.options = {
       'positionClass': 'toast-top-center',

@@ -53,7 +53,7 @@ export class TestCreator {
 
   private getTest(): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/testsuites/${this.testSuiteId}/test/${this.testId}`)
+      .createRequest(`testsuites/${this.testSuiteId}/test/${this.testId}`)
       .asGet()
       .send()
       .then(data => {
@@ -95,7 +95,7 @@ export class TestCreator {
     this.submitting = true;
 
     this.httpClient
-      .createRequest('http://localhost:9000/testsuites/' + this.testSuiteId)
+      .createRequest('testsuites/' + this.testSuiteId)
       .asPost()
       .withContent(this.testData)
       .send()

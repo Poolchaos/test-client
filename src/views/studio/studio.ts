@@ -65,7 +65,7 @@ export class Studio {
   private async getE2ETests(): Promise<void> {
     try {
       let testData: any = await this.httpClient
-        .createRequest('http://localhost:9000/testsuites')
+        .createRequest('testsuites')
         .asGet()
         .send()
         .catch(e =>{})
@@ -124,7 +124,7 @@ export class Studio {
 
   public runAllTests(): void {
     this.httpClient
-      .createRequest('http://localhost:9000/automate/all')
+      .createRequest('automate/all')
       .asPost()
       .withContent({
         scriptName: 'test name'

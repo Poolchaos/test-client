@@ -23,7 +23,7 @@ export class Users {
 
   private getEnvironments(): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/environments`)
+      .createRequest(`environments`)
       .asGet()
       .send()
       .then(data => {
@@ -39,7 +39,7 @@ export class Users {
 
   private getSites(): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/sites`)
+      .createRequest(`sites`)
       .asGet()
       .send()
       .then(data => {
@@ -56,7 +56,7 @@ export class Users {
 
   private getOrganisations(environment: string): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/organisations`)
+      .createRequest(`organisations`)
       .asGet()
       .withParams({ environment })
       .send()

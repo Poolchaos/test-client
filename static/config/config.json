@@ -1,0 +1,8 @@
+{
+  "local": {
+    "apiQueryEndpoint": "http://localhost:9000/"
+  },
+  "dev1": {
+    "apiQueryEndpoint": "https://zai-test-server.kube.api.dev1.zailab.com/"
+  }
+}

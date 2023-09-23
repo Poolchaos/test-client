@@ -8,7 +8,7 @@ import { IUser } from 'stores/data-store';
 @autoinject()
 export class AuthenticateService {
 
-  private route = 'http://localhost:9000/';
+  private route = '';
 
   constructor(private httpClient: HttpClient) {}
 

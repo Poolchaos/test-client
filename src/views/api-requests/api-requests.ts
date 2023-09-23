@@ -26,7 +26,7 @@ export class APIRequests {
 
   private getRequests(): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/requests`)
+      .createRequest(`requests`)
       .asGet()
       .send()
       .then(data => {

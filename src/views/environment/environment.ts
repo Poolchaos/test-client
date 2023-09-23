@@ -24,7 +24,7 @@ export class Environment {
 
   private getEnvironments(): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/environments`)
+      .createRequest(`environments`)
       .asGet()
       .send()
       .then(data => {

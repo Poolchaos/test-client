@@ -52,10 +52,10 @@ export class AddStepDialog {
   public activate(data: { type: string, step: any }): void {
 
 
-    this.httpClient.configure(req => {
-      req.withHeader('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJQRVJNSVNTSU9OUyI6IntcIkJVU0lORVNTX1BBUlRORVJTXCI6W10sXCJURUFNU1wiOltcImZiY2EwYTc0LWJkOTUtNDk4NS1hMWE3LTUxNjBkNzAxN2YyM1wiLFwiM2M0ZDBiNGMtM2M2NC00Y2JiLTg0MTYtZmExZWNkYTg5ZTQ1XCIsXCI3ZDI3NjE2MC00MDg0LTQ0MTYtYTg3OS02ZTkzOTgzZjdkMzZcIixcIjdiY2IzZjQyLWRiZTAtNDBmZC04NzA2LWJkYzdmNzBiNWM1YlwiXSxcIkNPTlRBQ1RfQ0VOVFJFU1wiOltdfSIsIm5iZiI6MTY5NDAyMTk5NSwiaXNzIjoiemFpbGFiIiwiVVNFUiI6IntcInVzZXJJZFwiOlwiMDZhOTA2ZjYtZDdlMy00MmEwLTllNWEtMzcxOTc1ZmUyOTYyXCIsXCJ1c2VybmFtZVwiOm51bGwsXCJvcmdhbmlzYXRpb25JZFwiOlwiNDc2N2M5OTktNzhmYi00OWNiLTg4MGUtNGZmNmU0ZjdlMjhjXCIsXCJyb2xlc1wiOlt7XCJvcmdhbmlzYXRpb25JZFwiOlwiNDc2N2M5OTktNzhmYi00OWNiLTg4MGUtNGZmNmU0ZjdlMjhjXCIsXCJhY2NvdW50VHlwZVwiOlwiT1JHQU5JU0FUSU9OXCIsXCJyb2xlXCI6XCJBR0VOVFwiLFwibWVtYmVySWRcIjpcIjE4Nzg3YTlhLWMzOGUtNGVmYS05NTlhLThkMjBjY2E0NTY3MFwifV19IiwiaWF0IjoxNjk0MDIxOTk1LCJqdGkiOiJlMWI4ZjE4MC0yOWU4LTQ1NzktODM5YS04ZDlhZTA2NDhjMTYifQ.a3VNC-MJo4Ov85zPc7qu_Ckls5Ii3lc6CABYVKis1iHyFTJ_X6eL36alqSP8GqrNGQ9nT3DTKUhh3Efu-Th2Mg');
-      req.withHeader('Session', '96892755-762c-459a-97f8-05f217407479');
-    });
+    // this.httpClient.configure(req => {
+    //   req.withHeader('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJQRVJNSVNTSU9OUyI6IntcIkJVU0lORVNTX1BBUlRORVJTXCI6W10sXCJURUFNU1wiOltcImZiY2EwYTc0LWJkOTUtNDk4NS1hMWE3LTUxNjBkNzAxN2YyM1wiLFwiM2M0ZDBiNGMtM2M2NC00Y2JiLTg0MTYtZmExZWNkYTg5ZTQ1XCIsXCI3ZDI3NjE2MC00MDg0LTQ0MTYtYTg3OS02ZTkzOTgzZjdkMzZcIixcIjdiY2IzZjQyLWRiZTAtNDBmZC04NzA2LWJkYzdmNzBiNWM1YlwiXSxcIkNPTlRBQ1RfQ0VOVFJFU1wiOltdfSIsIm5iZiI6MTY5NDAyMTk5NSwiaXNzIjoiemFpbGFiIiwiVVNFUiI6IntcInVzZXJJZFwiOlwiMDZhOTA2ZjYtZDdlMy00MmEwLTllNWEtMzcxOTc1ZmUyOTYyXCIsXCJ1c2VybmFtZVwiOm51bGwsXCJvcmdhbmlzYXRpb25JZFwiOlwiNDc2N2M5OTktNzhmYi00OWNiLTg4MGUtNGZmNmU0ZjdlMjhjXCIsXCJyb2xlc1wiOlt7XCJvcmdhbmlzYXRpb25JZFwiOlwiNDc2N2M5OTktNzhmYi00OWNiLTg4MGUtNGZmNmU0ZjdlMjhjXCIsXCJhY2NvdW50VHlwZVwiOlwiT1JHQU5JU0FUSU9OXCIsXCJyb2xlXCI6XCJBR0VOVFwiLFwibWVtYmVySWRcIjpcIjE4Nzg3YTlhLWMzOGUtNGVmYS05NTlhLThkMjBjY2E0NTY3MFwifV19IiwiaWF0IjoxNjk0MDIxOTk1LCJqdGkiOiJlMWI4ZjE4MC0yOWU4LTQ1NzktODM5YS04ZDlhZTA2NDhjMTYifQ.a3VNC-MJo4Ov85zPc7qu_Ckls5Ii3lc6CABYVKis1iHyFTJ_X6eL36alqSP8GqrNGQ9nT3DTKUhh3Efu-Th2Mg');
+    //   req.withHeader('Session', '96892755-762c-459a-97f8-05f217407479');
+    // });
 
 
 
@@ -137,7 +137,7 @@ export class AddStepDialog {
 
   private getEnvironments(): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/environments`)
+      .createRequest(`environments`)
       .asGet()
       .send()
       .then(data => {
@@ -153,7 +153,7 @@ export class AddStepDialog {
 
   private getRequestApis(): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/requests`)
+      .createRequest(`requests`)
       .asGet()
       .send()
       .then(data => {
@@ -186,7 +186,7 @@ export class AddStepDialog {
 
   private getOrganisations(environment: string): void {
     this.httpClient
-      .createRequest(`http://localhost:9000/organisations`)
+      .createRequest(`organisations`)
       .asGet()
       .withParams({ environment })
       .send()
