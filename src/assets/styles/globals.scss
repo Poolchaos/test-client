@@ -283,6 +283,9 @@ a {
   &-blue {
     color: #26a8ff;
   }
+  &-orange {
+    color: #ffa800!important;
+  }
 
   &--dimmed {
     color: #b6b6b6;
@@ -561,6 +564,9 @@ svg, .browser-logo, .svg {
   &-right {
     &--10{
       margin-right: 10px;
+    }
+    &--20 {
+      margin-right: 20px;
     }
   }
   &--bottom {

@@ -2,8 +2,10 @@ import { autoinject } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { DataStore } from 'stores/data-store';
 
 import { ICONS } from 'resources/constants/icons';
+import { EVENTS } from 'stores/events';
 
 import toastr from 'toastr';
 
@@ -25,12 +27,14 @@ export class App {
     view: false,
     help: false,
   };
-  
-  public configurations = [{
+
+  public fileConfigurations = [{
     name: 'Admin login',
     icon: 'lock',
     route: 'login'
-  }, {
+  }];
+  
+  public editConfigurations = [{
     name: 'Configure Environments',
     icon: 'server',
     route: 'environments'
@@ -55,7 +59,8 @@ export class App {
   ];
 
   constructor(
-    private eventAggregator: EventAggregator
+    private eventAggregator: EventAggregator,
+    public dataStore: DataStore
   ) {
     toastr.options = {
       'positionClass': 'toast-top-center',
@@ -65,6 +70,10 @@ export class App {
     };
     this.eventAggregator.subscribe('toastr:success', message => toastr.success(message, 'Success'));
     this.eventAggregator.subscribe('toastr:error', message => toastr.error(message, 'Error'));
+  }
+
+  public activate(): void {
+    this.dataStore.initialiseSubscriptions();
   }
 
   public configureRouter(config, router: Router): void {
@@ -78,37 +87,37 @@ export class App {
       title: 'Login',
       auth: false
     }, {
-      route: ['', 'studio'],
+      route: ['', 'studio', 'auth/studio'],
       name: 'studio',
       moduleId: PLATFORM.moduleName('views/studio/studio'),
       title: `Studio`
     }, {
-      route: 'test-wizard/:testSuiteId',
+      route: ['test-wizard/:testSuiteId', 'auth/test-wizard/:testSuiteId'],
       name: 'test-wizard',
       moduleId: PLATFORM.moduleName('views/test-creator/test-creator'),
       title: `Studio`
     }, {
-      route: 'test-wizard/:testSuiteId/:testId',
+      route: ['test-wizard/:testSuiteId/:testId', 'auth/test-wizard/:testSuiteId/:testId'],
       name: 'test-wizard',
       moduleId: PLATFORM.moduleName('views/test-creator/test-creator'),
       title: `Studio`
     }, {
-      route: 'users',
+      route: ['users', 'auth/users'],
       name: 'users',
       moduleId: PLATFORM.moduleName('views/users/users'),
       title: `Users`
     }, {
-      route: 'view-test-result/:urlstring',
+      route: ['view-test-result/:urlstring', 'auth/view-test-result/:urlstring'],
       name: 'view-test-result',
       moduleId: PLATFORM.moduleName('views/view-test-result/view-test-result'),
       title: `Users`
     }, {
-      route: 'environments',
+      route: ['environments', 'auth/environments'],
       name: 'environments',
       moduleId: PLATFORM.moduleName('views/environment/environment'),
       title: `Environments`
     }, {
-      route: 'api-requests',
+      route: ['api-requests', 'auth/api-requests'],
       name: 'api-requests',
       moduleId: PLATFORM.moduleName('views/api-requests/api-requests'),
       title: `API Requests`
@@ -154,5 +163,9 @@ export class App {
       return;
     }
     this.router.navigate(route);
+  }
+
+  public logout(): void {
+    this.eventAggregator.publish(EVENTS.USER_LOGGED_OUT);
   }
 }

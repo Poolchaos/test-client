@@ -7,6 +7,36 @@
     font-size: 20px;
   }
 
+  .admin-notice {
+    background-color: #f8d7da;
+    color: #aa1642;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .button {
+    &.pink {
+      box-shadow: unset!important;
+      &:not(:disabled):hover {
+        background: #aa1642;
+      }
+    }
+
+    &.blue {
+      background-color: #26a8ff!important;
+      border: unset!important;
+      box-shadow: unset!important;
+      
+      &:hover {
+        background-color: #1c86cc!important;
+      }
+    }
+  }
+
   label {
     margin-bottom: 10px;
   }
@@ -236,8 +266,16 @@
     padding: 15px 10px;
     border-radius: 5px;
 
+    input {
+      flex: 1;
+    }
+
     i {
       align-self: center;
+    }
+
+    svg {
+      fill: #e51e5a;
     }
   }
 

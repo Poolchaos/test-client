@@ -5,53 +5,89 @@
         <img src="../../assets/images/zai-logo.png" />
         <div class="spacer-v--10"></div>
       </h1>
+      <div class="admin-notice" if.bind="!registerEnabled">
+        <p><strong>Admin Access Only:</strong> This sign-in page is for administrators only. If you are not an admin, please click <a click.trigger="goBack()">here</a>.</p>
+      </div>
+      <div class="admin-notice" if.bind="registerEnabled">
+        <p>
+          Welcome to the registration page. If you are here by accident or don't need to register, we recommend navigating back to the home page.
+        </p>
+        <a href.bind="homePageUrl">Go to Home</a>
+      </div>
 
       <div class="login-form left">
-        <form>
-          <div class="input row">
-            <i innerhtml.bind="icons.user" style="margin: 0 10px;"></i>
-            <input
-              type="text"
-              value.bind="identity & validate"
-              placeholder="Please enter your username."
-              class="icon small-font"
-              keyup.trigger="clearErrors()"
-            />
+        <div class="input row">
+          <i innerhtml.bind="icons.user" style="margin: 0 10px;"></i>
+          <input
+            type="text"
+            value.bind="identity & validate"
+            placeholder="Please enter your username."
+            class="icon small-font"
+            keyup.trigger="clearErrors()"
+          />
+        </div>
+        <div class="input row">
+          <i innerhtml.bind="icons.lock" style="margin: 0 10px;"></i>
+          <input
+            type.bind="viewPassword ? 'text' : 'password'"
+            value.bind="password & validate"
+            placeholder="Please enter your password."
+            class="icon small-font"
+            keyup.trigger="clearErrors()"
+          />
+          <div
+            mousedown.trigger="startHold()"
+            mouseup.trigger="endHold()"
+            class="flex"
+            class.bind="!password || password.lenght === 0 ? 'u-faded-content' : ''"
+          >
+            <i if.bind="viewPassword" innerhtml.bind="icons.eye" style="margin: 0 10px;cursor: pointer;"></i>
+            <i if.bind="!viewPassword" innerhtml.bind="icons.eyeOutline" style="margin: 0 10px;cursor: pointer;"></i>
           </div>
-          <div class="input row">
-            <i innerhtml.bind="icons.lock" style="margin: 0 10px;"></i>
-            <input
-              type="password"
-              value.bind="password & validate"
-              placeholder="Please enter your password."
-              class="icon small-font"
-              keyup.trigger="clearErrors()"
-            />
-          </div>
+        </div>
+        <div class="input row" if.bind="registerEnabled">
+          <i innerhtml.bind="icons.lock" style="margin: 0 10px;"></i>
+          <input
+            type="password"
+            value.bind="passwordConfirm"
+            placeholder="Please enter your password again."
+            class="icon small-font"
+            keyup.trigger="clearErrors()"
+          />
+        </div>
 
-          <div class="row">
-            <ul if.bind="validation.errors">
-              <li repeat.for="error of validation.errors">
-                ${error.message}
-              </li>
-            </ul>
-            <div if.bind="error">${error}</div>
+        <div class="row">
+          <ul if.bind="validation.errors" class="text-orange">
+            <li class="text-orange" repeat.for="error of validation.errors">
+              ${error.message}
+            </li>
+          </ul>
+          <div if.bind="error" class="text-orange">${error}</div>
 
-            <div class="spacer--20"></div>
-            <div class="centered">
-              <button
-                class="button"
-                disabled.bind="submitted"
-                click.trigger="login()">Login</button>
-            </div>
+          <div class="spacer--20"></div>
+          <div class="centered">
+            <button
+              class="button blue margin-right--10"
+              disabled.bind="submitted"
+              click.trigger="disableRegister()"
+              if.bind="registerEnabled"
+            >
+              Cancel
+            </button>
+            <button
+              class="button pink"
+              disabled.bind="submitted"
+              click.trigger="registerEnabled ? register() : login()"
+            >
+              <div if.bind="submitted" class="flex">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div style="padding-top: 5px;"><dots-loader></dots-loader></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+              <span if.bind="!submitted">${registerEnabled ? 'Register' : 'Login'}</span>
+            </button>
           </div>
-
-          <div class="row">
-            <div class="centered">
-              Don't have login credentials, click <a click.trigger="goBack()">here</a> to go back.
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

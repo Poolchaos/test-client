@@ -14,7 +14,32 @@
                 class="pink svg config-icon"
               ></div>
             </li>
-            <li class="menu-item"><a>File</a></li>
+            <li
+              class="menu-item"
+              mouseenter.trigger="menuEnter()"
+              mouseleave.trigger="menuLeave('file')"
+            >
+              <a click.trigger="showMenu('file')">File</a>
+              <nav
+                class="sub-menu"
+                if.bind="menu.file"
+              >
+                <ul>
+                  <li
+                    class="flex"
+                    repeat.for="item of fileConfigurations"
+                    click.trigger="navTo('file', item.route)"
+                  >
+                    <div
+                      innerhtml.bind="icons[item.icon]"
+                      class="white svg config-icon"
+                      style="margin-right: 10px;"
+                    ></div>
+                    ${item.name}
+                  </li>
+                </ul>
+              </nav>
+            </li>
             <li
               class="menu-item"
               mouseenter.trigger="menuEnter()"
@@ -28,7 +53,7 @@
                 <ul>
                   <li
                     class="flex"
-                    repeat.for="item of configurations"
+                    repeat.for="item of editConfigurations"
                     click.trigger="navTo('edit', item.route)"
                   >
                     <div
@@ -44,6 +69,13 @@
             <li class="menu-item"><a>View</a></li>
             <li class="menu-item"><a>Help</a></li>
           </ul>
+          <button
+            class="pink button"
+            if.bind="dataStore.user"
+            click.trigger="logout()"
+          >
+            Logout
+          </button>
         </nav>
       </header>
       <router-view style="width: 100%;"></router-view>

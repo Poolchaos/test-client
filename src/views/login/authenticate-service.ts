@@ -1,5 +1,5 @@
 import { autoinject } from 'aurelia-framework';
-import { HttpClient, HttpResponseMessage } from 'aurelia-http-client';
+import { HttpClient } from 'aurelia-http-client';
 
 import { UserRegistrationSettings } from './user-registration-settings';
 import { EncryptService } from 'services/encrypt-service';
@@ -8,115 +8,49 @@ import { IUser } from 'stores/data-store';
 @autoinject()
 export class AuthenticateService {
 
-  private route = 'passport';
+  private route = 'http://localhost:9000/';
 
   constructor(private httpClient: HttpClient) {}
 
-  public authenticate(email: string, password: string): Promise<any> {
+  public authenticate(username: string, password: string): Promise<any> {
 
     const encryptedPassword = EncryptService.encrypt(password);
 
     return new Promise((resolve, reject) => {
-      this.httpClient.createRequest(this.route + '/authenticate')
+      this.httpClient.createRequest(this.route + 'auth/login')
         .asPost()
         .withContent({
-          email,
+          username,
           password: encryptedPassword
         })
         .withHeader('Content-Type', 'application/json')
         .withHeader('Authorization', UserRegistrationSettings.ANONYMOUS_TOKEN)
         .send()
-        .then(response => {
-          // @ts-ignore
-          const user: IUser = response;
-          this.setHeader(user.token);
-          resolve(user);
-        })
-        .catch(error => {
-          console.warn(' ::>> >>>>>>>> ', error);
-          reject(error.response);
-        });
+        .then(response => resolve(response))
+        .catch(error => reject(error.response));
     });
   }
-  
-  public authenticateWithToken(): Promise<any> {
 
-    return new Promise((resolve, reject) => {
-      this.httpClient.createRequest(this.route + '/authenticate-token')
+  public registerUser(
+    username: string,
+    password: string
+  ): Promise<void> {
+    return new Promise(resolve => {
+      const encryptedPassword = EncryptService.encrypt(password);
+
+      this.httpClient.createRequest(this.route + 'auth/register')
         .asPost()
-        .withContent({})
-        .send()
-        .then(resolve)
-        .catch(reject);
-    });
-  }
-
-  public requestPasswordReset(email: string): Promise<void> {
-    
-    return new Promise((resolve, reject) => {
-      this.httpClient.createRequest(this.route + '/reset-password')
+        .withContent({ username, password: encryptedPassword })
+        .withHeader('Content-Type', 'application/json')
         .withHeader('Authorization', UserRegistrationSettings.ANONYMOUS_TOKEN)
-        .asPost()
-        .withContent({ email })
         .send()
-        .then(() => {
-          console.log(' VALID ::>> is valid user ');
+        .then((response) => {
+          //@ts-ignore
+          resolve(response);
         })
-        .catch(error => {
-          console.log(' VALID ::>> invalid user ');
-          reject(error);
+        .catch((error) => {
+          console.warn(' ::>> error ', error);
         });
-    });
+    })
   }
-
-  public validateToken(token: string): Promise<any> {
-    
-    return this.httpClient.createRequest(this.route + '/token')
-      .withHeader('Authorization', UserRegistrationSettings.ANONYMOUS_TOKEN)
-      .asPost()
-      .withContent({ token })
-      .send();
-  }
-
-  public resetPassword(token: string, password: string): Promise<any> {
-
-    const encryptedPassword = EncryptService.encrypt(password);
-
-    return this.httpClient
-      .createRequest(this.route + '/reset-password')
-      .asPut()
-      .withContent({
-        password: encryptedPassword
-      })
-      .withHeader('Content-Type', 'application/json')
-      .withHeader('Authorization', `Bearer ${token}`)
-      .send();
-  }
-
-  public setHeader(token: string): void {
-    this.httpClient.configure(req => {
-      req.withHeader('Content-Type', 'application/json');
-      req.withHeader('Authorization', 'Bearer ' + token);
-    });
-  }
-
-  // public authWithGoogle(): Promise<any> {
-
-    
-  //   // clientId > 554987705805-tup7fufobe4aqn5uscelvmk5sad6oa2h.apps.googleusercontent.com
-  //   // secret > 8ZiW27BBoMZI-7sI3B69a87N
-    
-  //   return this.httpClient.createRequest(this.route + '/token')
-  //     .withHeader('Authorization', UserRegistrationSettings.ANONYMOUS_TOKEN)
-  //     .asPost()
-  //     .withContent({ token })
-  //     .send();
-  // }
-
-  public logout(): void {
-    this.httpClient.configure(req => {
-      req.withHeader('Authorization', UserRegistrationSettings.ANONYMOUS_TOKEN);
-    });
-  }
-
 }
