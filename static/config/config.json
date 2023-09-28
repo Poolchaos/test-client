@@ -1,8 +1,8 @@
 {
   "local": {
-    "apiQueryEndpoint": "http://localhost:9000/"
+    "apiQueryEndpoint": "http://localhost:8000/"
   },
   "dev1": {
-    "apiQueryEndpoint": "https://zai-test-server.kube.api.dev1.zailab.com/"
+    "apiQueryEndpoint": "https://zai-test-service.kube.api.dev1.zailab.com/"
   }
 }

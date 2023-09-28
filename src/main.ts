@@ -18,7 +18,7 @@ export function configure(aurelia: Aurelia): void {
         'local': ['localhost:8080'],
         'dev1': ['zai-test-client.kube.api.dev1.zailab.com']
       });
-    });;
+    });
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
 
