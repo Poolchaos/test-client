@@ -83,7 +83,7 @@ export class Editor {
           const testResults = JSON.parse(data.response).results.reverse();
           this.testResults = testResults.map(result => {
 
-            if (result.startTime.indexOf('Z') < 0) {
+            if (result.startTime && result.startTime.indexOf('Z') < 0) {
               result.startTime = parseInt(result.startTime);
             }
             console.log(' ::>> result.startTime >>>> ', result.startTime);
