@@ -16,20 +16,10 @@ export class CreatorStepThree {
   public definedSteps = [];
 
   public steps = [{
-    title: 'Sub Tests',
-    expanded: true,
-    disabled: false,
-    list: [
-      { name: STEP_CONSTANTS.REGISTER, icon: 'lock' },
-      { name: STEP_CONSTANTS.COMPLETE_REGISTRATION, icon: 'lock' },
-      { name: STEP_CONSTANTS.SIGN_IN, icon: 'key' },
-      { name: STEP_CONSTANTS.OUTBOUND_CALL, icon: 'phone' },
-    ]
-  }, {
     title: 'Verify page content',
     expanded: false,
     list: [
-      { name: STEP_CONSTANTS.CHECK_ELEMENT_CONTENT, icon: 'pencil' },
+      { name: STEP_CONSTANTS.CHECK_ELEMENT_CONTENT, icon: 'magnifyingGlass' },
       { name: STEP_CONSTANTS.CHECK_ELEMENT_ATTRIBUTE, icon: 'magnifyingGlass' },
       { name: STEP_CONSTANTS.CHECK_ELEMENT_PRESENCE, icon: 'roundedCheckMark' },
       { name: STEP_CONSTANTS.CHECK_NO_TEXT_PRESENT, icon: 'ban' },
@@ -44,7 +34,7 @@ export class CreatorStepThree {
       { name: STEP_CONSTANTS.OPEN_NEW_WINDOW, icon: 'globe' },
       { name: STEP_CONSTANTS.SWITCH_TO_WINDOW, icon: 'arrowSwitch' },
       { name: STEP_CONSTANTS.CLOSE_WINDOW, icon: 'close' },
-      { name: STEP_CONSTANTS.REFRESH_WINDOW, icon: 'arrowSwitch' },
+      { name: STEP_CONSTANTS.REFRESH_WINDOW, icon: 'rotateArrow' },
       // Add more navigation steps
     ]
   }, {
@@ -76,6 +66,16 @@ export class CreatorStepThree {
     list: [
       { name: STEP_CONSTANTS.REQUEST, icon: 'yandex' },
     ]
+  }, {
+    title: 'Use a Sub Tests',
+    expanded: true,
+    disabled: false,
+    list: [
+      { name: STEP_CONSTANTS.REGISTER, icon: 'lock' },
+      { name: STEP_CONSTANTS.COMPLETE_REGISTRATION, icon: 'lock' },
+      { name: STEP_CONSTANTS.SIGN_IN, icon: 'key' },
+      { name: STEP_CONSTANTS.OUTBOUND_CALL, icon: 'phone' },
+    ]
   }];
   
   constructor(
@@ -89,14 +89,10 @@ export class CreatorStepThree {
       this.definedSteps = [...this.testData.steps];
     }
 
-    let subTestConfig = this.steps.find(step => step.title === 'Sub Tests');
+    let subTestConfig = this.steps.find(step => step.title === 'Use a Sub Tests');
     subTestConfig.disabled = this.testData.type === 'partial';
   }
 
-  public attached(): void {
-    // this is for testing only
-    // this.selectStepToAdd('Sign in');
-  }
 
   public selectStepToAdd(type: string, step?: any): void {
     console.log(' ::>> selectStepToAdd .>>> ', type);
