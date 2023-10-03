@@ -2,11 +2,12 @@ import { DialogService } from 'aurelia-dialog';
 import { bindable } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { inject } from 'aurelia-dependency-injection';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 import { ICONS } from './../../constants/icons';
+import { ConfirmDialog } from '../_dialogs/confirm-dialog/confirm-dialog';
 
 import './explorer.scss';
-import { ConfirmDialog } from '../_dialogs/confirm-dialog/confirm-dialog';
 
 interface ITestSuite {
   _id: string;
@@ -20,7 +21,7 @@ interface ITestSuite {
   showMenu?: boolean;
 }
 
-@inject(Element, HttpClient, DialogService)
+@inject(Element, HttpClient, DialogService, EventAggregator)
 export class Explorer {
 
   @bindable({ attribute: 'test-suites' }) public testSuites: ITestSuite[] = [];
@@ -33,7 +34,8 @@ export class Explorer {
   constructor(
     private element: Element,
     private httpClient: HttpClient,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private eventAggregator: EventAggregator
   ) {}
   
   public async bind(): Promise<void> {
@@ -192,6 +194,7 @@ export class Explorer {
       .asDelete()
       .send()
       .then(() => {
+        this.eventAggregator.publish('close-tab', testId);
         this.testSuites.find(testSuite => {
           if (testSuite._id === testSuiteId) {
             testSuite.tests = testSuite.tests.filter(test => test.testId !== testId);

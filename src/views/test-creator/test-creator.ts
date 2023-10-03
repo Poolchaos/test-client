@@ -115,9 +115,16 @@ export class TestCreator {
       .asPost()
       .withContent(this.testData)
       .send()
-      .then(() => {
+      .then(data => {
+        let test = JSON.parse(data.response);
         this.eventAggregator.publish('toastr:success', this.testData.name + ' has been successfully created.');
         this.router.navigate('studio');
+        this.eventAggregator.publish('new-tab', {
+          testSuiteId: test.testSuiteId,
+          testId: test._id,
+          name: test.name,
+          type: test.type
+        });
       })
       .catch(e => {
         console.error(' > Failed to submit new test due to', e);

@@ -1,6 +1,8 @@
 import { Router } from 'aurelia-router';
 import { HttpClient } from 'aurelia-http-client';
 import { autoinject } from 'aurelia-framework';
+import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
+
 import './studio.scss';
 
 interface IConfig {
@@ -43,14 +45,18 @@ export class Studio {
   public testSuiteNames: string[] = [];
   public testData: IConfig = { name: '', steps: [] };
 
+  private subscription: Subscription;
+
   constructor(
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private eventAggregator: EventAggregator
   ) {}
 
   public activate(): void {
     this.getStoredTabs();
     this.getE2ETests();
+    this.subscribeToInternalEvents();
   }
 
   private getStoredTabs(): void {
@@ -76,6 +82,21 @@ export class Studio {
     } catch(e) {
       console.warn(' > Failed to parse explorer data ');
     }
+  }
+
+  private subscribeToInternalEvents(): void {
+    this.subscription = this.eventAggregator.subscribe('close-tab', (testId: string) => {
+      this.tabs.forEach((tab, index) => {
+        if (tab.testId === testId) {
+          this.closeTab(index);
+        }
+      })
+    });
+    this.subscription = this.eventAggregator.subscribe('new-tab', (test) => {
+      console.log(' ::>> new-tab ', test);
+      this.openTab(test);
+    });
+    console.log(' ::>> tabs =>  tabs', this.tabs);
   }
 
   public async requestDirectorySelection(): Promise<void> {
@@ -141,8 +162,8 @@ export class Studio {
       });
   }
 
-  public fileSelected(data: any): void {
-    console.log(' ::>> fileSelected >>>> ', data);
+  public openTab(data: any): void {
+    console.log(' ::>> openTab >>>> ', data);
     let isExistingTab = this.tabs.find(tab => tab.name === data.name);
     if (isExistingTab) {
       this.selectTab(isExistingTab);
@@ -163,7 +184,7 @@ export class Studio {
     }));
   }
 
-  public closeTab(index: number, event: Event): void {
+  public closeTab(index: number, event?: Event): void {
     event && event.stopPropagation();
 
     // todo: check for changes for test tabs

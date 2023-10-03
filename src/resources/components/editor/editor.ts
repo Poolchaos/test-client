@@ -55,7 +55,10 @@ export class Editor {
       .send()
       .then(data => {
         try {
-          this.config = JSON.parse(data.response);
+          this.config = {
+            ...this.config,
+            ...JSON.parse(data.response)
+          };
           console.log(' ::>> query test data | data = ', this.config);
         } catch(e) {
           console.error(' ::>> Failed to get test config >>> ', e);
@@ -129,6 +132,7 @@ export class Editor {
   }
 
   public edit(): void {
+    console.log(' ::>> this.config >>>> ', this.config);
     this.router.navigate('test-wizard/' + this.config.testSuiteId + '/' + this.config.testId);
   }
 }
