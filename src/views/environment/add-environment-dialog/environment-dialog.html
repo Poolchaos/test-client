@@ -1,0 +1,59 @@
+<template>
+  <section class="dialog confirm">
+    <section class="header">
+      Configure a new environment
+      <button
+        class="pink"
+        click.trigger="close()"
+        innerhtml.bind="icons.close"
+      ></button>
+    </section>
+
+    <section class="body">
+      <div class="input row margin--bottom-10 flex flex--align-center">
+        <div style="width: 80px;">Name:</div> 
+        <input
+          type="text"
+          value.bind="name & validate"
+          placeholder="Enter a name here."
+          class="icon small-font"
+        />
+      </div>
+      <div class="input row flex flex--align-center">
+        <div style="width: 80px;">URL:</div>
+        <input
+          type="text"
+          value.bind="url & validate"
+          placeholder="Enter a URL here."
+          class="icon small-font"
+        />
+      </div>
+      <ul
+        if.bind="validation.errors"
+        class="text-orange margin-top--10"
+        style="list-style-type: none;"
+      >
+        <li class="text-orange" repeat.for="error of validation.errors">
+          ${error.message}
+        </li>
+      </ul>
+      
+    </section>
+
+    <section class="footer">
+      <button
+        class="pink-button"
+        click.trigger="confirm()"
+        style="margin-right: 10px;"
+      >
+        Confirm
+      </button>
+      <button
+        class="blue-button"
+        click.trigger="close()"
+      >
+        Cancel
+      </button>
+    </section>
+  </section>
+</template>

@@ -1,36 +1,46 @@
 <template>
   <div class="page">
-    <h2>Configured <span class="text-pink">Environments</span></h2>
+    <div class="flex flex--justify-between">
+      <div style="min-width: 100px;">&nbsp;</div>
+      <h2>Configured <span class="text-pink">Environments</span></h2>
+      
+      <div
+        class="pink add-button"
+        click.trigger="addEnvironment()"
+        innerhtml.bind="icons.plus"
+        click.trigger="addEnvironment()"
+      ></div>
+    </div>
     
     <section class="flex content-wrapper">
 
       <section class="flex" style="width: 100%;">
         <section
-          class="flex flex--wrap flex--justify-left flex--basis"
+          class="flex flex--wrap flex--justify-left flex--basis flex--justify-center"
           style="padding: 0 5px;align-content: flex-start;"
         >
           <button
             class="button cta"
-            click.trigger="selectEnvironment(environment)"
+            click.trigger="showConfirmDeleteEnvironment(environment)"
             repeat.for="environment of environments"
             style="width: 300px;min-width: 300px;max-width: 300px;"
+            style.bind="environment.isHovering ? 'padding-top: 5px!important;' : ''"
+            mouseenter.trigger="environment.isHovering = true"
+            mouseleave.trigger="environment.isHovering = false"
           >
-            <section class="name-field">${environment.name}</section>
+            <div if.bind="!environment.isHovering">
+              <section class="name-field">
+                ${environment.name}
+              </section>
+              
+              <section style="text-align: left;max-width: 100%;overflow: hidden;">
+                <section style="font-size: 16px;">${environment.url}</section>
+              </section>
+            </div>
             
-            <section style="text-align: left;max-width: 100%;overflow: hidden;">
-              <section style="font-size: 16px;">${environment.url}</section>
-              <!-- <section
-                style="
-                  font-size: 16px;
-                  text-overflow: ellipsis;
-                  width: 100%;
-                  overflow: hidden;
-                  white-space: nowrap;
-                "
-              >
-                Token: ${environment.token}
-              </section> -->
-            </section>
+            <div if.bind="environment.isHovering" class="flex flex--align-center flex--justify-center">
+              <div innerhtml.bind="icons.close" class="margin-right--10 pink"></div> Delete
+            </div>
           </button>
         </section>
       </section>

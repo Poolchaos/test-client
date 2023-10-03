@@ -29,8 +29,20 @@ export class App {
     view: false,
     help: false,
   };
+
+  private insecureFileConfigurations = [{
+    name: 'Admin login',
+    icon: 'lock',
+    route: 'login'
+  }];
+
+  private secureFileConfigurations = [{
+    name: 'Logout',
+    icon: 'lock',
+    route: 'logout'
+  }];
   
-  public adminEditConfigurations = [{
+  public secureEditConfigurations = [{
     name: 'Configure Environments',
     icon: 'server',
     route: 'environments'
@@ -48,11 +60,7 @@ export class App {
     route: 'numbers'
   }];
 
-  public fileConfigurations = [{
-    name: 'Admin login',
-    icon: 'lock',
-    route: 'login'
-  }];
+  public fileConfigurations = [];
   
   public editConfigurations = [];
   
@@ -92,7 +100,10 @@ export class App {
   public activate(): void {
     this.dataStore.initialiseSubscriptions();
     if (this.dataStore.user) {
-      this.editConfigurations = [].concat(this.editConfigurations, this.adminEditConfigurations);
+      this.fileConfigurations = [].concat(this.secureFileConfigurations);
+      this.editConfigurations = [].concat(this.secureEditConfigurations);
+    } else {
+      this.fileConfigurations = [].concat(this.insecureFileConfigurations);
     }
   }
 
@@ -108,7 +119,7 @@ export class App {
       title: 'Login',
       auth: false
     }, {
-      route: ['', 'studio', 'auth/studio'],
+      route: ['', 'auth', 'studio', 'auth/studio'],
       name: 'studio',
       moduleId: PLATFORM.moduleName('views/studio/studio'),
       title: `Studio`

@@ -561,6 +561,11 @@ svg, .browser-logo, .svg {
 }
 
 .margin {
+  &-top {
+    &--10{
+      margin-top: 10px!important;
+    }
+  }
   &-right {
     &--10{
       margin-right: 10px;
@@ -570,6 +575,9 @@ svg, .browser-logo, .svg {
     }
   }
   &--bottom {
+    &-10 {
+      margin-bottom: 10px;
+    }
     &-50 {
       margin-bottom: 50px;
     }
@@ -589,5 +597,22 @@ svg, .browser-logo, .svg {
   }
   &-20 {
     padding: 20px;
+  }
+}
+
+.add-button {
+  padding: 10px 40px;
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.pink:hover {
+    background: #e51e5a;
+    
+    svg {
+      fill: white;
+    }
   }
 }

@@ -1,5 +1,10 @@
 import { autoinject } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-http-client';
+import { DialogService } from 'aurelia-dialog';
+
+import { ICONS } from 'resources/constants/icons';
+import { EnvironmentDialog } from './add-environment-dialog/environment-dialog';
+import { EnvironmentService } from './environment-service';
+import { ConfirmDialog } from 'resources/components/_dialogs/confirm-dialog/confirm-dialog';
 
 interface IEnvironemnt {
   _id: string;
@@ -11,10 +16,12 @@ interface IEnvironemnt {
 @autoinject
 export class Environment {
   
+  public icons = ICONS;
   public environments: any = [];
 
   constructor(
-    private httpClient: HttpClient
+    private dialogService: DialogService,
+    private environmentService: EnvironmentService
   ) {}
   
   public activate(): void {
@@ -23,10 +30,8 @@ export class Environment {
   }
 
   private getEnvironments(): void {
-    this.httpClient
-      .createRequest(`environments`)
-      .asGet()
-      .send()
+    this.environmentService
+      .getEnvironments()
       .then(data => {
         try {
           this.environments = JSON.parse(data.response);
@@ -37,7 +42,31 @@ export class Environment {
       });
   }
 
-  public selectEnvironment(environment: IEnvironemnt) {
-    console.log(' ::>> select environment >>>> ', environment);
+  public addEnvironment(): void {
+    this.dialogService
+      .open({ viewModel: EnvironmentDialog })
+      .whenClosed(response => {
+        if (!response.wasCancelled) {
+          console.log(' ::>> response.output >>>> ', response.output);
+          this.environments.push(response.output);
+        }
+      });
+  }
+
+  public showConfirmDeleteEnvironment(environment: IEnvironemnt) {
+    this.dialogService
+      .open({ viewModel: ConfirmDialog, model: 'This will delete your environment: ' + environment.name })
+      .whenClosed(response => {
+        if (!response.wasCancelled) {
+          this.deleteEnvironment(environment);
+        }
+      });
+  }
+
+  private deleteEnvironment(environment: { _id }): void {
+    this.environmentService
+      .deleteEnvironment(environment._id)
+      .then(() => this.getEnvironments())
+      .catch(e => console.warn('Failed to delete environment due to', e));
   }
 }
