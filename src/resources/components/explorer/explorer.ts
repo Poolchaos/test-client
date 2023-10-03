@@ -6,6 +6,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 
 import { ICONS } from './../../constants/icons';
 import { ConfirmDialog } from '../_dialogs/confirm-dialog/confirm-dialog';
+import { NewTestSuiteDialog } from '../new-test-suite-dialog/new-test-suite-dialog';
 
 import './explorer.scss';
 
@@ -31,8 +32,10 @@ export class Explorer {
   public isSubMenuExpanded: boolean = true;
 
   public icons = ICONS;
+  private rootMenuCloseTimer;
   private menuCloseTimer;
   private subMenuCloseTimer;
+  private showRootMenu;
   private showSubMenu;
 
   constructor(
@@ -63,35 +66,37 @@ export class Explorer {
     testSuite.isExpanded = !testSuite.isExpanded;
   }
 
-  private debounceTimeout = null;
   public selectTest(testSuiteId: string, test, event: Event): void {
     event && event.stopPropagation();
 
-    if (this.debounceTimeout !== null) {
-      // Double-click action
-      console.log('Double-clicked!');
-      this.element.dispatchEvent(
-        new CustomEvent('select-file', {
-          bubbles: true,
-          detail: {
-            testSuiteId,
-            ...test
-          }
-        })
-      );
-
-      clearTimeout(this.debounceTimeout);
-      this.debounceTimeout = null;
-    } else {
-      // First click, start debounce timer
-      this.debounceTimeout = setTimeout(() => {
-        this.debounceTimeout = null;
-        // Single-click action
-        console.log('Single-clicked!');
-      }, 300); // Adjust the debounce time as needed
-    }
+    this.element.dispatchEvent(
+      new CustomEvent('select-file', {
+        bubbles: true,
+        detail: {
+          testSuiteId,
+          ...test
+        }
+      })
+    );
   }
 
+  // Root folder
+  public toggleRootMenu(event: Event): void {
+    event && event.stopPropagation();
+    this.showRootMenu = !this.showRootMenu;
+  }
+
+  public rootMenuEnter(): void {
+    window.clearTimeout(this.rootMenuCloseTimer);
+  }
+
+  public rootMenuLeave(): void {
+    this.rootMenuCloseTimer = setTimeout(() =>{
+      this.showRootMenu = false;
+    }, 500);
+  }
+
+  // Sub folders folder
   public toggleMenu(testSuite: ITestSuite, event: Event): void {
     event && event.stopPropagation();
     this.testSuites.forEach(test => {
@@ -127,13 +132,26 @@ export class Explorer {
     }, 500);
   }
 
-  public createTestSuite(data: any): void {
-    console.log(' ::>> createTestSuite ', data);
+  public showCreateNewFolder(event: Event): void {
+    event && event.stopPropagation();
+    console.log(' ::>> showCreateNewFolder >>>>> ');
+    
+    this.dialogService
+      .open({ viewModel: NewTestSuiteDialog })
+      .whenClosed(response => {
+        if (!response.wasCancelled) {
+          this.createTestSuite(response.output);
+        }
+      });
+  }
+
+  private createTestSuite(name: string): void {
+    console.log(' ::>> createTestSuite ', name);
     try {
       this.httpClient
         .createRequest('testsuites')
         .asPost()
-        .withContent({ name: data })
+        .withContent({ name })
         .send()
         .then(response => {
           try {

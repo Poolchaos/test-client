@@ -12,7 +12,7 @@
     >
       <li
         repeat.for="step of steps"
-        class="group-steps"
+        class.bind="step.groupName ? 'group-steps' : ''"
       >
         <section if.bind="step.groupName">
           <h2 class="group-name">${$index + 1} ${step.groupName}</h2>

@@ -1,9 +1,11 @@
 import { bindable, inject } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
 
-import { AddStepDialog } from '../../../../resources/components/_dialogs/add-step-dialog/add-step-dialog';
 import { STEP_CONSTANTS } from '../step-constants';
 import { ICONS } from './../../../../resources/constants/icons';
+import { AddStepDialog } from './dialogs/add-step-dialog/add-step-dialog';
+import { WaitConfigDialog } from './dialogs/wait-config-dialog/wait-config-dialog';
+import { TextConfigDialog } from './dialogs/text-config-dialog/text-config-dialog';
 
 import './creator-step-three.scss';
 
@@ -16,6 +18,24 @@ export class CreatorStepThree {
   public definedSteps = [];
 
   public steps = [{
+    title: 'Wait',
+    expanded: true,
+    list: [
+      { name: 'Wait until the app loads', type: 'wait', icon: 'clock' },
+      { name: 'Wait for some time', type: 'wait', icon: 'clock' },
+    ]
+  }, {
+    title: 'Prompt User input',
+    expanded: true,
+    list: [
+      { name: 'text', type: 'prompt', icon: 'text' },
+      { name: 'number', type: 'prompt', icon: 'numbers' },
+      { name: 'date', type: 'prompt', icon: 'calendar' },
+      { name: 'single selection', type: 'prompt', icon: 'radioButton' },
+      { name: 'multiple selection', type: 'prompt', icon: 'checkbox' },
+      // Add more prompt steps
+    ]
+  }, {
     title: 'Verify page content',
     expanded: false,
     list: [
@@ -50,19 +70,8 @@ export class CreatorStepThree {
       // Add more user interaction steps
     ]
   }, {
-    title: 'Prompts',
-    expanded: false,
-    list: [
-      { name: STEP_CONSTANTS.TEXT_INPUT, icon: 'box' },
-      { name: STEP_CONSTANTS.NUMBER_INPUT, icon: 'numbers' },
-      { name: STEP_CONSTANTS.DATE_INPUT, icon: 'hourGlass' },
-      { name: STEP_CONSTANTS.RADIO_BUTTON, icon: 'radioButton' },
-      { name: STEP_CONSTANTS.CHECKBOX, icon: 'checkbox' },
-      // Add more prompt steps
-    ]
-  }, {
     title: 'API Calls',
-    expanded: true,
+    expanded: false,
     list: [
       { name: STEP_CONSTANTS.REQUEST, icon: 'yandex' },
     ]
@@ -94,11 +103,32 @@ export class CreatorStepThree {
   }
 
 
-  public selectStepToAdd(type: string, step?: any): void {
-    console.log(' ::>> selectStepToAdd .>>> ', type);
+  public selectStepToAdd(name: string, type: string, step?: any): void {
+    console.log(' ::>> selectStepToAdd .>>> ', type, name);
+    let modal: any = AddStepDialog;
+
+    if (type === 'wait') {
+      if (name === 'Wait until the app loads') {
+        if (this.definedSteps.find(step => step.name === name && step.type === type)) {
+          return;
+        }
+
+        this.definedSteps.push({
+          type,
+          name
+        });
+        return;
+      }
+      modal = WaitConfigDialog;
+    } else if (type === 'prompt') {
+      if (name === 'text') {
+        modal = TextConfigDialog;
+      }
+
+    }
 
     this.dialogService
-      .open({ viewModel: AddStepDialog, model: { type, step }})
+      .open({ viewModel: modal, model: { name, type, step }})
       .whenClosed(response => {
         if (!response.wasCancelled) {
           console.log(' ::>> output > ', response.output);
@@ -106,7 +136,8 @@ export class CreatorStepThree {
           if (step) {
             this.definedSteps[this.definedSteps.indexOf(step)] = [...response.output];
           } else {
-            this.definedSteps = this.definedSteps.concat([...response.output]);
+            this.definedSteps.push({...response.output});
+            console.log(' ::>> this.definedSteps >>>> else ');
           }
           console.log(' ::>> this.definedSteps >>>> ', this.definedSteps);
         }
@@ -119,7 +150,7 @@ export class CreatorStepThree {
 
     console.log(' ::>> editStep => ', step);
 
-    this.selectStepToAdd(step.name || step.groupName, step);
+    this.selectStepToAdd(step.name || step.groupName, step.type, step);
   }
 
   public cancelEditStep = (step): void => {

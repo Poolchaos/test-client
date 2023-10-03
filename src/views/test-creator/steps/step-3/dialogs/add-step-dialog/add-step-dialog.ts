@@ -4,16 +4,15 @@ import { HttpClient } from 'aurelia-http-client';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { STEP_CONSTANTS } from '../../../../views/test-creator/steps/step-constants';
-import { PREDEFINED_STEP_CONFIG } from './predefined-config';
-import { PREDEFINED_REGISTER_STEP_CONFIG } from './predefined-register-config';
-import { CALL_STEP_CONFIG } from './predefined-make-outbound-call';
-
-import { ICONS } from '../../../constants/icons';
+import { STEP_CONSTANTS } from '../../../step-constants';
+import { PREDEFINED_STEP_CONFIG } from '../../configs/predefined-config';
+import { CALL_STEP_CONFIG } from './../../configs/predefined-make-outbound-call';
+import { PREDEFINED_REGISTER_STEP_CONFIG } from './../../configs/predefined-register-config';
+import { ICONS } from '../../../../../../resources/constants/icons';
 
 import './add-step-dialog.scss';
 
-@autoinject
+@autoinject()
 export class AddStepDialog {
 
   public icons = ICONS;

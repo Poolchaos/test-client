@@ -1,4 +1,4 @@
-import { STEP_CONSTANTS } from './../../../../views/test-creator/steps/step-constants';
+import { STEP_CONSTANTS } from "../../step-constants";
 
 function generateRandomEmail(baseEmail) {
   // Generate a random string for the suffix

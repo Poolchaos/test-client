@@ -1,20 +1,23 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { DialogController } from 'aurelia-dialog';
+import { autoinject, bindable, computedFrom } from 'aurelia-framework';
 import { ValidationControllerFactory, validateTrigger, ValidationController, ValidationRules } from 'aurelia-validation';
 import { BootstrapFormRenderer } from 'renderers/bootstrap-form-renderer';
+import { ICONS } from 'resources/constants/icons';
 
-import './new-test-suite.scss';
+import './new-test-suite-dialog.scss';
 
-@inject(Element, ValidationControllerFactory)
-export class NewTestSuite {
+@autoinject()
+export class NewTestSuiteDialog {
   @bindable private names: string[] = [];
 
+  public icons = ICONS;
   public validation: ValidationController;
   public isEnabled: boolean = false;
 
   public name: string = '';
 
   constructor(
-    private element: Element,
+    private dialogController: DialogController,
     validationControllerFactory: ValidationControllerFactory
   ) {
     this.validation = validationControllerFactory.createForCurrentScope();
@@ -48,23 +51,19 @@ export class NewTestSuite {
     this.isEnabled = false;
   }
 
-  public submit(): void {
+  public confirm(): void {
     this.validation
       .validate()
       .then(result => {
         if (!result.valid) {
           return;
         }
-        
-        this.element.dispatchEvent(
-          new CustomEvent('create', {
-            bubbles: true,
-            detail: this.name
-          })
-        );
-        this.disable();
-        this.name = '';
+        this.dialogController.ok(this.name);
       });
+  }
+  
+  public close(): void {
+    this.dialogController.cancel();
   }
 
   @computedFrom('validation', 'validation.errors', 'validation.errors.length')

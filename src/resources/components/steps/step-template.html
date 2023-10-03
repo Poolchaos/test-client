@@ -12,8 +12,13 @@
   "
 >
   <section>${index}.&nbsp;&nbsp;</section>
-  <section if.bind="step.name === 'wait'" class="flex--basis text--left flex">
-    Wait for&nbsp;
+  <section
+    if.bind="step.type === 'wait'"
+    class="flex--basis text--left flex"
+  >
+    ${step.name}
+
+    <!-- Wait for&nbsp;
     <span if.bind="!step.editing" class="text-blue">${step.config.durationInSeconds}</span>
     <section class="is-relative" if.bind="step.editing">
       <input
@@ -27,11 +32,15 @@
         style="margin-bottom: 0;width: 50px;"
       />
     </section>
-    &nbsp;seconds before continuing
+    &nbsp;seconds before continuing -->
   </section>
 
-  <section if.bind="step.name === 'text'" class="flex--basis text--left flex">
+  <section if.bind="step.type === 'text'" class="flex--basis text--left flex">
     Type&nbsp;
+    <span class="text-pink">${step.config.value ||'__'}</span>
+    &nbsp;into the text field with placeholder &nbsp;
+    <span class="text-pink">${step.config.label ||'__'}</span>.
+    <!-- Type&nbsp;
     <span class="text-blue" if.bind="!step.editing">${step.config.value}</span>
     <section class="is-relative" if.bind="step.editing">
       <input
@@ -44,7 +53,7 @@
     </section>
     &nbsp;into the&nbsp;
     <span class="text-blue">${step.config.label}</span>&nbsp;
-    text field
+    text field -->
   </section>
 
   <section if.bind="step.name === 'Press Keyboard Key'" class="flex--basis text--left flex">

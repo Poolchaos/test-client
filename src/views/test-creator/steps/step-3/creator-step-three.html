@@ -21,10 +21,10 @@
               class="step-type flex flex--direction-cols"
               class.bind="step.disabled ? 'u-faded-content' : ''"
               repeat.for="step of group.list"
-              click.trigger="selectStepToAdd(step.name)"
+              click.trigger="selectStepToAdd(step.name, step.type)"
             >
               <section class="blue svg" innerhtml.bind="icons[step.icon]"></section>
-              <section class="flex flex--align-center" style="margin: auto;">${step.name}</section>
+              <section class="flex flex--align-center capitalize" style="margin: auto;">${step.name}</section>
             </section>
             <section
               class="u-faded-content"

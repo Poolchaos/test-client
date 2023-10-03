@@ -1,4 +1,4 @@
-import { STEP_CONSTANTS } from "../../../../views/test-creator/steps/step-constants";
+import { STEP_CONSTANTS } from "../../step-constants";
 
 const makeOutboundCallData = [ {
   name: 'Click Element',

@@ -1,0 +1,47 @@
+<template>
+  <section class="dialog confirm">
+    <section class="header">
+      Promp user Text
+      <button
+        class="pink"
+        click.trigger="close()"
+        innerhtml.bind="icons.close"
+      ></button>
+    </section>
+
+    <section class="body">
+      <div class="margin-bottom-10">
+        <div class="margin-bottom-10 text-left" style="margin-left: 80px;">Enter your text here:</div>
+        <input type="text" value.bind="value" style="margin-left: 10px;" />
+      </div>
+      <div class="margin-bottom-10">
+        <div class="margin-bottom-10 text-left" style="margin-left: 80px;">What is the placeholder?</div>
+        <input type="text" value.bind="label" style="margin-left: 10px;" />
+      </div>
+      
+      <section class="flex flex--justify-center flex--wrap">
+        Type&nbsp;
+        <span class="text-pink">${value ||'__'}</span>
+        &nbsp;into the text field with placeholder &nbsp;
+        <span class="text-pink">${label ||'__'}</span>.
+      </section>
+
+    </section>
+
+    <section class="footer">
+      <button
+        class="pink-button"
+        click.trigger="confirm()"
+        style="margin-right: 10px;"
+      >
+        Yes
+      </button>
+      <button
+        class="blue-button"
+        click.trigger="close()"
+      >
+        No
+      </button>
+    </section>
+  </section>
+</template>
