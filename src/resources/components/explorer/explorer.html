@@ -76,12 +76,20 @@
             </div>
             <div
               repeat.for="test of testSuite.tests"
-              class="test-item"
+              class="test-item flex flex--align-center flex--justify-between"
               class.bind="selectedTest.name === test.name ? 'selected' : ''"
               click.trigger="selectTest(testSuite._id, test, $event)"
               title.bind="test.name"
             >
-              ${test.name}
+              <span>${test.name}</span>
+              <div class="actions">
+                <button
+                  class="pink"
+                  click.trigger="showConfirmDeleteTest(testSuite._id, test, $event)"
+                  innerhtml.bind="icons.close"
+                  title="Delete test"
+                ></button>
+              </div>
             </div>
           </div>
         </div>

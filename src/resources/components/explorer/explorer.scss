@@ -44,45 +44,44 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+    
+    .actions {
+      button {
+        padding: 6px 12px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
 
-      
-      .actions {
-        button {
-          padding: 6px 12px;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
+        svg {
+          width: 10px;
+          height: 10px;
+        }
 
+        &.blue:hover {
           svg {
-            width: 10px;
-            height: 10px;
+            fill: #1c86cc;
           }
+        }
 
-          &.blue:hover {
-            svg {
-              fill: #1c86cc;
-            }
+        &.pink:hover {
+          svg {
+            fill: #e51e5a;
           }
+        }
 
-          &.pink:hover {
-            svg {
-              fill: #e51e5a;
-            }
+        &.full-blue {
+          background: #1c86cc;
+          svg {
+            fill: #fff;
           }
+        }
 
-          &.full-blue {
-            background: #1c86cc;
-            svg {
-              fill: #fff;
-            }
-          }
-
-          &.full-pink {
-            background: #e51e5a;
-            svg {
-              fill: #fff;
-            }
+        &.full-pink {
+          background: #e51e5a;
+          svg {
+            fill: #fff;
           }
         }
       }
@@ -94,7 +93,7 @@
     
     .test-item {
       margin-top: 0.2rem;
-      padding: 5px 10px;
+      padding: 5px 0 5px 10px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

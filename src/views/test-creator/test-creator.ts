@@ -79,7 +79,7 @@ export class TestCreator {
     if (this.steps[step + 1]) {
       this.activateStep(step + 1);
     } else {
-      if (this.testData.testid) {
+      if (this.testId) {
         this.updateTest();
       } else {
         this.createTest();
@@ -88,11 +88,26 @@ export class TestCreator {
   }
 
   private updateTest(): void {
-    // todo: still implement
+    console.log(' ::>> updateTest | testData >>>>> ', this.testData);
+    this.submitting = true;
+
+    this.httpClient
+      .createRequest('testsuites/' + this.testSuiteId + '/test/' + this.testId)
+      .asPost()
+      .withContent(this.testData)
+      .send()
+      .then(() => {
+        this.eventAggregator.publish('toastr:success', this.testData.name + ' has been successfully updated.');
+        this.router.navigate('studio');
+      })
+      .catch(e => {
+        console.error(' > Failed to submit new test due to', e);
+        this.submitting = false;
+      })
   }
 
   private createTest(): void {
-    console.log(' ::>> testData >>>>> ', this.testData);
+    console.log(' ::>> createTest | testData >>>>> ', this.testData);
     this.submitting = true;
 
     this.httpClient

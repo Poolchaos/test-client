@@ -18,6 +18,7 @@ export class CreatorStepThree {
   public steps = [{
     title: 'Sub Tests',
     expanded: true,
+    disabled: false,
     list: [
       { name: STEP_CONSTANTS.REGISTER, icon: 'lock' },
       { name: STEP_CONSTANTS.COMPLETE_REGISTRATION, icon: 'lock' },
@@ -87,6 +88,9 @@ export class CreatorStepThree {
     if (this.testData && this.testData.steps) {
       this.definedSteps = [...this.testData.steps];
     }
+
+    let subTestConfig = this.steps.find(step => step.title === 'Sub Tests');
+    subTestConfig.disabled = this.testData.type === 'partial';
   }
 
   public attached(): void {

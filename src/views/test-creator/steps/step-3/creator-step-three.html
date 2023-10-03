@@ -6,16 +6,17 @@
         <section
           id="js-step-item"
           repeat.for="group of steps"
+          class.bind="group.disabled ? 'u-faded-content' : ''"
         >
           <h4
             click.trigger="group.expanded = !group.expanded"
             class="stepGroup"
           >
-            <span if.bind="group.expanded">▼</span>
-            <span if.bind="!group.expanded ">&#9654;</span>
+            <span if.bind="group.expanded && !group.disabled">▼</span>
+            <span if.bind="!group.expanded || group.disabled">&#9654;</span>
             ${group.title}
           </h4>
-          <section class="flex flex--wrap" if.bind="group.expanded">
+          <section class="flex flex--wrap" if.bind="group.expanded && !group.disabled">
             <section
               class="step-type flex flex--direction-cols"
               class.bind="step.disabled ? 'u-faded-content' : ''"

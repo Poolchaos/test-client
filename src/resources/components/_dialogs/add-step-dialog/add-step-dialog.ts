@@ -268,29 +268,28 @@ export class AddStepDialog {
       let data, URL;
       if (this.stepType === STEP_CONSTANTS.SIGN_IN) {
         data = JSON.parse(JSON.stringify(PREDEFINED_STEP_CONFIG[STEP_CONSTANTS.SIGN_IN]));
-        URL = this.environments.find(env => env.name === this.config.environment).url;
+        // URL = this.environments.find(env => env.name === this.config.environment).url;
       }
       
       if (this.stepType === STEP_CONSTANTS.REGISTER) {
         data = JSON.parse(JSON.stringify(PREDEFINED_REGISTER_STEP_CONFIG[STEP_CONSTANTS.REGISTER]));
-        URL = this.environments.find(env => env.name === this.config.environment).url;
+        // URL = this.environments.find(env => env.name === this.config.environment).url;
       }
 
       let payload = {
         groupId: uuidv4(),
         groupName: this.stepType,
-        url: 'https://latest.conversations.dev1.zailab.com/',
+        // url: 'https://latest.conversations.dev1.zailab.com/',
         steps: data
       };
       
       if (this.stepType === STEP_CONSTANTS.OUTBOUND_CALL) {
         payload.steps = JSON.parse(JSON.stringify(CALL_STEP_CONFIG[STEP_CONSTANTS.OUTBOUND_CALL]));
-        delete payload.url;
       }
 
       console.log(' ::>> config >>>> ', {
         env: this.config.environment,
-        URL,
+        // URL,
         groupId: uuidv4(),
         groupName: this.stepType,
         steps: data

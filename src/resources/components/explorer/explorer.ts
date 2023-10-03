@@ -8,13 +8,13 @@ import { ICONS } from './../../constants/icons';
 import './explorer.scss';
 import { ConfirmDialog } from '../_dialogs/confirm-dialog/confirm-dialog';
 
-declare let require: any;
-
 interface ITestSuite {
   _id: string;
   name: string;
   tests: {
+    testId: string;
     name: string;
+    type: string;
   }[];
   isExpanded?: boolean;
   showMenu?: boolean;
@@ -172,5 +172,32 @@ export class Explorer {
             .catch(e => console.warn(' > Failed to create test suite due to:', e))
         }
       });
+  }
+
+  public showConfirmDeleteTest(testSuiteId, test: { testId: string, name: string }, event: Event): void {
+    event && event.stopPropagation();
+    
+    this.dialogService
+      .open({ viewModel: ConfirmDialog, model: `This will delete you test ${test.name}` })
+      .whenClosed(response => {
+        if (!response.wasCancelled) {
+          this.deleteTest(testSuiteId, test.testId);
+        }
+      });
+  }
+  
+  public deleteTest(testSuiteId, testId: string): void {
+    this.httpClient
+      .createRequest('testsuites/' + testSuiteId + '/test/' + testId)
+      .asDelete()
+      .send()
+      .then(() => {
+        this.testSuites.find(testSuite => {
+          if (testSuite._id === testSuiteId) {
+            testSuite.tests = testSuite.tests.filter(test => test.testId !== testId);
+          }
+        });
+      })
+      .catch(e => console.warn(' > Failed to create test suite due to:', e))
   }
 }
