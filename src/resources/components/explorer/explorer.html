@@ -1,103 +1,163 @@
 <template>
   <div class="directory-list">
-    <div class="top-level-item">
-      <div class="item-header" click.delegate="toggleTopLevel()">
-        <div>
-          <span class="item-icon" if.bind="isTopLevelExpanded">▼</span>
-          <span class="item-icon" else>&#9654;</span>
-          <span class="item-title">Test Suites</span>
+    <div>
+      <div class="top-level-item" style="padding: 1rem;">
+        <div class="item-header" click.delegate="toggleTopLevel()">
+          <div>
+            <span class="item-icon" if.bind="isTopLevelExpanded">▼</span>
+            <span class="item-icon" else>&#9654;</span>
+            <span class="item-title">Test Suites</span>
+          </div>
         </div>
-      </div>
-      <div if.bind="isTopLevelExpanded" class="sub-items">
-        <div
-          if.bind="testSuites.length === 0"
-          class="no-data-message"
-        >
-          No test suites defined.
-        </div>
-        <div
-          repeat.for="testSuite of testSuites"
-          class="sub-item"
-          click.delegate="toggleSubItem(testSuite, $event)"
-        >
-          <div class="item-header">
-            <div class="flex">
-              <span class="item-icon" if.bind="testSuite.isExpanded">▼</span>
-              <span class="item-icon" else>&#9654;</span>
-              <span class="item-title" title.bind="testSuite.name">${testSuite.name}</span>
-            </div>
-            <div class="flex actions" if.bind="!step.editing">
-              <div class="is-relative">
-                <button
-                  class="blue"
-                  click.trigger="toggleMenu(testSuite, $event)"
-                  mouseleave.trigger="menuLeave(testSuite)"
-                  innerhtml.bind="icons.bars"
-                  title="Add a test"
-                ></button>
-                <nav
-                  if.bind="testSuite.showMenu"
-                  mouseenter.trigger="menuEnter()"
-                  mouseleave.trigger="menuLeave(testSuite)"
-                >
-                  <ul>
-                    <li class="u-faded-content">
-                      <span innerhtml.bind="icons.folder"></span>
-                      New Folder
-                    </li>
-                    <li click.trigger="startAddTest(testSuite, $event)">
-                      <span innerhtml.bind="icons.plus"></span>
-                      New Test Suite
-                    </li>
-                    <li click.trigger="deleteTestSuite(testSuite, $event)">
-                      <span innerhtml.bind="icons.trash"></span>
-                      Delete
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-              <!-- <button
-                class="pink"
-                click.trigger="deleteTestSuite(testSuite, $event)"
-                innerhtml.bind="icons.trash"
-                title="Delete Test Suite"
-              ></button> -->
-            </div>
+        <div if.bind="isTopLevelExpanded" class="sub-items">
+          <div
+            if.bind="testSuites.length === 0"
+            class="no-data-message"
+          >
+            No test suites defined.
           </div>
           <div
-            if.bind="testSuite.isExpanded"
-            class="tests-list"
+            repeat.for="testSuite of testSuites"
+            class="sub-item"
+            click.delegate="toggleSubItem(testSuite, $event)"
           >
-            <div
-              if.bind="testSuite.tests.length === 0"
-              class="no-data-message"
-            >
-              No tests in this suite.
-            </div>
-            <div
-              repeat.for="test of testSuite.tests"
-              class="test-item flex flex--align-center flex--justify-between"
-              class.bind="selectedTest.name === test.name ? 'selected' : ''"
-              click.trigger="selectTest(testSuite._id, test, $event)"
-              title.bind="test.name"
-            >
-              <span>${test.name}</span>
-              <div class="actions">
-                <button
+            <div class="item-header">
+              <div class="flex flex--basis" style="padding-top: 5px;">
+                <span class="item-icon" if.bind="testSuite.isExpanded">▼</span>
+                <span class="item-icon" else>&#9654;</span>
+                <div class="item-title" title.bind="testSuite.name">${testSuite.name}</div>
+              </div>
+              <div class="flex actions" if.bind="!step.editing">
+                <div class="is-relative">
+                  <button
+                    class="blue"
+                    click.trigger="toggleMenu(testSuite, $event)"
+                    mouseleave.trigger="menuLeave(testSuite)"
+                    innerhtml.bind="icons.bars"
+                    title="Add a test"
+                  ></button>
+                  <nav
+                    if.bind="testSuite.showMenu"
+                    mouseenter.trigger="menuEnter()"
+                    mouseleave.trigger="menuLeave(testSuite)"
+                  >
+                    <ul>
+                      <li class="u-faded-content">
+                        <span innerhtml.bind="icons.folder"></span>
+                        New Folder
+                      </li>
+                      <li click.trigger="startAddTest($event, testSuite)">
+                        <span innerhtml.bind="icons.plus"></span>
+                        New Test Suite
+                      </li>
+                      <li click.trigger="deleteTestSuite(testSuite, $event)">
+                        <span innerhtml.bind="icons.trash"></span>
+                        Delete
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                <!-- <button
                   class="pink"
-                  click.trigger="showConfirmDeleteTest(testSuite._id, test, $event)"
-                  innerhtml.bind="icons.close"
-                  title="Delete test"
-                ></button>
+                  click.trigger="deleteTestSuite(testSuite, $event)"
+                  innerhtml.bind="icons.trash"
+                  title="Delete Test Suite"
+                ></button> -->
               </div>
             </div>
+            <div
+              if.bind="testSuite.isExpanded"
+              class="tests-list"
+            >
+              <div
+                if.bind="testSuite.tests.length === 0"
+                class="no-data-message"
+              >
+                No tests in this suite.
+              </div>
+              <div
+                repeat.for="test of testSuite.tests"
+                class="test-item flex flex--align-center flex--justify-between"
+                class.bind="selectedTest.name === test.name ? 'selected' : ''"
+                click.trigger="selectTest(testSuite._id, test, $event)"
+                title.bind="test.name"
+              >
+                <span>${test.name}</span>
+                <div class="actions">
+                  <button
+                    class="pink"
+                    click.trigger="showConfirmDeleteTest(testSuite._id, test, $event)"
+                    innerhtml.bind="icons.close"
+                    title="Delete test"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="top-level-item" style="border-top: 4px solid #373737;padding: 1rem;">
+        <div class="item-header" click.delegate="toggleSubtestsLevel()">
+          <div class="flex flex--basis" style="padding-top: 5px;">
+            <span class="item-icon" if.bind="isSubMenuExpanded">▼</span>
+            <span class="item-icon" else>&#9654;</span>
+            <span class="item-title">Sub Tests</span>
+          </div>
+          <div class="flex actions">
+            <div class="is-relative">
+              <button
+                class="blue"
+                click.trigger="toggleSubMenu($event)"
+                mouseleave.trigger="subMenuLeave()"
+                innerhtml.bind="icons.bars"
+                title="Add a test"
+              ></button>
+              <nav
+                if.bind="showSubMenu"
+                mouseenter.trigger="subMenuEnter()"
+                mouseleave.trigger="subMenuLeave()"
+              >
+                <ul>
+                  <li click.trigger="startAddTest($event)">
+                    <span innerhtml.bind="icons.plus"></span>
+                    New Sub test
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div
+          if.bind="subTests.length === 0 && isSubMenuExpanded"
+          class="no-data-message"
+        >
+          No sub tests defined.
+        </div>
+        <div
+          repeat.for="test of subTests"
+          class="test-item flex flex--align-center flex--justify-between"
+          class.bind="selectedTest.name === test.name ? 'selected' : ''"
+          click.trigger="selectTest(test._id, test, $event)"
+          title.bind="test.name"
+          id.bind="isSubMenuExpanded"
+        >
+          <span>${test.name}</span>
+          <div class="actions">
+            <button
+              class="pink"
+              click.trigger="showConfirmDeleteSubTest(test, $event)"
+              innerhtml.bind="icons.close"
+              title="Delete test"
+            ></button>
           </div>
         </div>
       </div>
     </div>
-    <new-test-suite
-      names.bind="testSuiteNames"
-      create.trigger="createTestSuite($event.detail)"
-    ></new-test-suite>
+    <div style="padding: 0 1rem;">
+      <new-test-suite
+        names.bind="testSuiteNames"
+        create.trigger="createTestSuite($event.detail)"
+      ></new-test-suite>
+    </div>
   </div>
 </template>

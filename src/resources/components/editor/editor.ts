@@ -12,9 +12,7 @@ interface IConfig {
   testSuiteId: string;
   testId: string;
   name: string;
-  URL: string;
-  browser: string;
-  errorScreenshot: boolean;
+  type: string;
   steps: IStep[];
 }
 
@@ -44,8 +42,31 @@ export class Editor {
 
   public bind() {
     console.log(' ::>> config = 1 ', this.config);
-    this.getTestConfig();
+    if (this.config.type === 'partial') {
+      this.getSubTestConfig();
+    } else if (this.config.type === 'complete') {
+      this.getTestConfig();
+    }
     this.getTestResults();
+  }
+
+  private getSubTestConfig(): void {
+    this.httpClient
+      .createRequest(`sub-tests/${this.config.testId}`)
+      .asGet()
+      .send()
+      .then(data => {
+        try {
+          this.config = {
+            ...this.config,
+            ...JSON.parse(data.response)
+          };
+          console.log(' ::>> query test data | data = ', this.config);
+        } catch(e) {
+          console.error(' ::>> Failed to get test config >>> ', e);
+        }
+      })
+      .catch(e => {});
   }
 
   private getTestConfig(): void {

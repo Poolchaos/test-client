@@ -25,11 +25,15 @@ interface ITestSuite {
 export class Explorer {
 
   @bindable({ attribute: 'test-suites' }) public testSuites: ITestSuite[] = [];
+  @bindable({ attribute: 'sub-tests' }) public subTests: ITestSuite[] = [];
   @bindable({ attribute: 'test-suite-names' }) public testSuiteNames: string[] = [];
   public isTopLevelExpanded: boolean = true;
+  public isSubMenuExpanded: boolean = true;
 
   public icons = ICONS;
   private menuCloseTimer;
+  private subMenuCloseTimer;
+  private showSubMenu;
 
   constructor(
     private element: Element,
@@ -44,24 +48,14 @@ export class Explorer {
     this.testSuites.forEach(ts => {
       ts.isExpanded = true;
     });
-
-    // try {
-    //   let testData: any = await this.httpClient
-    //     .createRequest('tests')
-    //     .asGet()
-    //     .send()
-    //     .catch(e =>{})
-
-    //   this.testSuites = JSON.parse(testData.response);
-    //   this.testSuiteNames = this.testSuites.map(suite => suite.name);
-    //   console.log(' ::>> testSuites ', this.testSuites);
-    // } catch(e) {
-    //   console.warn(' > Failed to parse explorer data ');
-    // }
   }
 
   public toggleTopLevel(): void {
     this.isTopLevelExpanded = !this.isTopLevelExpanded;
+  }
+
+  public toggleSubtestsLevel(): void {
+    this.isSubMenuExpanded = !this.isSubMenuExpanded;
   }
 
   public toggleSubItem(testSuite: ITestSuite, event: Event): void {
@@ -105,7 +99,7 @@ export class Explorer {
       test.showMenu = false
     });
 
-    testSuite.showMenu = !testSuite.showMenu
+    testSuite.showMenu = !testSuite.showMenu;
   }
 
   public menuEnter(): void {
@@ -115,6 +109,21 @@ export class Explorer {
   public menuLeave(testSuite: ITestSuite): void {
     this.menuCloseTimer = setTimeout(() =>{
       testSuite.showMenu = false;
+    }, 500);
+  }
+  
+  public toggleSubMenu(event: Event): void {
+    event && event.stopPropagation();
+    this.showSubMenu = !this.showSubMenu;
+  }
+
+  public subMenuEnter(): void {
+    window.clearTimeout(this.subMenuCloseTimer);
+  }
+
+  public subMenuLeave(): void {
+    this.subMenuCloseTimer = setTimeout(() =>{
+      this.showSubMenu = false;
     }, 500);
   }
 
@@ -142,17 +151,16 @@ export class Explorer {
     }
   }
 
-  public startAddTest(testSuite: ITestSuite, event: Event): void {
+  public startAddTest(event: Event, testSuite?: ITestSuite): void {
     event && event.stopPropagation();
-    console.log(' ::>> add test for ', testSuite);
     
     this.element.dispatchEvent(
       new CustomEvent('create-test-for-suite', {
         bubbles: true,
-        detail: {
+        detail: testSuite ? {
           testSuiteId: testSuite._id,
           testSuiteName: testSuite.name
-        }
+        } : {}
       })
     );
   }
@@ -200,6 +208,32 @@ export class Explorer {
             testSuite.tests = testSuite.tests.filter(test => test.testId !== testId);
           }
         });
+      })
+      .catch(e => console.warn(' > Failed to create test suite due to:', e))
+  }
+
+  public showConfirmDeleteSubTest(test: { _id: string, name: string }, event: Event): void {
+    console.log(' ::>> test >>>> ', test)
+    event && event.stopPropagation();
+    
+    this.dialogService
+      .open({ viewModel: ConfirmDialog, model: `This will delete you test ${test.name}` })
+      .whenClosed(response => {
+        if (!response.wasCancelled) {
+          this.deleteSubTest(test._id);
+        }
+      });
+  }
+  
+  public deleteSubTest(testId: string): void {
+    this.httpClient
+      .createRequest(`sub-tests/${testId}`)
+      .asDelete()
+      .send()
+      .then(() => {
+        console.log(' ::>> deleted sub-test ');
+        this.eventAggregator.publish('close-tab', testId);
+        this.subTests = this.subTests.filter(test => test._id !== testId);
       })
       .catch(e => console.warn(' > Failed to create test suite due to:', e))
   }

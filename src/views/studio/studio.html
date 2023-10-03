@@ -22,8 +22,9 @@
           if.bind="testSuites"
           test-suites.bind="testSuites"
           test-suite-names.bind="testSuiteNames"
+          sub-tests.bind="subTests"
 
-          if.bind="testSuiteNames"
+          if.bind="testSuiteNames && subTests"
 
           create-test-for-suite.trigger="startCreateTestForSuiteFlow($event.detail)"
           select-file.trigger="openTab($event.detail)"

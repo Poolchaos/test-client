@@ -55,13 +55,13 @@
     flex: 1;
     overflow: hidden;
     background-color: #171717;
-    max-height: calc(100% - 50px);
-    height: calc(100% - 50px)100%;
+    max-height: calc(100% - 60px);
+    height: calc(100% - 100px);
   }
   
   .file-explorer {
     width: 260px;
-    padding: 1rem 1rem 1.5rem 1rem;
+    padding: 1rem 0;
     background-color: #1e1e1e;
     border:1px solid #373737;
   }

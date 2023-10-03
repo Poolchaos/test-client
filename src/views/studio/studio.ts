@@ -44,6 +44,9 @@ export class Studio {
   public testSuites: ITestSuite[];
   public testSuiteNames: string[] = [];
   public testData: IConfig = { name: '', steps: [] };
+  
+  public subTests: ITestSuite[];
+  public subTestNames: string[] = [];
 
   private subscription: Subscription;
 
@@ -56,6 +59,7 @@ export class Studio {
   public activate(): void {
     this.getStoredTabs();
     this.getE2ETests();
+    this.getSubTests();
     this.subscribeToInternalEvents();
   }
 
@@ -79,6 +83,21 @@ export class Studio {
       this.testSuites = JSON.parse(testData.response);
       this.testSuiteNames = this.testSuites.map(suite => suite.name);
       console.log(' ::>> testSuites ', this.testSuites);
+    } catch(e) {
+      console.warn(' > Failed to parse explorer data ');
+    }
+  }
+
+  private async getSubTests(): Promise<void> {
+    try {
+      let subTestData: any = await this.httpClient
+        .createRequest('sub-tests')
+        .asGet()
+        .send()
+        .catch(e =>{})
+      this.subTests = JSON.parse(subTestData.response);
+      this.subTestNames = this.subTests.map(test => test.name);
+      console.log(' ::>> subTests ', this.subTests);
     } catch(e) {
       console.warn(' > Failed to parse explorer data ');
     }
@@ -203,6 +222,6 @@ export class Studio {
 
   public startCreateTestForSuiteFlow(data: { testSuiteId: string; testSuiteName: string; }) {
     console.log(' ::>> startCreateTestForSuiteFlow >>>>> ', data);
-    this.router.navigate('test-wizard/' + data.testSuiteId);
+    this.router.navigate('test-wizard' + (data.testSuiteId ? '/' + data.testSuiteId : ''));
   }
 }

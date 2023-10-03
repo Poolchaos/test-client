@@ -41,14 +41,18 @@ export class TestCreator {
     if (this.testSuiteId && this.testId) {
       this.steps.forEach(step => step.complete = true);
     }
+    this.testData = { type: this.testSuiteId ? 'complete' : 'partial' };
+    
     
     // this.activateStep(0);
     this.activateStep(0);
 
     if (this.testId) {
-      this.getTest();
-    } else {
-      this.testData = { type: 'partial' };
+      if (this.testSuiteId) {
+        this.getTest();
+      } else {
+        this.getSubTest();
+      }
     }
   }
 
@@ -61,6 +65,21 @@ export class TestCreator {
         try {
           this.testData = JSON.parse(data.response);
           console.log(' ::>> this.testData >>> ', this.testData);
+        } catch(e) {
+          console.log(' > Failed to get test for creator', e);
+        }
+      });
+  }
+
+  private getSubTest(): void {
+    this.httpClient
+      .createRequest(`sub-test/${this.testId}`)
+      .asGet()
+      .send()
+      .then(data => {
+        try {
+          this.testData = JSON.parse(data.response);
+          console.log(' ::>> this.subtest >>> ', this.testData);
         } catch(e) {
           console.log(' > Failed to get test for creator', e);
         }
@@ -80,30 +99,19 @@ export class TestCreator {
       this.activateStep(step + 1);
     } else {
       if (this.testId) {
-        this.updateTest();
+        if (this.testData.type === 'complete') {
+          this.updateTest();
+        } else if (this.testData.type === 'partial') {
+          this.updateSubTest();
+        }
       } else {
-        this.createTest();
+        if (this.testData.type === 'complete') {
+          this.createTest();
+        } else if (this.testData.type === 'partial') {
+          this.createSubTest();
+        }
       }
     }
-  }
-
-  private updateTest(): void {
-    console.log(' ::>> updateTest | testData >>>>> ', this.testData);
-    this.submitting = true;
-
-    this.httpClient
-      .createRequest('testsuites/' + this.testSuiteId + '/test/' + this.testId)
-      .asPost()
-      .withContent(this.testData)
-      .send()
-      .then(() => {
-        this.eventAggregator.publish('toastr:success', this.testData.name + ' has been successfully updated.');
-        this.router.navigate('studio');
-      })
-      .catch(e => {
-        console.error(' > Failed to submit new test due to', e);
-        this.submitting = false;
-      })
   }
 
   private createTest(): void {
@@ -130,6 +138,55 @@ export class TestCreator {
         console.error(' > Failed to submit new test due to', e);
         this.submitting = false;
       })
+  }
+
+  private updateTest(): void {
+    console.log(' ::>> updateTest | testData >>>>> ', this.testData);
+    this.submitting = true;
+
+    this.httpClient
+      .createRequest('testsuites/' + this.testSuiteId + '/test/' + this.testId)
+      .asPost()
+      .withContent(this.testData)
+      .send()
+      .then(() => {
+        this.eventAggregator.publish('toastr:success', this.testData.name + ' has been successfully updated.');
+        this.router.navigate('studio');
+      })
+      .catch(e => {
+        console.error(' > Failed to submit new test due to', e);
+        this.submitting = false;
+      })
+  }
+
+  private createSubTest(): void {
+    console.log(' ::>> createSubTest | testData >>>>> ', this.testData);
+    this.submitting = true;
+
+    this.httpClient
+      .createRequest('sub-tests')
+      .asPost()
+      .withContent(this.testData)
+      .send()
+      .then(data => {
+        let test = JSON.parse(data.response);
+        this.eventAggregator.publish('toastr:success', this.testData.name + ' has been successfully created.');
+        this.router.navigate('studio');
+        this.eventAggregator.publish('new-tab', {
+          testSuiteId: test.testSuiteId,
+          testId: test._id,
+          name: test.name,
+          type: test.type
+        });
+      })
+      .catch(e => {
+        console.error(' > Failed to submit new test due to', e);
+        this.submitting = false;
+      })
+  }
+
+  private updateSubTest(): void {
+
   }
 
   public stepBack(step: number): void {

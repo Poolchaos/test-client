@@ -113,12 +113,19 @@ export class App {
       moduleId: PLATFORM.moduleName('views/studio/studio'),
       title: `Studio`
     }, {
-      route: ['test-wizard/:testSuiteId', 'auth/test-wizard/:testSuiteId'],
+      route: [
+        'test-wizard',
+        'auth/test-wizard',
+        'test-wizard/:testSuiteId',
+        'auth/test-wizard/:testSuiteId',
+        'test-wizard/:testSuiteId/:testId',
+        'auth/test-wizard/:testSuiteId/:testId'
+      ],
       name: 'test-wizard',
       moduleId: PLATFORM.moduleName('views/test-creator/test-creator'),
       title: `Studio`
     }, {
-      route: ['test-wizard/:testSuiteId/:testId', 'auth/test-wizard/:testSuiteId/:testId'],
+      route: [],
       name: 'test-wizard',
       moduleId: PLATFORM.moduleName('views/test-creator/test-creator'),
       title: `Studio`
