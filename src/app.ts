@@ -2,10 +2,12 @@ import { autoinject } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { DataStore } from 'stores/data-store';
 
+import { DataStore } from 'stores/data-store';
 import { ICONS } from 'resources/constants/icons';
 import { EVENTS } from 'stores/events';
+import { AppService } from 'app-service';
+import { AuthRouteStep } from 'services/router-pipeline';
 
 import toastr from 'toastr';
 
@@ -14,7 +16,6 @@ import './assets/styles/aurelia-dialog-overrides.scss';
 import './assets/styles/toastr.css';
 import './assets/styles/theme.scss';
 import './app.scss';
-import { AppService } from 'app-service';
 
 @autoinject
 export class App {
@@ -28,14 +29,8 @@ export class App {
     view: false,
     help: false,
   };
-
-  public fileConfigurations = [{
-    name: 'Admin login',
-    icon: 'lock',
-    route: 'login'
-  }];
   
-  public editConfigurations = [{
+  public adminEditConfigurations = [{
     name: 'Configure Environments',
     icon: 'server',
     route: 'environments'
@@ -51,13 +46,33 @@ export class App {
     name: 'Configure Numbers',
     icon: 'hashtag',
     route: 'numbers'
-  }
-  // , {
-  //   name: 'Configure Browsers',
-  //   icon: 'globe',
-  //   route: 'browsers'
-  // }
-  ];
+  }];
+
+  public fileConfigurations = [{
+    name: 'Admin login',
+    icon: 'lock',
+    route: 'login'
+  }];
+  
+  public editConfigurations = [];
+  
+  public viewConfigurations = [{
+    name: 'Environments',
+    icon: 'server',
+    route: 'environments'
+  }, {
+    name: 'Organisations',
+    icon: 'user',
+    route: 'users'
+  }, {
+    name: 'API Requests',
+    icon: 'yandex',
+    route: 'api-requests'
+  }, {
+    name: 'Numbers',
+    icon: 'hashtag',
+    route: 'numbers'
+  }];
 
   constructor(
     private eventAggregator: EventAggregator,
@@ -76,11 +91,15 @@ export class App {
 
   public activate(): void {
     this.dataStore.initialiseSubscriptions();
+    if (this.dataStore.user) {
+      this.editConfigurations = [].concat(this.editConfigurations, this.adminEditConfigurations);
+    }
   }
 
   public configureRouter(config, router: Router): void {
     config.title = 'ZaiAutoTests';
     config.options.pushState = true;
+    config.addPipelineStep('authorize', AuthRouteStep);
     config.map([{
       route: 'login',
       name: 'login',

@@ -66,7 +66,32 @@
                 </ul>
               </nav>
             </li>
-            <li class="menu-item"><a>View</a></li>
+            <li
+              class="menu-item"
+              mouseenter.trigger="menuEnter()"
+              mouseleave.trigger="menuLeave('view')"
+            >
+              <a click.trigger="showMenu('view')">View</a>
+              <nav
+                class="sub-menu"
+                if.bind="menu.view"
+              >
+                <ul>
+                  <li
+                    class="flex"
+                    repeat.for="item of viewConfigurations"
+                    click.trigger="navTo('view', item.route)"
+                  >
+                    <div
+                      innerhtml.bind="icons[item.icon]"
+                      class="white svg config-icon"
+                      style="margin-right: 10px;"
+                    ></div>
+                    ${item.name}
+                  </li>
+                </ul>
+              </nav>
+            </li>
             <li class="menu-item"><a>Help</a></li>
           </ul>
           <button

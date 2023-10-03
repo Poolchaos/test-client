@@ -22,22 +22,23 @@ export class DataStore {
   }
 
   public initialiseSubscriptions(): void {
-
     let user = JSON.parse(this.cookieService.getCookie(EVENTS.CACHE.USER));
-    if (!user || user === 'null') {
-      console.log(' ::>> no user >>>> ');
-      const currentInstruction = this.router.currentInstruction;
-      if (currentInstruction && currentInstruction.fragment.includes('auth')) {
-        console.log('The current route contains "auth".');
-        this.router.navigate(currentInstruction.fragment.replace('auth/', ''));
-      }
-    } else {
+    if (user) {
       this.USER = user;
     }
-    
-    this.eventAggregator.subscribe(EVENTS.USER_LOGGED_IN, (data: ILogin) => this.user = data);
-    this.eventAggregator.subscribe(EVENTS.USER_REHYDRATE, (data: IUser) => this.user = data);
-    this.eventAggregator.subscribe(EVENTS.USER_LOGGED_OUT, (data: IUser) => this.user = data);
+
+    this.eventAggregator.subscribe(EVENTS.USER_LOGGED_IN, (data: ILogin) => {
+      console.log(' ::>> USER_LOGGED_IN >>> ', data);
+      this.user = data;
+    });
+    this.eventAggregator.subscribe(EVENTS.USER_REHYDRATE, (data: IUser) => {
+      console.log(' ::>> USER_REHYDRATE >>> ', data);
+      this.user = data;
+    });
+    this.eventAggregator.subscribe(EVENTS.USER_LOGGED_OUT, (data: IUser) => {
+      console.log(' ::>> USER_LOGGED_OUT >>> ', data);
+      this.user = data;
+    });
   }
 
   public set user(user: ILogin | IUser) {
