@@ -575,3 +575,19 @@ svg, .browser-logo, .svg {
     }
   }
 }
+
+
+.pink {
+  svg {
+    fill: #e51e5a;
+  }
+}
+
+.padding {
+  &-10 {
+    padding: 10px;
+  }
+  &-20 {
+    padding: 20px;
+  }
+}

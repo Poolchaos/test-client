@@ -42,12 +42,13 @@ export class TestCreator {
       this.steps.forEach(step => step.complete = true);
     }
     
+    // this.activateStep(0);
     this.activateStep(0);
 
     if (this.testId) {
       this.getTest();
     } else {
-      this.testData = {};
+      this.testData = { type: 'partial' };
     }
   }
 

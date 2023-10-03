@@ -25,6 +25,37 @@
           style="margin-bottom: 0;"
         />
       </section>
+      
+      <section class="intro-text">
+        <p class="instruction">This is a ... test?</p>
+      </section>
+      
+      <section class="is-relative">
+        <div class="test-type flex flex--justify-left">
+          <div
+            class="flex flex--direction-cols flex--justify-center type"
+            class.bind="testData.type === 'partial' ? 'selected' : ''"
+            click.trigger="changetestType('partial')"
+          >
+            <div
+              innerhtml.bind="icons.puzzle"
+              class="pink"
+            ></div>
+            <label>Partial</label>
+          </div>
+          <div
+            class="flex flex--direction-cols flex--justify-center type"
+            class.bind="testData.type === 'complete' ? 'selected' : ''"
+            click.trigger="changetestType('complete')"
+          >
+            <div
+              innerhtml.bind="icons.diagram"
+              class="pink"
+            ></div>
+            <label>Complete</label>
+          </div>
+        </div>
+      </section>
     </section>
 
     <button

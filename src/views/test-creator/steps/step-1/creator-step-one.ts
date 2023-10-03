@@ -3,11 +3,13 @@ import { BootstrapFormRenderer } from 'renderers/bootstrap-form-renderer';
 import { ValidationControllerFactory, validateTrigger, ValidationController, ValidationRules } from 'aurelia-validation';
 
 import './creator-step-one.scss';
+import { ICONS } from 'resources/constants/icons';
 
 @inject(Element, ValidationControllerFactory)
 export class CreatorStepOne {
   @bindable({ attribute: 'test-data' }) testData: any;
 
+  public icons = ICONS;
   private validation: ValidationController;
   
   constructor(
@@ -24,6 +26,10 @@ export class CreatorStepOne {
       .ensure('name')
       .required().withMessage('Please enter a name for your test.')
       .on(this.testData);
+  }
+
+  public changetestType(type: string): void {
+    this.testData.type = type;
   }
 
   public submit(): void {
