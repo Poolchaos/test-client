@@ -154,6 +154,10 @@ export class Editor {
 
   public edit(): void {
     console.log(' ::>> this.config >>>> ', this.config);
+    if (this.config.type === 'complete') {
     this.router.navigate('test-wizard/' + this.config.testSuiteId + '/' + this.config.testId);
+    } else if (this.config.type === 'partial') {
+      this.router.navigate('test-wizard/' + this.config.testId);
+    }
   }
 }

@@ -96,7 +96,7 @@ export class CreatorStepThree {
 
   public bind(): void {
     console.log(' ::>> this.testData >>>> ', this.testData);
-    if (!this.testData || !this.testData.steps) {
+    if (!this.testData || (this.testData._id && !this.testData.steps)) {
       setTimeout(() => this.bind(), 5);
       return;
     }

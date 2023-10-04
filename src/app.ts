@@ -127,8 +127,8 @@ export class App {
       route: [
         'test-wizard',
         'auth/test-wizard',
-        'test-wizard/:testSuiteId',
-        'auth/test-wizard/:testSuiteId',
+        'test-wizard/:testId',
+        'auth/test-wizard/:testId',
         'test-wizard/:testSuiteId/:testId',
         'auth/test-wizard/:testSuiteId/:testId'
       ],
