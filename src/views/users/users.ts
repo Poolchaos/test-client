@@ -18,7 +18,6 @@ export class Users {
   public bind(): void {
     console.log(' ::>> binded env ');
     this.getEnvironments();
-    this.getSites();
   }
 
   private getEnvironments(): void {
@@ -34,16 +33,6 @@ export class Users {
         } catch(e) {
           console.log(' > Failed to get environments', e);
         }
-      });
-  }
-
-  private getSites(): void {
-    this.httpClient
-      .createRequest(`sites`)
-      .asGet()
-      .send()
-      .then(data => {
-        console.log(' ::>> sites ', data);
       });
   }
 

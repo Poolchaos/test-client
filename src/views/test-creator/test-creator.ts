@@ -45,7 +45,7 @@ export class TestCreator {
     
     
     // this.activateStep(0);
-    this.activateStep(1);
+    this.activateStep(0);
 
     if (this.testId) {
       if (this.testSuiteId) {
@@ -73,7 +73,7 @@ export class TestCreator {
 
   private getSubTest(): void {
     this.httpClient
-      .createRequest(`sub-test/${this.testId}`)
+      .createRequest(`sub-tests/${this.testId}`)
       .asGet()
       .send()
       .then(data => {

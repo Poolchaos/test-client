@@ -1,6 +1,6 @@
 <template>
-
   <div class="wizard-step-3 flex">
+
     <section class="flex" style="width: 100%;height: 90%">
       <section class="is-relative left-column">
         <section
@@ -21,10 +21,10 @@
               class="step-type flex flex--direction-cols"
               class.bind="step.disabled ? 'u-faded-content' : ''"
               repeat.for="step of group.list"
-              click.trigger="selectStepToAdd(step.name)"
+              click.trigger="selectStepToAdd(step.name, step.type)"
             >
               <section class="blue svg" innerhtml.bind="icons[step.icon]"></section>
-              <section class="flex flex--align-center" style="margin: auto;">${step.name}</section>
+              <section class="flex flex--align-center capitalize" style="margin: auto;">${step.name}</section>
             </section>
             <section
               class="u-faded-content"
@@ -37,7 +37,27 @@
         </section>
       </section>
 
-      <section class="content-panel">
+
+      <section class="right-column" if.bind="newStep">
+        <text-config
+          if.bind="newStep.name === 'text'"
+          submit.trigger="addStep($event)"
+          cancel.trigger="cancelStepConfig()"
+        ></text-config>
+
+        
+        <click-config
+          if.bind="newStep.name === 'click'"
+          submit.trigger="addStep($event)"
+          cancel.trigger="cancelStepConfig()"
+        ></click-config>
+      </section>
+
+
+      <section
+        class="content-panel"
+        class.bind="definedSteps.length === 0 ? 'empty' : ''"
+      >
         <h2>Configured steps for <span class="text-pink">${testData.name}</span></h2>
         <div class="added-steps">
           <div
@@ -60,8 +80,6 @@
           >
             <steps
               steps.two-way="definedSteps"
-              editable.bind="false"
-              deletable.bind="true"
               if.bind="definedSteps.length > 0"
             ></steps>
           </section>

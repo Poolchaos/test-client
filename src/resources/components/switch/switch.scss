@@ -1,0 +1,63 @@
+$distance: 85; //px
+$width: 40; //px
+
+.toggle_bar {
+  text-align:center;
+  background: rgba(black,.1);
+  width: #{$distance}px;
+  display: block;
+  height: #{$width}px;
+  position: relative;
+  overflow: hidden;
+  margin: 1em auto;
+  border-radius: 4px;
+  cursor: pointer;
+  background: white;
+
+  .toggle_square {
+    border-radius: 4px;
+    transition: left .3s cubic-bezier(0.68, -0.55, 0.265, 1.55), background .2s ease;
+    background: rgba(#e51e5a, 1);
+    display: block;
+    position: absolute;
+    top:0;
+    left: #{$distance - $width}px;
+    width: #{$width}px;
+    height: 100%;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 16px 8px rgba(black,.15);
+    &:before {
+      content: "No";
+      display: block;
+      color: white;
+      will-change: content;
+      transition: content .2s ease;
+      line-height: #{$width}px;
+      text-align: center;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
+}
+.contract_toggle {
+
+  input[type=checkbox] {
+    display: none;
+    position: absolute;
+    appearance: none;
+    &:checked ~ .toggle_bar{
+      .toggle_square {
+        background: rgba(#1c86cc,1);
+        left: 0;
+        &:before {
+          content: "Yes";
+        }
+      }
+    }
+    .toggle_bar {
+      background: white;
+      border: 1px solid rgb(166, 234, 255);
+    }
+  }
+}
+

@@ -3,6 +3,7 @@
   
   <section class="added-steps">
     <ul
+      ref="sortableList"
       if.bind="steps.length > 0"
       style="
         margin: 0 auto 20px;
@@ -11,58 +12,80 @@
       "
     >
       <li
+        id.bind="step.id"
         repeat.for="step of steps"
-        class="group-steps"
+        class="margin-bottom-10 draggable-item"
+        class.bind="step.groupName ? 'group-steps' : ''"
+        draggable="true"
+        data-index="${$index}"
       >
         <section if.bind="step.groupName">
-          <h2 class="group-name">${$index + 1} ${step.groupName}</h2>
-          <section class="group-actions" if.bind="editable || deletable">
-            <button
-              class="blue"
-              click.trigger="editTestSuite(step)"
-              innerhtml.bind="icons.pencil"
-              if.bind="step.name !== 'click' && editable"
-            ></button>
-            <button
-              class="pink button"
-              click.trigger="deleteStepGroup(step)"
-              innerhtml.bind="icons.close"
-              style="margin-left: 0px;"
-              if.bind="deletable"
-            ></button>
-          </section>
-          <step-template
-            class="flex flex--justify-between"
-            style="padding: 5px 10px;display: flex;align-items: center;font-size: 14px;"
+          <div class="flex flex--align-center">
+            <div
+              if.bind="!disableReorder"
+              class="actions margin-right--10"
+            >
+              <button
+                class="handle"
+                innerhtml.bind="icons.handle"
+              ></button>
+            </div>
 
-            repeat.for="innerStep of step.steps"
-            index.bind="($parent.$index + 1) + '.' + ($index + 1)"
-            step.bind="innerStep"
-            icons.bind="icons"
-            disableactions.bind="!editable"
+            <h2 class="group-name">${$index + 1} ${step.groupName}</h2>
 
-            confirmupdatestep.bind="confirmUpdateStep"
-            canceleditstep.bind="cancelEditStep"
-            editstep.bind="editTestSuite"
-            deletestep.bind="deleteStep"
-          ></step-template>
+            <step-template
+              class="flex flex--justify-between flex--basis margin-bottom-10"
+              style="padding: 5px 10px;display: flex;align-items: center;font-size: 14px;"
+
+              repeat.for="innerStep of step.steps"
+              index.bind="($parent.$index + 1) + '.' + ($index + 1)"
+              step.bind="innerStep"
+              icons.bind="icons"
+              disableactions.bind="!editable"
+
+              confirmupdatestep.bind="confirmUpdateStep"
+              canceleditstep.bind="cancelEditStep"
+              editstep.bind="editTestSuite"
+              deletestep.bind="deleteStep"
+            ></step-template>
+          </div>
         </section>
+
+
         <section if.bind="!step.groupName">
-          <step-template
-          class="flex flex--justify-between"
-          style="padding: 5px 10px;display: flex;align-items: center;font-size: 14px;"
+          <div class="flex flex--align-center">
+            <div
+              if.bind="!disableReorder"
+              class="actions margin-right--10"
+            >
+              <button
+                class="handle"
+                innerhtml.bind="icons.handle"
+              ></button>
+            </div>
+            <step-template
+              class="flex flex--justify-between flex--basis"
+              style="padding: 5px 10px;display: flex;align-items: center;font-size: 14px;"
 
-          index.bind="$index + 1"
-          step.bind="step"
-          icons.bind="icons"
-          disableactions.bind="!editable"
-          disabledelete.bind="!deletable"
-
-          confirmupdatestep.bind="confirmUpdateStep"
-          canceleditstep.bind="cancelEditStep"
-          editstep.bind="editTestSuite"
-          deletestep.bind="deleteStep"
-        ></step-template>
+              index.bind="$index + 1"
+              step.bind="step"
+              icons.bind="icons"
+            ></step-template>
+  
+            <div class="actions">
+              <!-- <button
+                class="full-blue"
+                click.trigger="confirmupdatestep(step)"
+                innerhtml.bind="icons.checkMark"
+              ></button> -->
+              <button
+                class="full-pink"
+                click.trigger="deleteStep($index)"
+                innerhtml.bind="icons.close"
+                if.bind="!disableDelete"
+              ></button>
+            </div>
+          </div>
         </section>
       </li>
     </ul>

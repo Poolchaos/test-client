@@ -276,6 +276,9 @@ a {
   &--center {
     text-align: center;
   }
+  &-left {
+    text-align: left;
+  }
 
   &-pink {
     color: #e51e5a;
@@ -574,7 +577,7 @@ svg, .browser-logo, .svg {
       margin-right: 20px;
     }
   }
-  &--bottom {
+  &-bottom {
     &-10 {
       margin-bottom: 10px;
     }
@@ -598,6 +601,22 @@ svg, .browser-logo, .svg {
   &-20 {
     padding: 20px;
   }
+  &-top {
+    &-10 {
+      padding-top: 10px;
+    }
+    &-20 {
+      padding-top: 20px;
+    }
+    &-unset {
+      padding-top: unset!important;
+    }
+  }
+  &-bottom {
+    &-unset {
+      padding-bottom: unset!important;
+    }
+  }
 }
 
 .add-button {
@@ -616,3 +635,10 @@ svg, .browser-logo, .svg {
     }
   }
 }
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+
+

@@ -1,0 +1,43 @@
+<template>
+  <section class="dialog confirm">
+    <section class="header">
+      Create a new folder
+      <button
+        class="pink"
+        click.trigger="close()"
+        innerhtml.bind="icons.close"
+      ></button>
+    </section>
+
+    <section class="body">
+      
+      <div class="field-container is-relative flex flex--align-center">
+        <div style="width: 70px;">Name:</div> 
+        <input
+          type="string"
+          value.bind="name & validate"
+          placeholder="Type your text here."
+          class="flex--basis"
+        />
+      </div>
+
+    </section>
+
+    <section class="footer">
+      <button
+        class="pink-button"
+        class.bind="!name || name.length === 0 ? 'u-faded-content' : ''"
+        click.trigger="confirm()"
+        style="margin-right: 10px;"
+      >
+        Done
+      </button>
+      <button
+        class="blue-button"
+        click.trigger="close()"
+      >
+        Cancel
+      </button>
+    </section>
+  </section>
+</template>

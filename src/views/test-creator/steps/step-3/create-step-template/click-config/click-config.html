@@ -1,0 +1,80 @@
+<template>
+  <section class="text-config dialog">
+    <section class="header">
+      Promp user Text
+    </section>
+
+    <section
+      class="body flex flex--direction-cols flex--justify-between flex--basis"
+    >
+      <section>
+        <div class="margin-bottom-10">
+          <div class="margin-bottom-10 text-left" style="margin-left: 40px;">Enter the button text:</div>
+          <div class="is-relative">
+            <input
+              type="text"
+              value.bind="value"
+            />
+          </div>
+        </div>
+        <div class="padding-10">OR</div>
+        <div class="margin-bottom-10">
+          <div class="margin-bottom-10 text-left" style="margin-left: 40px;">Enter an identifier to find the button:</div>
+          <input
+            type="text"
+            value.bind="label"
+          />
+        </div>
+        
+
+        <section class="flex padding-top-20 action-buttons">
+          <button
+            class="pink-button flex flex--basis"
+            click.trigger="cancel()"
+            style="margin-right: 10px;"
+          >
+            <div
+              innerhtml.bind="icons.close"
+              class="margin-right--10 white"
+            ></div>
+            Discard
+          </button>
+          <button
+            class="blue-button flex flex--basis"
+            click.trigger="confirm()"
+          >
+            <div
+              innerhtml.bind="icons.plus"
+              class="margin-right--10 white"
+            ></div>
+            Insert
+          </button>
+        </section>
+      </section>
+    </section>
+
+    <section>
+      <section class="header examples">
+        Examples:
+      </section>
+      <div class="margin-bottom-10 padding-20 padding-bottom-unset">
+        <div class="margin-bottom-10 text-left">
+          Button text: <span class="text-blue">SIGN IN</span>
+        </div>
+        <div class="flex">
+          <button
+            class="pink-button flex--basis"
+            style="padding: 20px;margin-right: 10px;"
+            disabled
+          >SIGN IN</button>
+        </div>
+      </div>
+      <div class="margin-bottom-10 padding-20 padding-top-unset">
+        <div class="margin-bottom-10 text-left">
+          Button Identifier - Right-click, then inspect element. Class value on element:<br/>
+          <span class="text-blue">c-zbutton c-zbutton--pink c-zbutton--large qa-sign-in-button au-target</span>
+        </div>
+      </div>
+    </section>
+  </section>
+</template>
