@@ -1,5 +1,6 @@
 import { bindable, inject } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
+import { v4 as uuidv4 } from 'uuid';
 
 import { STEP_CONSTANTS } from '../step-constants';
 import { ICONS } from './../../../../resources/constants/icons';
@@ -95,18 +96,20 @@ export class CreatorStepThree {
 
   public bind(): void {
     console.log(' ::>> this.testData >>>> ', this.testData);
+    if (!this.testData || !this.testData.steps) {
+      setTimeout(() => this.bind(), 5);
+      return;
+    }
     if (this.testData && this.testData.steps) {
+      this.testData.steps.forEach(step => step.id = uuidv4());
+      console.log(' ::>> newList >>>> ', this.testData);
       this.definedSteps = [...this.testData.steps];
     }
-
-    // let subTestConfig = this.steps.find(step => step.title === 'Use a Sub Tests');
-    // subTestConfig.disabled = this.testData.type === 'partial';
   }
 
 
   public selectStepToAdd(name: string, type: string, step?: any): void {
     console.log(' ::>> selectStepToAdd .>>> ', type, name);
-    // let modal: any = AddStepDialog;
     
     if (type === 'wait') {
       if (this.definedSteps.find(ds => ds.name === name && ds.type === type)) {

@@ -3,6 +3,7 @@
   
   <section class="added-steps">
     <ul
+      ref="sortableList"
       if.bind="steps.length > 0"
       style="
         margin: 0 auto 20px;
@@ -11,13 +12,19 @@
       "
     >
       <li
+        id.bind="step.id"
         repeat.for="step of steps"
-        class="margin-bottom-10"
+        class="margin-bottom-10 draggable-item"
         class.bind="step.groupName ? 'group-steps' : ''"
+        draggable="true"
+        data-index="${$index}"
       >
         <section if.bind="step.groupName">
           <div class="flex flex--align-center">
-            <div class="actions margin-right--10">
+            <div
+              if.bind="!disableReorder"
+              class="actions margin-right--10"
+            >
               <button
                 class="handle"
                 innerhtml.bind="icons.handle"
@@ -47,7 +54,10 @@
 
         <section if.bind="!step.groupName">
           <div class="flex flex--align-center">
-            <div class="actions margin-right--10">
+            <div
+              if.bind="!disableReorder"
+              class="actions margin-right--10"
+            >
               <button
                 class="handle"
                 innerhtml.bind="icons.handle"
@@ -72,6 +82,7 @@
                 class="full-pink"
                 click.trigger="deleteStep($index)"
                 innerhtml.bind="icons.close"
+                if.bind="!disableDelete"
               ></button>
             </div>
           </div>
