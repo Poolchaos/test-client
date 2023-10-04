@@ -1,0 +1,86 @@
+.text-config.dialog {
+  display: flex;
+  flex-direction: column;
+  min-width: unset!important;
+  height: 100%;
+  min-height: calc(100% - 2px);
+  user-select: none;
+
+  input {
+    width: 164px;
+  }
+  
+  .body {
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .action-buttons {
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .white {
+      fill: white;
+    }
+  }
+}
+
+
+.selection {
+  background: #171717;
+  
+  svg {
+    fill: #e51e5a;
+  }
+
+  .option {
+    width: 100%;
+    padding: 5px 10px;
+
+    .sub-option {
+      padding: 10px 0;
+      width: 80px;
+      border-radius: 5px;
+      margin-left: 5px;
+      cursor: pointer;
+      background: #171717;
+      transition: background-color 0.3s, color 0.3s;
+      color: white;
+    
+      svg {
+        fill: #e51e5a;
+        transition: fill 0.3s;
+      }
+    
+      &:hover,
+      &.selected {
+        color: white;
+        svg {
+          fill: white;
+        }
+      }
+
+      &:hover {
+        background-color: #e51e5a;
+      }
+
+      &.selected {
+        background-color: #aa1642;
+      }
+    }
+    
+  }
+}
+
+button:disabled {
+  &:hover {
+    cursor: default!important;
+  }
+  &.pink-button {
+    &:hover {
+      background-color: #e51e5a!important;
+    }
+  }
+}

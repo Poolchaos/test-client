@@ -601,6 +601,22 @@ svg, .browser-logo, .svg {
   &-20 {
     padding: 20px;
   }
+  &-top {
+    &-10 {
+      padding-top: 10px;
+    }
+    &-20 {
+      padding-top: 20px;
+    }
+    &-unset {
+      padding-top: unset!important;
+    }
+  }
+  &-bottom {
+    &-unset {
+      padding-bottom: unset!important;
+    }
+  }
 }
 
 .add-button {
@@ -623,3 +639,6 @@ svg, .browser-logo, .svg {
 .capitalize {
   text-transform: capitalize;
 }
+
+
+

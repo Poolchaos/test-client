@@ -8,5 +8,6 @@ export function configure(config: FrameworkConfiguration): void {
     PLATFORM.moduleName('./components/editor/editor'),
     PLATFORM.moduleName('./components/steps/steps'),
     PLATFORM.moduleName('./components/dots-loader/dots-loader'),
+    PLATFORM.moduleName('./components/switch/switch'),
   ]);
 }

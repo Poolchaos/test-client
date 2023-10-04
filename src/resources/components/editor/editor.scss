@@ -6,8 +6,8 @@ editor {
     display: flex;
     flex-direction:column;
     justify-content: space-between;
-    width: 280px;
     max-width: 280px;
+    min-width: 280px;
     padding: 10px;
     border-left: 1px solid #373737;
 
@@ -235,6 +235,9 @@ editor {
     position: relative;
     height: calc(100% - 80px);
     flex: 1;
+    max-width: 600px;
+    min-width: 600px;
+    margin: 0 auto;
 
     .e2e-test-cta {
       text-align: center;

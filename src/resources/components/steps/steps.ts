@@ -22,6 +22,10 @@ export class Steps {
     this.steps = this.steps.filter(step => step.groupId !== group.groupId);
   }
   
+  public deleteStep = (index: number): void => {
+    console.log(' ::>> deleteStep >>>> ', index);
+    this.steps.splice(index, 1);
+  }
 
   public editTestSuite(): void {
     this.router.navigate('test-wizard/' + this.testSuiteId + '/' + this.testId);
