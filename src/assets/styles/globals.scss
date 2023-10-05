@@ -592,6 +592,13 @@ svg, .browser-logo, .svg {
   svg {
     fill: #e51e5a;
   }
+
+  &:hover {
+    background: #e51e5a;
+    svg {
+      fill: #ffffff!important;
+    }
+  }
 }
 
 .padding {

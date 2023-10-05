@@ -297,15 +297,23 @@ editor {
       height: 10px;
     }
 
-    &.blue:hover {
+    &.blue {
       svg {
         fill: #1c86cc;
+      }
+
+      &:hover {
+        background: #1c86cc;
+        svg {
+          fill: #ffffff;
+        }
       }
     }
 
     &.pink:hover {
+      background: #e51e5a;
       svg {
-        fill: #e51e5a;
+        fill: #ffffff;
       }
     }
 

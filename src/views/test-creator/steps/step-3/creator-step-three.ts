@@ -4,9 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { STEP_CONSTANTS } from '../step-constants';
 import { ICONS } from './../../../../resources/constants/icons';
-// import { AddStepDialog } from './dialogs/add-step-dialog/add-step-dialog';
-// import { WaitConfigDialog } from './dialogs/wait-config-dialog/wait-config-dialog';
-// import { TextConfigDialog } from './dialogs/text-config-dialog/text-config-dialog';
 
 import './creator-step-three.scss';
 
@@ -20,14 +17,6 @@ export class CreatorStepThree {
   public newStep;
 
   public steps = [{
-    title: 'Wait',
-    expanded: true,
-    list: [
-      { name: 'Wait until the app loads', type: 'wait', icon: 'clock' },
-      { name: 'Wait for dashboard', type: 'wait', icon: 'clock', disabled: true },
-      { name: 'Wait for some time', type: 'wait', icon: 'clock', disabled: true },
-    ]
-  }, {
     title: 'Prompt User input',
     expanded: true,
     list: [
@@ -48,6 +37,14 @@ export class CreatorStepThree {
       { name: STEP_CONSTANTS.DOUBLE_CLICK_ELEMENT, type: 'interact', icon: 'doubleClick', disabled: true },
       // { name: STEP_CONSTANTS.SCROLL_PAGE, type: 'interact', icon: 'upDownArrow', disabled: true },
       // Add more user interaction steps
+    ]
+  }, {
+    title: 'Wait',
+    expanded: false,
+    list: [
+      // { name: 'Wait until the app loads', type: 'wait', icon: 'clock' },
+      { name: 'Wait for dashboard', type: 'wait', icon: 'clock', disabled: true },
+      { name: 'Wait for some time', type: 'wait', icon: 'clock', disabled: true },
     ]
   }, {
     title: 'Verify page content',

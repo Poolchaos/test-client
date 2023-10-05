@@ -1,7 +1,7 @@
 <template>
   <div class="directory-list">
     <div>
-      <div class="top-level-item" style="padding: 1rem;">
+      <div class="top-level-item" style="padding: 0.5rem;">
         <div class="item-header flex flex--justify-between" click.delegate="toggleTopLevel()">
           <div>
             <span class="item-icon" if.bind="isTopLevelExpanded">▼</span>
@@ -95,7 +95,7 @@
                 click.trigger="selectTest(testSuite._id, test, $event)"
                 title.bind="test.name"
               >
-                <span>${test.name}</span>
+                <div class="test-name flex--basis">${test.name}</div>
                 <div class="actions">
                   <button
                     class="pink"
@@ -112,7 +112,7 @@
 
 
 
-      <div class="top-level-item" style="border-top: 4px solid #373737;padding: 1rem;">
+      <div class="top-level-item" style="border-top: 4px solid #373737;padding: 0.5rem;">
         <div class="item-header" click.delegate="toggleSubtestsLevel()">
           <div class="flex flex--basis" style="padding-top: 5px;">
             <span class="item-icon" if.bind="isSubMenuExpanded">▼</span>
@@ -157,7 +157,7 @@
           title.bind="test.name"
           id.bind="isSubMenuExpanded"
         >
-          <span>${test.name}</span>
+          <div class="test-name flex--basis">${test.name}</div>
           <div class="actions">
             <button
               class="pink"

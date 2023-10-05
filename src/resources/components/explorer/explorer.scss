@@ -11,7 +11,7 @@
 
   .top-level-item {
     margin-bottom: 1rem;
-    padding: 0.5rem;
+    padding: 10px;
     cursor: pointer;
     
     .item-header {
@@ -54,15 +54,21 @@
     
   .test-item {
     margin-top: 0.2rem;
-    padding: 5px 0 5px 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: capitalize;
 
+    .test-name {
+      padding: 5px 0 5px 10px;
+    }
+
     &.selected,
-    &:hover {
-      background: #373737;
+    .test-name:hover {
+      border-top: 1px solid rgba(229, 30, 90, 0.5);
+      border-bottom: 1px solid rgba(229, 30, 90, 0.5);
+      padding: 4px 0 4px 10px;
+      border-radius: 10px;
     }
   }
   
@@ -80,15 +86,31 @@
         height: 10px;
       }
 
-      &.blue:hover {
+      &.blue {
+        background: rgba(0, 0, 0, 0);
         svg {
           fill: #1c86cc;
         }
+
+        &:hover {
+          background: #1c86cc;
+          svg {
+            fill: #ffffff;
+          }
+        }
       }
 
-      &.pink:hover {
+      &.pink {
+        background: rgba(0, 0, 0, 0);
         svg {
           fill: #e51e5a;
+        }
+
+        &:hover {
+          background: #e51e5a;
+          svg {
+            fill: #e51e5a;
+          }
         }
       }
 
