@@ -14,11 +14,20 @@
       <li
         id.bind="step.id"
         repeat.for="step of steps"
-        class="margin-bottom-10 draggable-item"
+        class="${step.identity ? ($index !== step.userEndIndex ? 'step-identity-start' : 'step-identity-end') : ''} draggable-item is-relative"
         class.bind="step.groupName ? 'group-steps' : ''"
         draggable="true"
         data-index="${$index}"
       >
+        <div
+          if.bind="step.identity && $index !== step.userEndIndex" 
+          class="step-identity"
+        >
+          ${step.tempData.name || step.identity}
+        </div>
+
+
+
         <section if.bind="step.groupName">
           <div class="flex flex--align-center">
             <div
@@ -52,39 +61,40 @@
         </section>
 
 
-        <section if.bind="!step.groupName">
-          <div class="flex flex--align-center">
-            <div
-              if.bind="!disableReorder"
-              class="actions margin-right--10"
-            >
-              <button
-                class="handle"
-                innerhtml.bind="icons.handle"
-              ></button>
-            </div>
-            <step-template
-              class="flex flex--justify-between flex--basis"
-              style="padding: 5px 10px;display: flex;align-items: center;font-size: 14px;"
+        <section
+          if.bind="!step.groupName"
+          class="flex flex--align-center"
+        >
+          <div
+            if.bind="!disableReorder"
+            class="actions margin-right--10"
+          >
+            <button
+              class="handle"
+              innerhtml.bind="icons.handle"
+            ></button>
+          </div>
+          <step-template
+            class="flex flex--justify-between flex--basis"
+            style="padding: 5px 10px;display: flex;align-items: center;font-size: 14px;"
 
-              index.bind="$index + 1"
-              step.bind="step"
-              icons.bind="icons"
-            ></step-template>
-  
-            <div class="actions">
-              <!-- <button
-                class="full-blue"
-                click.trigger="confirmupdatestep(step)"
-                innerhtml.bind="icons.checkMark"
-              ></button> -->
-              <button
-                class="full-pink"
-                click.trigger="deleteStep($index)"
-                innerhtml.bind="icons.close"
-                if.bind="!disableDelete"
-              ></button>
-            </div>
+            index.bind="$index + 1"
+            step.bind="step"
+            icons.bind="icons"
+          ></step-template>
+
+          <div class="actions">
+            <!-- <button
+              class="full-blue"
+              click.trigger="confirmupdatestep(step)"
+              innerhtml.bind="icons.checkMark"
+            ></button> -->
+            <button
+              class="full-pink"
+              click.trigger="deleteStep($index)"
+              innerhtml.bind="icons.close"
+              if.bind="!disableDelete"
+            ></button>
           </div>
         </section>
       </li>

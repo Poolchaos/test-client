@@ -59,8 +59,16 @@
     text-overflow: ellipsis;
     text-transform: capitalize;
 
-    .test-name {
+    .test-name,
+    .sub-test-name {
       padding: 5px 0 5px 10px;
+      
+      &.selected,
+      &.is-open,
+      &:hover {
+        padding: 4px 0 4px 10px;
+        border-radius: 10px;
+      }
     }
 
     .test-name {
@@ -75,6 +83,21 @@
       
       &.selected {
         background: rgba(229, 30, 90, 0.5);
+      }
+    }
+
+    .sub-test-name {
+      &.selected,
+      &.is-open,
+      &:hover {
+        border-top: 1px solid rgba(28, 134, 204, 0.5);
+        border-bottom: 1px solid rgba(28, 134, 204, 0.5);
+        padding: 4px 0 4px 10px;
+        border-radius: 10px;
+      }
+      
+      &.selected {
+        background: rgba(28, 134, 204, 0.5);
       }
     }
   }

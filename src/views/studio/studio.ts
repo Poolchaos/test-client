@@ -83,7 +83,6 @@ export class Studio {
         .asGet()
         .send()
         .catch(e =>{})
-      console.log(' ::>> testData >>>> ', testData);
       this.testSuites = JSON.parse(testData.response);
       this.testSuiteNames = this.testSuites.map(suite => suite.name);
       console.log(' ::>> testSuites ', this.testSuites);
@@ -116,10 +115,8 @@ export class Studio {
       })
     });
     this.subscription = this.eventAggregator.subscribe('new-tab', (test) => {
-      console.log(' ::>> new-tab ', test);
       this.openTab(test);
     });
-    console.log(' ::>> tabs =>  tabs', this.tabs);
   }
 
   public async requestDirectorySelection(): Promise<void> {
@@ -227,7 +224,7 @@ export class Studio {
 
     let explorer = document.querySelector('explorer');
     if (!explorer) {
-      setTimeout(() => this.notifyTabSelected(tab), 100);
+      setTimeout(() => this.notifyTabSelected(tab), 1000);
       return;
     }
 
@@ -244,7 +241,7 @@ export class Studio {
 
     let explorer = document.querySelector('explorer');
     if (!explorer) {
-      setTimeout(() => this.notifyTabSelected(tab), 100);
+      setTimeout(() => this.notifyTabSelected(tab), 1000);
       return;
     }
 

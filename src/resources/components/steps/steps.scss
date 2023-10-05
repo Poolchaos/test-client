@@ -99,4 +99,39 @@ steps {
       fill: #e51e5a;
     }
   }
+
+  .draggable-item {
+    border-left: 1px solid rgba(0, 0, 0, 0);
+  }
+
+  .step-identity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    height: calc(200% - 20px);
+    background: #1c86cc;
+    width: 100px;
+  }
+
+  .step-identity-start {
+    border-top: 1px solid #1c86cc;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .step-identity-end {
+    border-bottom: 1px solid #1c86cc;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .step-identity-start,
+  .step-identity-end {
+    border-left: 1px solid #1c86cc;
+    border-right: 1px solid #1c86cc;
+  }
 }

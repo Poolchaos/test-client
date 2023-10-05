@@ -25,11 +25,10 @@
             if.bind="tabs.length > 0"
           >
             <div
-              class="tab flex flex--direction-rows flex--direction-cols flex--align-center"
+              class="tab flex flex--direction-rows flex--direction-cols flex--align-center ${tab.type ? tab.type + '-tab' : 'welcome-tab'}"
               class.bind="tab.selected ? 'selected' : ''"
               repeat.for="tab of tabs"
               click.delegate="selectTab(tab)"
-              style="fill: #e51e5a;"
             >
               <span
                 innerhtml.bind="tab.type === 'complete' ? icons.circle : (tab.type === 'partial' ? icons.puzzle : icons.openDoor)"
