@@ -19,7 +19,7 @@
     class="flex--basis text--left flex"
   >
     <div if.bind="step.predefined">
-      Enter user &nbsp;<span class="text-pink">${step.config.label}</span>&nbsp;into the text field.
+      Enter user &nbsp;<span class="text-blue">${step.config.label}</span>&nbsp;into the text field.
     </div>
     <div if.bind="!step.predefined">
       not predefined
@@ -31,10 +31,10 @@
     class="flex--basis text--left flex"
   >
     <div if.bind="step.config.value">
-      Click button reading &nbsp;<span class="text-pink">${step.config.value}</span>.
+      Click button reading &nbsp;<span class="text-blue">${step.config.value}</span>.
     </div>
     <div if.bind="step.config.label">
-      Click button with class name &nbsp;<span class="text-pink">${step.config.label}</span>.
+      Click button with class name &nbsp;<span class="text-blue">${step.config.label}</span>.
     </div>
   </section>
 </template>

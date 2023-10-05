@@ -74,10 +74,10 @@
 
   .left-column,
   .right-column {
-    height: calc(100% - 2px);
+    height: 100%;
     background-color: #1e1e1e;
-    border-bottom: 1px solid #373737;
-    border-right: 1px solid #373737;
+    // border-bottom: 1px solid #373737;
+    // border-right: 1px solid #373737;
     width: 310px;
     min-width: 310px;
     overflow-y: auto;
