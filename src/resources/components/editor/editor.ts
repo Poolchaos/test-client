@@ -10,6 +10,7 @@ import './editor.scss';
 
 interface IConfig {
   testSuiteId: string;
+  _id: string;
   testId: string;
   name: string;
   type: string;
@@ -52,7 +53,7 @@ export class Editor {
 
   private getSubTestConfig(): void {
     this.httpClient
-      .createRequest(`sub-tests/${this.config.testId}`)
+      .createRequest(`sub-tests/${this.config._id}`)
       .asGet()
       .send()
       .then(data => {
@@ -123,6 +124,10 @@ export class Editor {
         }
       })
       .catch(e => {});
+  }
+
+  public configureTestToRun(): void {
+    console.log(' ::>> configureTestToRun >>>> >');
   }
 
   public runTest(): void {
