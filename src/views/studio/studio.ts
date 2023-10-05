@@ -75,7 +75,7 @@ export class Studio {
   private async getE2ETests(): Promise<void> {
     try {
       let testData: any = await this.httpClient
-        .createRequest('testsuites')
+        .createRequest('test-suites')
         .asGet()
         .send()
         .catch(e =>{})

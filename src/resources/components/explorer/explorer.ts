@@ -149,7 +149,7 @@ export class Explorer {
     console.log(' ::>> createTestSuite ', name);
     try {
       this.httpClient
-        .createRequest('testsuites')
+        .createRequest('test-suites')
         .asPost()
         .withContent({ name })
         .send()
@@ -191,7 +191,7 @@ export class Explorer {
       .whenClosed(response => {
         if (!response.wasCancelled) {
           this.httpClient
-            .createRequest('testsuites/' + testSuite._id)
+            .createRequest('test-suites/' + testSuite._id)
             .asDelete()
             .send()
             .then(() => {
@@ -216,7 +216,7 @@ export class Explorer {
   
   public deleteTest(testSuiteId, testId: string): void {
     this.httpClient
-      .createRequest('testsuites/' + testSuiteId + '/test/' + testId)
+      .createRequest('test-suites/' + testSuiteId + '/test/' + testId)
       .asDelete()
       .send()
       .then(() => {

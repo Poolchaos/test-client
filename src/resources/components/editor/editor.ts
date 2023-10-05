@@ -71,7 +71,7 @@ export class Editor {
 
   private getTestConfig(): void {
     this.httpClient
-      .createRequest(`testsuites/${this.config.testSuiteId}/test/${this.config.testId}`)
+      .createRequest(`test-suites/${this.config.testSuiteId}/test/${this.config.testId}`)
       .asGet()
       .send()
       .then(data => {
@@ -93,7 +93,7 @@ export class Editor {
 
 
     this.httpClient
-      .createRequest(`automate/results`)
+      .createRequest(`results`)
       .asGet()
       .withParams({ testId: this.config.testId })
       .send()
