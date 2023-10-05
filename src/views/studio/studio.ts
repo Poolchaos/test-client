@@ -69,6 +69,8 @@ export class Studio {
     try {
       let configString = sessionStorage.getItem('zai-test-config');
       this.tabs = JSON.parse(configString).studio.tabs;
+      console.log(' ::>> this.tabs >>>> ', this.tabs);
+      this.tabs.forEach(tab => this.notifyTabSelected(tab))
     } catch(e) {
       console.warn(' ::>> no previous config found. ');
     }
@@ -195,14 +197,64 @@ export class Studio {
   }
 
   public selectTab(tab: any) {
-    this.tabs.forEach(tab => tab.selected = false);
-    tab.selected = true;
+    this.tabs.forEach(_tab => {
+      if (
+        tab._id && tab._id === _tab._id ||
+        tab.testId && tab.testId === _tab.testId
+      ) {
+        _tab.selected = true;
+        tab.selected = true;
+        this.notifyTabSelected(_tab);
+      } else {
+        if (_tab.selected) {
+          console.log(' ::>> deselect tab >>>>> ', _tab);
+          _tab.selected = false;
+          this.notifyTabDeSelected(_tab);
+        }
+        _tab.selected = false;
+      }
+    });
     
     sessionStorage.setItem('zai-test-config', JSON.stringify({
       studio: {
         tabs: this.tabs
       }
     }));
+  }
+
+  private notifyTabSelected(tab: any): void {
+
+    let explorer = document.querySelector('explorer');
+    if (!explorer) {
+      setTimeout(() => this.notifyTabSelected(tab), 100);
+      return;
+    }
+
+    if (tab.name !== 'Welcome') {
+      console.log(' ::>> tab >>>> ', tab);
+      if (tab.type === 'complete') {
+        this.eventAggregator.publish('select-test-tab', tab);
+      } else if (tab.type === 'partial') {
+        this.eventAggregator.publish('select-sub-test-tab', tab);
+      }
+    }
+  }
+
+  private notifyTabDeSelected(tab: any): void {
+
+    let explorer = document.querySelector('explorer');
+    if (!explorer) {
+      setTimeout(() => this.notifyTabSelected(tab), 100);
+      return;
+    }
+
+    if (tab.name !== 'Welcome') {
+      if (tab.type === 'complete') {
+        this.eventAggregator.publish('deselect-test-tab', tab);
+      } else if (tab.type === 'partial') {
+        this.eventAggregator.publish('deselect-sub-test-tab', tab);
+      }
+    }
   }
 
   public closeTab(index: number, event?: Event): void {

@@ -63,12 +63,19 @@
       padding: 5px 0 5px 10px;
     }
 
-    &.selected,
-    .test-name:hover {
-      border-top: 1px solid rgba(229, 30, 90, 0.5);
-      border-bottom: 1px solid rgba(229, 30, 90, 0.5);
-      padding: 4px 0 4px 10px;
-      border-radius: 10px;
+    .test-name {
+      &.selected,
+      &.is-open,
+      &:hover {
+        border-top: 1px solid rgba(229, 30, 90, 0.5);
+        border-bottom: 1px solid rgba(229, 30, 90, 0.5);
+        padding: 4px 0 4px 10px;
+        border-radius: 10px;
+      }
+      
+      &.selected {
+        background: rgba(229, 30, 90, 0.5);
+      }
     }
   }
   

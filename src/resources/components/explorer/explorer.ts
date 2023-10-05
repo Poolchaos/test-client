@@ -17,16 +17,26 @@ interface ITestSuite {
     testId: string;
     name: string;
     type: string;
+    selected?: boolean;
+    isOpen?: boolean;
   }[];
   isExpanded?: boolean;
   showMenu?: boolean;
+}
+
+interface ISubTest {
+  _id: string;
+  name: string;
+  type: string;
+  selected?: boolean;
+  isOpen?: boolean;
 }
 
 @inject(Element, HttpClient, DialogService, EventAggregator)
 export class Explorer {
 
   @bindable({ attribute: 'test-suites' }) public testSuites: ITestSuite[] = [];
-  @bindable({ attribute: 'sub-tests' }) public subTests: ITestSuite[] = [];
+  @bindable({ attribute: 'sub-tests' }) public subTests: ISubTest[] = [];
   @bindable({ attribute: 'test-suite-names' }) public testSuiteNames: string[] = [];
   public isTopLevelExpanded: boolean = true;
   public isSubMenuExpanded: boolean = true;
@@ -51,6 +61,57 @@ export class Explorer {
     this.testSuites.forEach(ts => {
       ts.isExpanded = true;
     });
+
+    this.eventAggregator
+      .subscribe(
+        'select-test-tab',
+        (tab: { testSuiteId: string; testId?: string; selected: boolean; }) => {
+          let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
+          if (testSuite) {
+            let test = testSuite.tests.find(t => t.testId === tab.testId);
+            if (test) {
+              test.isOpen = true;
+              test.selected = tab.selected;
+            }
+          }
+        }
+      );
+
+    this.eventAggregator
+      .subscribe(
+        'select-sub-test-tab',
+        (tab: { testSuiteId: string; _id: string; selected: boolean; }) => {
+          let test = this.subTests.find(t => t._id === tab._id);
+          if (test) {
+            test.isOpen = true;
+            test.selected = tab.selected;
+          }
+        }
+      );
+
+    
+    this.eventAggregator
+      .subscribe(
+        'deselect-test-tab',
+        (tab: { testSuiteId: string; testId?: string; }) => {
+          let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
+          if (testSuite) {
+            let test = testSuite.tests.find(t => t.testId === tab.testId);
+            if (test) {
+              test.selected = false;
+            }
+          }
+        });
+    
+    this.eventAggregator
+      .subscribe(
+        'deselect-sub-test-tab',
+        (tab: { _id: string; }) => {
+          let test = this.subTests.find(t => t._id === tab._id);
+          if (test) {
+            test.selected = false;
+          }
+        });
   }
 
   public toggleTopLevel(): void {

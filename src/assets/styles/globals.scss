@@ -565,12 +565,15 @@ svg, .browser-logo, .svg {
 
 .margin {
   &-top {
-    &--10{
+    &--10 {
       margin-top: 10px!important;
     }
   }
   &-right {
-    &--10{
+    &--5 {
+      margin-right: 5px;
+    }
+    &--10 {
       margin-right: 10px;
     }
     &--20 {
