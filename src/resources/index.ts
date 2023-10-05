@@ -9,5 +9,6 @@ export function configure(config: FrameworkConfiguration): void {
     PLATFORM.moduleName('./components/steps/steps'),
     PLATFORM.moduleName('./components/dots-loader/dots-loader'),
     PLATFORM.moduleName('./components/switch/switch'),
+    PLATFORM.moduleName('./components/select-user/select-user'),
   ]);
 }

@@ -18,13 +18,16 @@ interface IConfig {
 }
 
 interface IStep {
-  action: string;
+  name: string;
+  type: string;
   config: {
-    selector?: string;
+    label?: string;
     value?: string;
-    target?: string;
-    durationInSeconds?: number;
-  }
+  },
+  tempData?: any,
+  predefined?: boolean;
+  identity?: string;
+  userEndIndex?: number;
   error?: boolean;
 }
 
@@ -35,6 +38,12 @@ export class Editor {
   public icons = ICONS;
   public loading: boolean = false;
   public testResults: any = [];
+  private predefinedRequiredConfigs = {
+    users: [],
+    apiRequest: false
+  };
+  public environments: any = [];
+  public requestApis: any = [];
 
   constructor(
     private httpClient: HttpClient,
@@ -49,6 +58,7 @@ export class Editor {
       this.getTestConfig();
     }
     this.getTestResults();
+    this.getEnvironments();
   }
 
   private getSubTestConfig(): void {
@@ -125,32 +135,148 @@ export class Editor {
       })
       .catch(e => {});
   }
-
-  public configureTestToRun(): void {
-    console.log(' ::>> configureTestToRun >>>> >');
+  
+  private getEnvironments(): void {
+    this.httpClient
+      .createRequest(`environments`)
+      .asGet()
+      .send()
+      .then(data => {
+        try {
+          this.environments = JSON.parse(data.response);
+          console.log(' ::>> environments >>> ', this.environments);
+        } catch(e) {
+          console.log(' > Failed to get environments', e);
+        }
+      });
   }
+
+
+
+  public configuringTest: boolean = true;
+  public userArray = [];
+  public configureTestToRun(): void {
+    this.configuringTest = true;
+    console.log(' ::>> configureTestToRun >>>> >', {
+      config: this.config,
+      steps: this.config.steps
+    });
+    // @ts-ignore
+    this.config.steps = mock_data;
+
+    let userCounter = 0; // Start with 0 users
+    let stepIndexEmail = [];
+    let stepIndexPassword = [];
+    let currentUser = null;
+
+    // for (let i = 0; i < this.config.steps.length; i++) {
+    //   const step = this.config.steps[i];
+    for (let i = 0; i < mock_data.length; i++) {
+      const step = mock_data[i];
+      
+      if (step.predefined) {
+        if (step.config.value === "{{ email }}") {
+          if (currentUser !== null) {
+            userCounter++;
+          }
+          stepIndexEmail.push(i);
+          currentUser = `User ${userCounter + 1}`;
+        } else if (step.config.value === "{{ password }}") {
+          stepIndexPassword.push(i);
+        }
+      }
+      
+      // Execute the test step (e.g., perform a "click" action or "wait")
+      console.log(`${currentUser}: Executing step ${i}: ${step.name || step.type}`);
+    }
+
+    // After the loop, check if the last user's steps were completed
+    if (currentUser !== null) {
+      userCounter++;
+    }
+
+    console.log(`Total users: ${userCounter}`);
+    console.log(`Step indices for Email: ${stepIndexEmail}`);
+    console.log(`Step indices for Password: ${stepIndexPassword}`);
+
+
+    for (let i = 0; i < userCounter; i++) {
+      const user = {
+        placeholder: `User ${i + 1}`,
+        emailIndex: stepIndexEmail[i],
+        passwordIndex: stepIndexPassword[i],
+      };
+      this.userArray.push(user);
+    }
+
+    this.identifyUserSlots();
+  }
+
+  private identifyUserSlots() {
+    console.log(' ::>> userArray >>>>> ', this.userArray);
+
+    this.userArray.forEach(user => {
+      if (user.emailIndex >= 0) {
+        this.config.steps[user.emailIndex].identity = user.placeholder;
+      }
+      if (user.passwordIndex >= 0) {
+        this.config.steps[user.passwordIndex].identity = user.placeholder;
+      }
+
+      if (
+        user.emailIndex >= 0 &&
+        user.passwordIndex >= 0
+      ) {
+        if (user.emailIndex < user.passwordIndex) {
+          this.config.steps[user.passwordIndex].userEndIndex = user.passwordIndex;
+        } else {
+          this.config.steps[user.passwordIndex].userEndIndex = user.emailIndex;
+        }
+      }
+    });
+
+    console.log(' ::>> this.config.steps >>>> ', this.config.steps);
+  }
+
+  public enableUserSelect(user: any): void {
+    user.selectEnabled = true;
+    console.log(' ::>> user >>>> ', user);
+  }
+
+  public userSelected(selectedUser: any, user: any): void {
+    console.log(' ::>> user selected >>>>> ', { selectedUser, user });
+    user.selectEnabled = false;
+    this.config.steps[user.emailIndex].tempData = selectedUser;
+    this.config.steps[user.passwordIndex].tempData = selectedUser;
+    user.config = selectedUser;
+  }
+
+
+
+
+  
 
   public runTest(): void {
     this.loading = true;
     console.log(' ::>> run test > ', this.config);
     
-    this.testResults.unshift({
-      startTime: moment().format('DD/MM/YYYY HH:mm:ss'),
-      ongoing: true
-    });
+    // this.testResults.unshift({
+    //   startTime: moment().format('DD/MM/YYYY HH:mm:ss'),
+    //   ongoing: true
+    // });
 
-    this.httpClient
-      .createRequest('automate')
-      .asPost()
-      .withContent(this.config)
-      .send()
-      .then(data => {
-        console.log(' ::>> data >>>> ', data);
-      })
-      .catch(e => {
-        console.error(e);
-        this.loading = false;
-      });
+    // this.httpClient
+    //   .createRequest('automate')
+    //   .asPost()
+    //   .withContent(this.config)
+    //   .send()
+    //   .then(data => {
+    //     console.log(' ::>> data >>>> ', data);
+    //   })
+    //   .catch(e => {
+    //     console.error(e);
+    //     this.loading = false;
+    //   });
   }
 
   public viewTestResult(result): void {
@@ -166,3 +292,52 @@ export class Editor {
     }
   }
 }
+
+
+
+const mock_data = [
+  {
+      "type": "text",
+      "predefined": true,
+      "config": {
+          "value": "{{ email }}",
+          "label": "Email"
+      }
+  },
+  {
+      "type": "text",
+      "predefined": true,
+      "config": {
+          "value": "{{ password }}",
+          "label": "Password"
+      }
+  },
+  {
+      "type": "click",
+      "config": {
+          "value": "SIGN IN"
+      }
+  }, {
+    "type": "window",
+    "name": "Open new browser window"
+  }, {
+      "type": "text",
+      "predefined": true,
+      "config": {
+          "value": "{{ email }}",
+          "label": "Email"
+      }
+  }, {
+      "type": "text",
+      "predefined": true,
+      "config": {
+          "value": "{{ password }}",
+          "label": "Password"
+      }
+  }, {
+      "type": "click",
+      "config": {
+          "value": "SIGN IN"
+      }
+  }
+]

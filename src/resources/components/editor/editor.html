@@ -54,7 +54,7 @@
   </section>
 
   <div class="col-right">
-    <section>
+    <section if.bind="!configuringTest">
       <h4 class="header text--center">
         Test history
       </h4>
@@ -97,13 +97,104 @@
         </section>
       </section>
     </section>
-<!--     
-    <button
-      class="large padded-10 pink button"
-      click.trigger="runTest()"
-      style="margin-right: 10px;"
+
+
+
+
+
+    <section
+      if.bind="configuringTest"
+      style="padding: 5px;"
     >
-      <span class="icon" style="margin-right: 5px;">&#9654;</span> Configure & Run Test
-    </button> -->
+      <h2
+        class="text--center"
+        style="
+          font-size: 20px;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        "
+      >
+        Select an&nbsp;
+        <span class="text-pink">
+          Environment
+        </span>
+      </h2>
+
+      <section
+        class="flex flex--justify-between"
+        style="margin-bottom: 20px;"
+      >
+        <select
+          class="input-field inline"
+          value.bind="config.environment"
+          style="margin-left: 10px;width: 150px;margin: auto;"
+        >
+          <option repeat.for="env of environments">
+            ${env.name}
+          </option>
+        </select>
+      </section>
+
+      <h2
+        class="text--center"
+        style="
+          font-size: 20px;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        "
+      >
+        <span class="text-pink">
+          ${userArray.length}
+        </span> &nbsp;User sign${userArray.length === 1 ? '' : "'s"} in detected
+      </h2>
+
+      <section repeat.for="user of userArray">
+        <section
+          class="margin-bottom-10 flex flex--justify-center flex--align-center"
+          click.trigger="enableUserSelect(user)"
+          if.bind="!user.selectEnabled"
+          style="
+            background: #e51e5a;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            height: 20px;
+          "
+          style.bind="user.config ? 'padding: 20px;height: 40px;' : 'padding: 30px;'"
+        >
+          <span if.bind="!user.config">Select ${user.placeholder}</span>
+          <div if.bind="user.config" class="flex flex--justify-center flex--align-center">
+            <div
+              innerhtml.bind="icons.roles[user.config.role]"
+              class="svg config-icon"
+              style="
+                margin-right: 5px;
+                fill: #ffffff;
+              "
+            ></div>
+            <section>
+              <section class="text-white">${user.config.name}</section>
+              <section style="font-size: 14px;">${user.config.role}</section>
+            </section>
+          </div>
+        </section>
+
+        <select-user
+          if.bind="user.selectEnabled"
+          environment.bind="config.environment"
+          user-selected.trigger="userSelected($event.detail, user)"
+        ></select-user>
+      </section>
+
+      <button
+        class="large padded-10 pink button"
+        class.bind="selectedUser ? '' : 'u-faded-content'"
+        click.trigger="runTest()"
+        style="margin-right: 10px;"
+      >
+        <span class="icon" style="margin-right: 5px;">&#9654;</span>
+        Start test
+      </button>
+    </section>
   </div>
 </template>

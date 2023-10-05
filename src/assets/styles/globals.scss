@@ -286,6 +286,9 @@ a {
   &-blue {
     color: #26a8ff;
   }
+  &-white {
+    color: #ffffff;
+  }
   &-orange {
     color: #ffa800!important;
   }
@@ -623,6 +626,9 @@ svg, .browser-logo, .svg {
     }
   }
   &-bottom {
+    &-10 {
+      padding-bottom: 10px;
+    }
     &-unset {
       padding-bottom: unset!important;
     }

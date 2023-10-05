@@ -36,7 +36,6 @@ export class Steps {
       setTimeout(() =>  setTimeout(() => this.setupDragAndDrop()), 500);
       return;
     }
-    console.log(' ::>> sortable list found ');
 
     const items = sortableList.querySelectorAll('.draggable-item');
     let draggedItem = null;
@@ -80,7 +79,6 @@ export class Steps {
   }
   
   public deleteStep = (index: number): void => {
-    console.log(' ::>> deleteStep >>>> ', index);
     this.steps.splice(index, 1);
   }
 

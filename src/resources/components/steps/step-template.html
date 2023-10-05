@@ -37,4 +37,12 @@
       Click button with class name &nbsp;<span class="text-blue">${step.config.label}</span>.
     </div>
   </section>
+
+  
+  <section
+    if.bind="step.type === 'window'"
+    class="flex--basis text--left flex"
+  >
+    ${step.name}
+  </section>
 </template>

@@ -1,0 +1,99 @@
+<template>
+  <section
+    style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid #e51e5a;
+      border-radius: 5px;
+      height: 78px;
+    "
+    class="margin-bottom-10"
+  >
+    <section
+      class="flex flex--justify-center margin-bottom-10"
+      class.bind="!environment ? 'u-faded-content' : ''"
+    >
+      <label style="font-size: 14px;">Organisation:</label>
+      <select
+        class="input-field inline"
+        value.bind="config.organisation"
+        style="margin-left: 10px;width: 150px;"
+        change.trigger="selectOrganisation(config.organisation)"
+      >
+        <option disabled selected>Select an organisation</option>
+        <option repeat.for="organisation of organisations">
+          ${organisation.name}
+        </option>
+      </select>
+    </section>
+
+    <section
+      class="flex flex--justify-center is-relative"
+      style="font-size: 14px;"
+    >
+      <label>Member:</label>
+      <section
+        class="dropdown-wrapper"
+        mouseenter.trigger="menuEnter()"
+        mouseleave.trigger="menuLeave()"
+        style="width: 150px;margin-left: 10px;"
+      >
+        <section
+          class="flex flex--align-center hoverable"
+          style="color: black; text-align: center;"
+          if.bind="selectedUser"
+          click.trigger="showMenu()"
+        >
+          <div
+            innerhtml.bind="icons.roles[selectedUser.role]"
+            class="svg config-icon"
+            style="
+              margin-right: 5px;
+              fill: #e51e5a;
+            "
+          ></div>
+          <section>
+            <section class="text-white">${selectedUser.name}</section>
+            <section class="text-blue">${selectedUser.role}</section>
+          </section>
+          <section class="down-arrow"></section>
+        </section>
+        <section 
+          class="no-data-message hoverable"
+          style="padding: 0 15px 0 0;"
+          if.bind="!selectedUser"
+          click.trigger="showMenu()"
+        >
+          Select a user.
+          <section class="down-arrow"></section>
+        </section>
+        <nav
+          class="sub-menu"
+          if.bind="users.length > 0 && userSelectionEnabled"
+          style="left:unset;
+          right: 0;top:100%;"
+        >
+          <ul>
+            <li
+              class="flex flex--align-center"
+              repeat.for="user of users"
+              click.trigger="selectUser(user)"
+            >
+              <div
+                innerhtml.bind="icons.roles[user.role]"
+                class="pink svg config-icon"
+                style="margin-right: 10px;"
+              ></div>
+              <section>
+                <section>${user.name}</section>
+                <section class="text-blue">${user.role}</section>
+              </section>
+            </li>
+          </ul>
+        </nav>
+
+      </section>
+    </section>
+  </section>
+</template>
