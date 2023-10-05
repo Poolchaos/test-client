@@ -205,6 +205,8 @@ export class Studio {
         _tab.selected = true;
         tab.selected = true;
         this.notifyTabSelected(_tab);
+      } else if(tab.name === _tab.name) {
+        tab.selected = true;
       } else {
         if (_tab.selected) {
           _tab.selected = false;

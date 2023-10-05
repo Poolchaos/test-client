@@ -162,7 +162,7 @@ export class Editor {
     if (this.config.type === 'complete') {
     this.router.navigate('test-wizard/' + this.config.testSuiteId + '/' + this.config.testId);
     } else if (this.config.type === 'partial') {
-      this.router.navigate('test-wizard/' + this.config.testId);
+      this.router.navigate('test-wizard/' + this.config._id);
     }
   }
 }
