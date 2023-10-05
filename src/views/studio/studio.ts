@@ -207,7 +207,6 @@ export class Studio {
         this.notifyTabSelected(_tab);
       } else {
         if (_tab.selected) {
-          console.log(' ::>> deselect tab >>>>> ', _tab);
           _tab.selected = false;
           this.notifyTabDeSelected(_tab);
         }
@@ -231,7 +230,6 @@ export class Studio {
     }
 
     if (tab.name !== 'Welcome') {
-      console.log(' ::>> tab >>>> ', tab);
       if (tab.type === 'complete') {
         this.eventAggregator.publish('select-test-tab', tab);
       } else if (tab.type === 'partial') {
@@ -259,6 +257,12 @@ export class Studio {
 
   public closeTab(index: number, event?: Event): void {
     event && event.stopPropagation();
+
+    if (this.tabs[index].type === 'complete') {
+      this.eventAggregator.publish('close-test-tab', this.tabs[index]);
+    } else if (this.tabs[index].type === 'partial') {
+      this.eventAggregator.publish('close-sub-test-tab', this.tabs[index]);
+    }
 
     // todo: check for changes for test tabs
     if (this.tabs[index].selected && this.tabs.length > 0) {

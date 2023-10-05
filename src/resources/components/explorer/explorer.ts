@@ -112,6 +112,32 @@ export class Explorer {
             test.selected = false;
           }
         });
+
+    
+    this.eventAggregator
+      .subscribe(
+        'close-test-tab',
+        (tab: { testSuiteId: string; testId?: string; }) => {
+          let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
+          if (testSuite) {
+            let test = testSuite.tests.find(t => t.testId === tab.testId);
+            if (test) {
+              test.isOpen = false;
+              test.selected = false;
+            }
+          }
+        });
+    
+    this.eventAggregator
+      .subscribe(
+        'close-sub-test-tab',
+        (tab: { _id: string; }) => {
+          let test = this.subTests.find(t => t._id === tab._id);
+          if (test) {
+            test.isOpen = false;
+            test.selected = false;
+          }
+        });
   }
 
   public toggleTopLevel(): void {
