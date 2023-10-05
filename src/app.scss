@@ -80,6 +80,10 @@ header.top-menu {
   .menu-item {
     position: relative;
 
+    .pink:hover {
+      background: unset!important;
+    }
+
     a {
       text-decoration: none;
       color: #fff;

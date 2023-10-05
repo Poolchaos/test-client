@@ -298,6 +298,8 @@ editor {
     }
 
     &.blue {
+      background: rgba(0, 0, 0, 0);
+
       svg {
         fill: #1c86cc;
       }
@@ -310,10 +312,14 @@ editor {
       }
     }
 
-    &.pink:hover {
-      background: #e51e5a;
-      svg {
-        fill: #ffffff;
+    &.pink {
+      background: rgba(0, 0, 0, 0);
+
+      &:hover {
+        background: #e51e5a;
+        svg {
+          fill: #ffffff;
+        }
       }
     }
 

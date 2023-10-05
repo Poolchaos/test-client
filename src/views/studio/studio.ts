@@ -3,6 +3,7 @@ import { HttpClient } from 'aurelia-http-client';
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
 
+import { ICONS } from 'resources/constants/icons';
 import './studio.scss';
 
 interface IConfig {
@@ -37,6 +38,7 @@ interface ITestSuite {
 @autoinject
 export class Studio {
 
+  public icons = ICONS;
   public tabs: any[] = [{
     name: 'Welcome',
     selected: true

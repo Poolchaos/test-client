@@ -1,19 +1,5 @@
 <template>
   <div class="studio">
-    <!-- <section class="config-row">
-      <section>
-        <button
-          class="config-button"
-          click.trigger="requestDirectorySelection()"
-        >
-          Open Test Directory
-        </button>
-        <button class="config-button">Save</button>
-      </section>
-      <button class="config-button" click.trigger="runAllTests()">
-        <span class="icon" style="margin-right: 5px;">&#9654;</span> Run all tests
-      </button>
-    </section> -->
     <section class="content-section">
       <div
         class="file-explorer"
@@ -39,11 +25,17 @@
             if.bind="tabs.length > 0"
           >
             <div
-              class="tab"
+              class="tab flex flex--direction-rows flex--direction-cols flex--align-center"
               class.bind="tab.selected ? 'selected' : ''"
               repeat.for="tab of tabs"
               click.delegate="selectTab(tab)"
+              style="fill: #e51e5a;"
             >
+              <span
+                innerhtml.bind="tab.type === 'complete' ? icons.circle : (tab.type === 'partial' ? icons.puzzle : icons.openDoor)"
+                class="margin-right--10"
+                title.bind="tab.type === 'complete' ? 'Test Suite' : (tab.type === 'Sub-Test' ? icons.puzzle : 'Welcome')"
+              ></span>
               <span class="tab-title">${tab.name}</span>
               <span
                 class="tab-close"
