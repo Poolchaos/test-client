@@ -23,7 +23,15 @@
           if.bind="step.identity && $index !== step.userEndIndex" 
           class="step-identity"
         >
-          ${step.tempData.name || step.identity}
+          <div
+            if.bind="!step.tempData.name"
+            innerhtml.bind="icons.warning"
+            class="svg white margin-right--5"
+          ></div>
+          <div class="flex flex--direction-cols">
+            <span>${step.tempData.name || step.identity}</span>
+            <span if.bind="!step.tempData.name" style="font-size: 12px;">(Select a user)</span>
+          </div>
         </div>
 
 
@@ -52,10 +60,6 @@
               icons.bind="icons"
               disableactions.bind="!editable"
 
-              confirmupdatestep.bind="confirmUpdateStep"
-              canceleditstep.bind="cancelEditStep"
-              editstep.bind="editTestSuite"
-              deletestep.bind="deleteStep"
             ></step-template>
           </div>
         </section>
@@ -90,7 +94,7 @@
               innerhtml.bind="icons.checkMark"
             ></button> -->
             <button
-              class="full-pink"
+              class="pink"
               click.trigger="deleteStep($index)"
               innerhtml.bind="icons.close"
               if.bind="!disableDelete"

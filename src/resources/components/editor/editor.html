@@ -30,13 +30,13 @@
     ></button>
     
     <section class="content-panel">
-      <div class="flex flex--justify-center">
+      <div class="flex text--left">
         <h2 style="
           font-size: 20px;
-          margin-top: 20px;
-          margin-bottom: 10px;
+          margin: 20px auto 10px auto;
+          width: 600px;
         ">
-          Configured steps for <span class="text-pink">${config.name}</span>
+          ${config.type === 'complete' ? 'Test Suite:' : 'Sub-Test:'} <span class="text-pink">${config.name}</span>
         </h2>
       </div>
 
@@ -54,7 +54,7 @@
   </section>
 
   <div class="col-right">
-    <section if.bind="!configuringTest">
+    <section if.bind="!configuringTest && config.type === 'complete'">
       <h4 class="header text--center">
         Test history
       </h4>
@@ -139,7 +139,7 @@
       >
         <select
           class="input-field inline"
-          value.bind="config.environment"
+          value.bind="environment"
           style="margin-left: 10px;width: 150px;margin: auto;"
         >
           <option repeat.for="env of environments">
@@ -167,7 +167,7 @@
           click.trigger="enableUserSelect(user)"
           if.bind="!user.selectEnabled"
           style="
-            background: #e51e5a;
+            background: #1c86cc;
             border-radius: 5px;
             text-align: center;
             cursor: pointer;
@@ -194,14 +194,14 @@
 
         <select-user
           if.bind="user.selectEnabled"
-          environment.bind="config.environment"
+          environment.bind="environment"
           user-selected.trigger="userSelected($event.detail, user)"
         ></select-user>
       </section>
 
       <button
         class="large padded-10 full-pink button svg"
-        class.bind="selectedUser ? '' : 'u-faded-content'"
+        class.bind="configurationsDone && environment ? '' : 'u-faded-content'"
         click.trigger="runTest()"
         style="height: 40px;"
       >

@@ -1,6 +1,7 @@
 import { Router } from 'aurelia-router';
 import { bindable, autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 import moment from 'moment';
 
@@ -14,6 +15,7 @@ interface IConfig {
   testId: string;
   name: string;
   type: string;
+  environment: { name: string; url: string; }
   steps: IStep[];
 }
 
@@ -42,12 +44,14 @@ export class Editor {
     users: [],
     apiRequest: false
   };
+  public environment: string;
   public environments: any = [];
   public requestApis: any = [];
 
   constructor(
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private eventAggregator: EventAggregator
   ) {}
 
   public bind() {
@@ -248,6 +252,10 @@ export class Editor {
     user.selectEnabled = false;
     this.config.steps[user.emailIndex].tempData = selectedUser;
     this.config.steps[user.passwordIndex].tempData = selectedUser;
+    
+    this.config.steps[user.emailIndex].config.value = selectedUser.email;
+    this.config.steps[user.passwordIndex].config.value = selectedUser.password;
+
     user.config = selectedUser;
   }
 
@@ -258,25 +266,49 @@ export class Editor {
 
   public runTest(): void {
     this.loading = true;
-    console.log(' ::>> run test > ', this.config);
-    
-    // this.testResults.unshift({
-    //   startTime: moment().format('DD/MM/YYYY HH:mm:ss'),
-    //   ongoing: true
-    // });
+    if (!this.environment) {
+      this.eventAggregator.publish('toastr:error', 'Please select an environment.');
+      return;
+    }
+    if (this.config.type === 'partial') {
+      this.eventAggregator.publish('toastr:error', 'Sub-tests cannot be run.');
+      return;
+    }
+    console.log(' ::>> run test > config >', this.config);
 
-    // this.httpClient
-    //   .createRequest('automate')
-    //   .asPost()
-    //   .withContent(this.config)
-    //   .send()
-    //   .then(data => {
-    //     console.log(' ::>> data >>>> ', data);
-    //   })
-    //   .catch(e => {
-    //     console.error(e);
-    //     this.loading = false;
-    //   });
+    let testRequestData = {
+      environment: this.environments.find(env => env.name === this.environment),
+      testSuiteId: this.config.testSuiteId,
+      testId: this.config.testId,
+      name: this.config.name,
+      steps: this.config.steps.map(step => {
+        return {
+          type: step.type,
+          predefined: step.predefined,
+          config: step.config
+        };
+      })
+    };
+    
+    console.log(' ::>> run test > testRequestData > ', testRequestData);
+
+    this.testResults.unshift({
+      startTime: moment().format('DD/MM/YYYY HH:mm:ss'),
+      ongoing: true
+    });
+
+    this.httpClient
+      .createRequest('automate')
+      .asPost()
+      .withContent(testRequestData)
+      .send()
+      .then(data => {
+        console.log(' ::>> data >>>> ', data);
+      })
+      .catch(e => {
+        console.error(e);
+        this.loading = false;
+      });
   }
 
   public viewTestResult(result): void {
@@ -288,8 +320,18 @@ export class Editor {
     if (this.config.type === 'complete') {
     this.router.navigate('test-wizard/' + this.config.testSuiteId + '/' + this.config.testId);
     } else if (this.config.type === 'partial') {
-      this.router.navigate('test-wizard/' + this.config._id);
+      this.router.navigate('test-wizard/sub-test/' + this.config._id);
     }
+  }
+
+  public get configurationsDone(): boolean {
+    if (this.userArray.length > 0) {
+      let dataNotConfigured = this.userArray.find(user => !user.config || !user.config.email || !user.config.password);
+      if (dataNotConfigured) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 

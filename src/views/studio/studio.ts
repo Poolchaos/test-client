@@ -184,7 +184,12 @@ export class Studio {
 
   public openTab(data: any): void {
     console.log(' ::>> openTab >>>> ', data);
-    let isExistingTab = this.tabs.find(tab => tab.name === data.name);
+    let isExistingTab = this.tabs.find(tab => {
+      return (
+        data.type === 'partial' && tab._id === data._id ||
+        data.type === 'complete' && tab.testId === data.testId
+      );
+    });
     if (isExistingTab) {
       this.selectTab(isExistingTab);
       return;
@@ -194,21 +199,23 @@ export class Studio {
   }
 
   public selectTab(tab: any) {
+    console.log(' ::>> select tab >>>>> ', tab);
     this.tabs.forEach(_tab => {
+      console.log(' ::>> tab >>>>> ', _tab);
       if (
-        tab._id && tab._id === _tab._id ||
-        tab.testId && tab.testId === _tab.testId
+        tab.type === 'partial' && tab._id === _tab._id ||
+        tab.type === 'complete' && tab.testId === _tab.testId
       ) {
+        console.log(' ::>> tab >>>>> matches >>>>> ', { tab, _tab });
         _tab.selected = true;
         tab.selected = true;
         this.notifyTabSelected(_tab);
-      } else if(tab.name === _tab.name) {
-        tab.selected = true;
       } else {
         if (_tab.selected) {
           _tab.selected = false;
           this.notifyTabDeSelected(_tab);
         }
+        console.log(' ::>> tab >>>>> deselect tab >>>>> ', _tab);
         _tab.selected = false;
       }
     });

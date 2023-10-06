@@ -38,16 +38,17 @@ export class TestCreator {
     this.testSuiteId = params.testSuiteId;
     this.testId = params.testId;
     console.log(' ::>> testSuiteId >>> ', params);
-    if (this.testSuiteId && this.testId) {
+    
+    if (this.testSuiteId && this.testSuiteId !== 'sub-test' && this.testId) {
       this.steps.forEach(step => step.complete = true);
     }
-    this.testData = { type: this.testSuiteId ? 'complete' : 'partial' };
+    this.testData = { type: this.testSuiteId === 'sub-test' ? 'partial' : 'complete' };
     
     
     // this.activateStep(0);
     this.activateStep(0);
 
-    if (this.testId) {
+    if (this.testId && this.testSuiteId !== 'sub-test') {
       if (this.testSuiteId) {
         this.getTest();
       } else {
