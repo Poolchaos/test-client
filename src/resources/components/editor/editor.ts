@@ -153,7 +153,7 @@ export class Editor {
 
 
 
-  public configuringTest: boolean = true;
+  public configuringTest: boolean = false;
   public userArray = [];
   public configureTestToRun(): void {
     this.configuringTest = true;
