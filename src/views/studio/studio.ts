@@ -87,7 +87,9 @@ export class Studio {
       this.testSuiteNames = this.testSuites.map(suite => suite.name);
       console.log(' ::>> testSuites ', this.testSuites);
     } catch(e) {
-      console.warn(' > Failed to parse explorer data ');
+      console.warn(' > Failed to parse e2e test data ');
+      this.testSuites = [];
+      this.testSuiteNames = [];
     }
   }
 
@@ -102,7 +104,9 @@ export class Studio {
       this.subTestNames = this.subTests.map(test => test.name);
       console.log(' ::>> subTests ', this.subTests);
     } catch(e) {
-      console.warn(' > Failed to parse explorer data ');
+      console.warn(' > Failed to parse sub-test data ');
+      this.subTests = [];
+      this.subTestNames = [];
     }
   }
 
