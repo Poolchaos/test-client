@@ -5,7 +5,7 @@
     icons,
   "
 >
-  <section>${index}.&nbsp;&nbsp;</section>
+  <section class="margin-right--10">${index}.</section>
   <section
     if.bind="step.type === 'wait'"
     class="flex--basis text--left flex"
@@ -18,6 +18,7 @@
     if.bind="step.type === 'text'"
     class="flex--basis text--left flex"
   >
+    <section innerhtml.bind="icons.text" style="fill: #e51e5a;" class="margin-right--5 margin-top--2"></section>
     <div if.bind="step.predefined">
       Enter user &nbsp;<span class="text-blue">${step.config.label}</span>&nbsp;into the text field.
     </div>
@@ -30,6 +31,7 @@
     if.bind="step.type === 'click'"
     class="flex--basis text--left flex"
   >
+    <section innerhtml.bind="icons.click" style="fill: #e51e5a;" class="margin-right--5 margin-top--2"></section>
     <div if.bind="step.config.value">
       Click button reading &nbsp;<span class="text-blue">${step.config.value}</span>.
     </div>
@@ -43,6 +45,7 @@
     if.bind="step.type === 'expect'"
     class="flex--basis text--left flex"
   >
+    <section innerhtml.bind="icons.magnifyingGlass" style="fill: #e51e5a;" class="margin-right--5 margin-top--2"></section>
     <div if.bind="step.config.value === 'dashboard'">
       Expect to see the dashboard.
     </div>

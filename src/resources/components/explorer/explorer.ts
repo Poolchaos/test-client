@@ -291,6 +291,7 @@ export class Explorer {
             .asDelete()
             .send()
             .then(() => {
+              testSuite.tests.forEach(test => this.eventAggregator.publish('close-tab', test.testId))
               this.testSuites = this.testSuites.filter(_testSuite => _testSuite._id !== testSuite._id);
             })
             .catch(e => console.warn(' > Failed to create test suite due to:', e))

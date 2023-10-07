@@ -113,7 +113,7 @@ export class Studio {
   private subscribeToInternalEvents(): void {
     this.subscription = this.eventAggregator.subscribe('close-tab', (testId: string) => {
       this.tabs.forEach((tab, index) => {
-        if (tab.testId === testId) {
+        if (tab.testId === testId || tab._id === testId) {
           this.closeTab(index);
         }
       })

@@ -605,6 +605,9 @@ svg, .browser-logo, .svg {
 
 .margin {
   &-top {
+    &--2 {
+      margin-top: 2px!important;
+    }
     &--10 {
       margin-top: 10px!important;
     }

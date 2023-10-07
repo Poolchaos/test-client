@@ -18,7 +18,7 @@ export class CreatorStepThree {
 
   public steps = [{
     title: 'Prompt User input',
-    expanded: true,
+    expanded: false,
     list: [
       { name: 'text', type: 'prompt', icon: 'text' },
       // { name: 'number', type: 'prompt', icon: 'numbers', disabled: true },
@@ -48,7 +48,7 @@ export class CreatorStepThree {
     ]
   }, {
     title: 'Verify page content',
-    expanded: true,
+    expanded: false,
     list: [
       { name: 'expect', type: 'HUD Is Visible', icon: 'magnifyingGlass', disabled: false },
       { name: STEP_CONSTANTS.CHECK_ELEMENT_ATTRIBUTE, icon: 'magnifyingGlass', disabled: true },
