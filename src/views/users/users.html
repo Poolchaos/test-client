@@ -60,21 +60,30 @@
             >
               <button
                 class="button cta"
-                click.trigger="selectUser(user)"
+                click.trigger="deleteUser(user)"
                 repeat.for="user of organisation.users"
                 style="background: rgba(0, 0, 0, 0);"
+                style.bind="user.isHovering ? 'padding-top: 0px;' : ''"
+                mouseenter.trigger="hoverUser(user)"
+                mouseleave.trigger="hoverOffUser(user)"
               >
-                <section class="name-field">${user.name}</section>
-                <div
-                  innerhtml.bind="icons.roles[user.role]"
-                  class="white svg config-icon"
-                ></div>
-                
-                <section style="text-align: left;">
-                  <section style="font-size: 16px;">${user.role}</section>
-                  <section style="font-size: 12px;">${user.email}</section>
-                  <section style="font-size: 12px;">${user.password}</section>
-                </section>
+                <div if.bind="!user.isHovering" class="flex">
+                  <section class="name-field">${user.name}</section>
+                  <div
+                    innerhtml.bind="icons.roles[user.role]"
+                    class="white svg config-icon"
+                  ></div>
+                  
+                  <section style="text-align: left;">
+                    <section style="font-size: 16px;">${user.role}</section>
+                    <section style="font-size: 12px;">${user.email}</section>
+                    <section style="font-size: 12px;">${user.password}</section>
+                  </section>
+                </div>
+            
+                <div if.bind="user.isHovering" class="flex flex--align-center flex--justify-center">
+                  <div innerhtml.bind="icons.close" class="margin-right--10 svg white"></div> Delete
+                </div>
               </button>
             </section>
             

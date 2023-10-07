@@ -66,6 +66,21 @@ export class Users {
         }
       });
   }
+  
+  public hoverUser(user: any): void {
+    console.log(' ::>> this.dataStore.user >>>> ', this.dataStore.user);
+    if (!this.dataStore.user) {
+      return;
+    }
+    user.isHovering = true
+  }
+
+  public hoverOffUser(user: any): void {
+    if (!this.dataStore.user) {
+      return;
+    }
+    user.isHovering = false
+  }
 
   /////////////////////////////
   // user section
