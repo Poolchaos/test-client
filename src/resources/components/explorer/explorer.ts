@@ -62,82 +62,91 @@ export class Explorer {
       ts.isExpanded = true;
     });
 
-    this.eventAggregator
-      .subscribe(
-        'select-test-tab',
-        (tab: { testSuiteId: string; testId?: string; selected: boolean; }) => {
-          let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
-          if (testSuite) {
-            let test = testSuite.tests.find(t => t.testId === tab.testId);
-            if (test) {
-              test.isOpen = true;
-              test.selected = tab.selected;
-            }
-          }
-        }
-      );
+    this.eventAggregator.subscribe('select-test-tab', (tab: { testSuiteId: string; testId?: string; selected: boolean; }) => this.handleSelectTestTab(tab));
+    this.eventAggregator.subscribe('select-sub-test-tab',(tab: { testSuiteId: string; _id: string; selected: boolean; }) => this.handleSelectSubTestTab(tab));
+    this.eventAggregator.subscribe('deselect-test-tab', (tab: { testSuiteId: string; testId?: string; }) => this.handleDeselectTestTab(tab));
+    this.eventAggregator.subscribe('deselect-sub-test-tab', (tab: { _id: string; }) => this.handleDeselectSubTestTab(tab));
+    this.eventAggregator.subscribe( 'close-test-tab', (tab: { testSuiteId: string; testId?: string; }) => this.handleCloseTestTab(tab));
+    this.eventAggregator.subscribe('close-sub-test-tab', (tab: { _id: string; }) => this.handleCloseSubTestTab(tab));
+  }
 
-    this.eventAggregator
-      .subscribe(
-        'select-sub-test-tab',
-        (tab: { testSuiteId: string; _id: string; selected: boolean; }) => {
-          let test = this.subTests.find(t => t._id === tab._id);
-          if (test) {
-            test.isOpen = true;
-            test.selected = tab.selected;
-          }
-        }
-      );
+  private handleSelectTestTab(tab: { testSuiteId: string; testId?: string; selected: boolean; }): void {
+    let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
+    if (!testSuite) {
+      setTimeout(() => this.handleSelectTestTab(tab), 50);
+      return;
+    }
+    if (testSuite) {
+      if (!testSuite.tests) {
+        setTimeout(() => this.handleSelectTestTab(tab), 50);
+        return;
+      }
+      let test = testSuite.tests.find(t => t.testId === tab.testId);
+      if (test) {
+        test.isOpen = true;
+        test.selected = tab.selected;
+      }
+    }
+  }
 
-    
-    this.eventAggregator
-      .subscribe(
-        'deselect-test-tab',
-        (tab: { testSuiteId: string; testId?: string; }) => {
-          let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
-          if (testSuite) {
-            let test = testSuite.tests.find(t => t.testId === tab.testId);
-            if (test) {
-              test.selected = false;
-            }
-          }
-        });
-    
-    this.eventAggregator
-      .subscribe(
-        'deselect-sub-test-tab',
-        (tab: { _id: string; }) => {
-          let test = this.subTests.find(t => t._id === tab._id);
-          if (test) {
-            test.selected = false;
-          }
-        });
+  private handleSelectSubTestTab(tab: { testSuiteId: string; _id: string; selected: boolean; }): void {
+    if (!this.subTests) {
+      setTimeout(() => this.handleSelectSubTestTab(tab), 50);
+      return;
+    }
+    let test = this.subTests.find(t => t._id === tab._id);
+    if (test) {
+      test.isOpen = true;
+      test.selected = tab.selected;
+    }
+  }
 
-    
-    this.eventAggregator
-      .subscribe(
-        'close-test-tab',
-        (tab: { testSuiteId: string; testId?: string; }) => {
-          let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
-          if (testSuite) {
-            let test = testSuite.tests.find(t => t.testId === tab.testId);
-            if (test) {
-              test.isOpen = false;
-              test.selected = false;
-            }
-          }
-        });
-    
-    this.eventAggregator
-      .subscribe(
-        'close-sub-test-tab',
-        (tab: { _id: string; }) => {
-          let test = this.subTests.find(t => t._id === tab._id);
-          if (test) {
-            test.isOpen = false;
-            test.selected = false;
-          }
-        });
+  private handleDeselectTestTab(tab: { testSuiteId: string; testId?: string; }): void {
+    if (!this.testSuites) {
+      setTimeout(() => this.handleDeselectTestTab(tab), 50);
+      return;
+    }
+    let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
+    if (testSuite) {
+      if (!testSuite.tests) {
+        setTimeout(() => this.handleDeselectTestTab(tab), 50);
+        return;
+      }
+      let test = testSuite.tests.find(t => t.testId === tab.testId);
+      if (test) {
+        test.selected = false;
+      }
+    }
+  }
+  
+  private handleDeselectSubTestTab(tab: { _id: string; }): void {
+    if (!this.subTests) {
+      setTimeout(() => this.handleDeselectSubTestTab(tab), 50);
+      return;
+    }
+    let test = this.subTests.find(t => t._id === tab._id);
+    if (test) {
+      test.selected = false;
+    }
+  }
+
+  private handleCloseTestTab(tab: { testSuiteId: string; testId?: string; }): void {
+    let testSuite = this.testSuites.find(ts => ts._id === tab.testSuiteId);
+    if (testSuite) {
+      let test = testSuite.tests.find(t => t.testId === tab.testId);
+      if (test) {
+        test.isOpen = false;
+        test.selected = false;
+      }
+    }
+  }
+
+  private handleCloseSubTestTab(tab: { _id: string; }): void {
+    let test = this.subTests.find(t => t._id === tab._id);
+    if (test) {
+      test.isOpen = false;
+      test.selected = false;
+    }
   }
 
   public toggleTopLevel(): void {
