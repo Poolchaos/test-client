@@ -14,15 +14,6 @@ export class ExpectConfig {
   @observable public requireConfigData: boolean = false;
   public selectedConfigOption: string;
 
-  public configureOptions = [{
-    name: 'User',
-    icon: 'user',
-    options: [
-      { name: 'email', icon: 'envelope', selected: false },
-      { name: 'password', icon: 'lock', selected: false },
-    ]
-  }];
-
   constructor(
     private element: Element
   ) {}
@@ -31,36 +22,16 @@ export class ExpectConfig {
     
   }
 
-  public requireConfigDataChanged = (): void => {
-    console.log(' ::>> requireConfigDataChanged >>>>> ', this.requireConfigData, this.configureOptions)
-    if (!this.requireConfigData) {
-      this.configureOptions.forEach(option => {
-        console.log(' ::>> option >>>> ', option)
-        option.options.forEach(_option => _option.selected = false);
-      });
-      this.selectedConfigOption = null;
-      this.value = '';
-    }
-  }
-
-  public selectSubOption(subOption, option): void {
-    option.options.forEach(_option => _option.selected = false);
-    subOption.selected = true;
-    this.selectedConfigOption = subOption.name;
-
-    if (subOption.name === 'email') {
-      this.value = '{{ email }}';
-    } else if (subOption.name === 'password') {
-      this.value = '{{ password }}';
-    }
+  public select(item) {
+    console.log(' ::>>selectedConfigOption >>>> ', item);
+    this.selectedConfigOption = item;
   }
 
   public confirm(): void {
     const model = {
-      type: 'text',
-      predefined: this.requireConfigData,
+      type: 'expect',
       config: {
-        value: this.value,
+        value: this.selectedConfigOption,
         label: this.label
       }
     };

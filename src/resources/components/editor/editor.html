@@ -56,9 +56,21 @@
 
   <div class="col-right">
     <section if.bind="!configuringTest && config.type === 'complete'">
-      <h4 class="header text--center">
-        Test history
-      </h4>
+      <div class="flex flex--justify-between flex--align-center is-relative">
+        <div style="width:30px;">&nbsp;</div>
+        <h4 class="header text--center">
+          Test history
+        </h4>
+        <button
+          class="pink"
+          click.trigger="getTestResults()"
+          innerhtml.bind="icons.rotateArrow"
+          style="
+            border: 1px solid #e51e5a;
+          "
+          title="Edit"
+        ></button>
+      </div>
 
       <div
         if.bind="testResults.length === 0"

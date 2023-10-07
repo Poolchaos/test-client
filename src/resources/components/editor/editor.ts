@@ -125,14 +125,14 @@ export class Editor {
             if (result.startTime && result.startTime.indexOf('Z') < 0) {
               result.startTime = parseInt(result.startTime);
             }
-            console.log(' ::>> result.startTime >>>> ', result.startTime);
-
             result.startTime = moment(result.startTime).format('DD/MM/YYYY HH:mm:ss');
             result.endTime = moment(result.endTime).format('DD/MM/YYYY HH:mm:ss');
             result.testPassed = result.passed === result.total;
             return result;
           });
           console.log(' ::>> query test results data | data = ', this.testResults);
+
+          console.log(' ::>> this.testResults >>>>> ', this.testResults)
         } catch(e) {
           console.error(' ::>> Failed to get test results >>> ', e);
         }
@@ -158,6 +158,10 @@ export class Editor {
 
 
   public configuringTest: boolean = false;
+  public cancelConfigigureTest(): void {
+    this.configuringTest = false;
+  }
+
   public userArray = [];
   public configureTestToRun(): void {
     this.configuringTest = true;
@@ -299,18 +303,24 @@ export class Editor {
       ongoing: true
     });
 
-    // this.httpClient
-    //   .createRequest('automate')
-    //   .asPost()
-    //   .withContent(testRequestData)
-    //   .send()
-    //   .then(data => {
-    //     console.log(' ::>> data >>>> ', data);
-    //   })
-    //   .catch(e => {
-    //     console.error(e);
-    //     this.loading = false;
-    //   });
+    this.httpClient
+      .createRequest('automate')
+      .asPost()
+      .withContent(testRequestData)
+      .send()
+      .then(data => {
+        console.log(' ::>> data >>>> ', data);
+        this.loading = false;
+        this.configuringTest = false;
+        this.userArray = [];
+
+        this.eventAggregator.publish('toastr:success', `Started test: ${name}\nPlease continue while waiting fort he results.`);
+      })
+      .catch(e => {
+        console.error(e);
+        this.loading = false;
+        this.eventAggregator.publish('toastr:error', `Error running test: ${name}\n.`+ e);
+      });
   }
 
   public viewTestResult(result): void {

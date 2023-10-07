@@ -46,7 +46,7 @@ export class TestCreator {
     
     
     // this.activateStep(0);
-    this.activateStep(0);
+    this.activateStep(1);
 
     if (this.testId && this.testSuiteId !== 'sub-test') {
       if (this.testSuiteId) {

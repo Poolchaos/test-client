@@ -40,6 +40,15 @@
 
   
   <section
+    if.bind="step.type === 'expect'"
+    class="flex--basis text--left flex"
+  >
+    <div if.bind="step.config.value === 'dashboard'">
+      Expect to see the dashboard.
+    </div>
+  </section>
+  
+  <section
     if.bind="step.type === 'window'"
     class="flex--basis text--left flex"
   >

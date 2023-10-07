@@ -1,7 +1,7 @@
 <template>
-  <section class="text-config dialog">
+  <section class="expect-config dialog">
     <section class="header">
-      Prompt user Text
+      Expect to see content
     </section>
 
     <section
@@ -9,60 +9,17 @@
     >
       <section>
         <div class="margin-bottom-10">
-          <div class="margin-bottom-10 text-left">Does this prompt require pre-configured data?</div>
-
-          <switch
-            selected.two-way="requireConfigData"
-          ></switch>
-        </div>
-        <div
-          class="margin-bottom-10 selection flex flex--justify-center"
-          if.bind="requireConfigData"
-        >
-          <div
-            class="margin-bottom-10 flex flex--align-center option"
-            repeat.for="option of configureOptions"
+          <button
+            click.trigger="select('dashboard')"
+            class.bind="selectedConfigOption === 'dashboard' ? 'full-pink' : 'pink'"
+            style="border: 1px solid #e51e5a;"
           >
-            <div
-              class="flex flex--direction-cols flex--align-center"
-              style="border-right: 2px solid grey;width: 70px;"
-            >
-              <div
-                innerhtml.bind="icons[option.icon]"
-                class="white"
-              ></div>
-              <div>${option.name}</div>
-            </div>
-
-            <div
-              class="flex flex--direction-cols flex--align-center sub-option"
-              class.bind="subOption.selected ? 'selected' : ''"
-              repeat.for="subOption of option.options"
-              click.trigger="selectSubOption(subOption, option)"
-            >
-              <div
-                innerhtml.bind="icons[subOption.icon]"
-                class="white"
-              ></div>
-              <div>${subOption.name}</div>
-            </div>
-          </div>
+            Dashboard
+          </button>
         </div>
-        <div class="margin-bottom-10" if.bind="!requireConfigData">
-          <div class="margin-bottom-10 text-left" style="margin-left: 40px;">Enter your text here:</div>
-          <div class="is-relative">
-            <input
-              type="text"
-              value.bind="value"
-            />
-          </div>
-        </div>
+        
         <div class="margin-bottom-10">
-          <div class="margin-bottom-10 text-left" style="margin-left: 40px;">What is the placeholder?</div>
-          <input
-            type="text"
-            value.bind="label"
-          />
+          
         </div>
         
 
@@ -80,6 +37,7 @@
           </button>
           <button
             class="blue-button flex flex--basis"
+            class.bind="selectedConfigOption ? '' : 'u-faded-content'"
             click.trigger="confirm()"
           >
             <div
@@ -92,7 +50,7 @@
       </section>
     </section>
 
-    <section>
+    <!-- <section>
       <section class="header">
         Examples:
       </section>
@@ -118,6 +76,6 @@
           style="margin-left: 10px;cursor: default;"
         />
       </div>
-    </section>
+    </section> -->
   </section>
 </template>
