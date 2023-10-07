@@ -1,6 +1,7 @@
 import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { ICONS } from 'resources/constants/icons';
+import { DataStore } from 'stores/data-store';
 
 interface IEnvironemnt {
   _id: string;
@@ -16,7 +17,8 @@ export class APIRequests {
   public requests: any = [];
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    public dataStore: DataStore
   ) {}
   
   public activate(): void {
@@ -26,7 +28,7 @@ export class APIRequests {
 
   private getRequests(): void {
     this.httpClient
-      .createRequest(`requests`)
+      .createRequest('api-requests')
       .asGet()
       .send()
       .then(data => {

@@ -5,6 +5,7 @@ import { ICONS } from 'resources/constants/icons';
 import { EnvironmentDialog } from './add-environment-dialog/environment-dialog';
 import { EnvironmentService } from './environment-service';
 import { ConfirmDialog } from 'resources/components/_dialogs/confirm-dialog/confirm-dialog';
+import { DataStore } from 'stores/data-store';
 
 interface IEnvironemnt {
   _id: string;
@@ -21,11 +22,12 @@ export class Environment {
 
   constructor(
     private dialogService: DialogService,
-    private environmentService: EnvironmentService
+    private environmentService: EnvironmentService,
+    public dataStore: DataStore
   ) {}
   
   public activate(): void {
-    console.log(' ::>> binded env ');
+    console.log(' ::>> binded env ', this.dataStore);
     this.getEnvironments();
   }
 
@@ -40,6 +42,20 @@ export class Environment {
           console.log(' > Failed to get environments', e);
         }
       });
+  }
+
+  public hoverEnvironment(env: any): void {
+    if (!this.dataStore.user) {
+      return;
+    }
+     env.isHovering = true
+  }
+
+  public hoverOffEnvironment(env: any): void {
+    if (!this.dataStore.user) {
+      return;
+    }
+     env.isHovering = false
   }
 
   public addEnvironment(): void {

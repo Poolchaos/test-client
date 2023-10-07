@@ -8,9 +8,10 @@
         <section class="col-content">
           <button
             class="button cta"
-            class.bind="environment.selected ? 'pink' : 'pink-border'"
+            class.bind="environment.selected ? 'full-pink' : 'pink'"
             click.trigger="selectEnvironment(environment)"
             repeat.for="environment of environments"
+            style="padding: 6px 12px;"
           >
             <div
               innerhtml.bind="icons.server"
@@ -26,8 +27,9 @@
         <div
           if.bind="organisations.length === 0"
           class="no-data-message"
+          style="text-align: left;"
         >
-          No organisations has been set up.
+          No organisations have been set up.
         </div>
         <section repeat.for="organisation of organisations">
           <h2
@@ -49,10 +51,18 @@
               class="flex flex--wrap flex--justify-left flex--basis"
               style="padding: 0 5px;"
             >
+              <div
+                if.bind="organisations.length === 0"
+                class="no-data-message"
+                style="text-align: left;"
+              >
+                No users have been set up.
+              </div>
               <button
                 class="button cta"
                 click.trigger="selectUser(user)"
                 repeat.for="user of organisation.users"
+                style="background: rgba(0, 0, 0, 0);"
               >
                 <section class="name-field">${user.name}</section>
                 <div
@@ -70,11 +80,12 @@
             
             <section style="padding: 0 10px;">
               <button
-                class="pink button cta"
+                class="full-pink button cta"
                 class.bind="environment.selected ? 'pink' : 'pink-border'"
-                click.trigger="addUser(environment)"
+                click.trigger="addUser(organsiation)"
                 style="padding: 10px;width: 80px;height: 230px;"
                 title="Add user"
+                if.bind="dataStore.user"
               >
                 <div
                   innerhtml.bind="icons.plus"
@@ -94,9 +105,10 @@
         <button
           class="pink button cta"
           class.bind="environment.selected ? 'pink' : 'pink-border'"
-          click.trigger="addUser(environment)"
+          click.trigger="addOrganisation(environment)"
           style="padding: 10px;min-height: 80px; margin: 30px 10px 10px;"
           title="Add organisation"
+          if.bind="dataStore.user"
         >
           <div
             innerhtml.bind="icons.plus"

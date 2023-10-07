@@ -268,10 +268,12 @@ export class Editor {
     this.loading = true;
     if (!this.environment) {
       this.eventAggregator.publish('toastr:error', 'Please select an environment.');
+      this.loading = false;
       return;
     }
     if (this.config.type === 'partial') {
       this.eventAggregator.publish('toastr:error', 'Sub-tests cannot be run.');
+      this.loading = false;
       return;
     }
     console.log(' ::>> run test > config >', this.config);
@@ -297,18 +299,18 @@ export class Editor {
       ongoing: true
     });
 
-    this.httpClient
-      .createRequest('automate')
-      .asPost()
-      .withContent(testRequestData)
-      .send()
-      .then(data => {
-        console.log(' ::>> data >>>> ', data);
-      })
-      .catch(e => {
-        console.error(e);
-        this.loading = false;
-      });
+    // this.httpClient
+    //   .createRequest('automate')
+    //   .asPost()
+    //   .withContent(testRequestData)
+    //   .send()
+    //   .then(data => {
+    //     console.log(' ::>> data >>>> ', data);
+    //   })
+    //   .catch(e => {
+    //     console.error(e);
+    //     this.loading = false;
+    //   });
   }
 
   public viewTestResult(result): void {

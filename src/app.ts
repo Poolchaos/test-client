@@ -54,32 +54,36 @@ export class App {
     name: 'Configure API Requests',
     icon: 'yandex',
     route: 'api-requests'
-  }, {
-    name: 'Configure Numbers',
-    icon: 'hashtag',
-    route: 'numbers'
+  // }, {
+  //   name: 'Configure Numbers',
+  //   icon: 'hashtag',
+  //   route: 'numbers'
   }];
 
   public fileConfigurations = [];
   
-  public editConfigurations = [];
+  public editConfigurations = [{
+    name: 'Create a Sub-Task',
+    icon: 'puzzle',
+    route: 'test-wizard/sub-test'
+  }];
   
   public viewConfigurations = [{
     name: 'Environments',
     icon: 'server',
     route: 'environments'
   }, {
-    name: 'Organisations',
+    name: 'Users',
     icon: 'user',
     route: 'users'
   }, {
     name: 'API Requests',
     icon: 'yandex',
     route: 'api-requests'
-  }, {
-    name: 'Numbers',
-    icon: 'hashtag',
-    route: 'numbers'
+  // }, {
+  //   name: 'Numbers',
+  //   icon: 'hashtag',
+  //   route: 'numbers'
   }];
 
   constructor(

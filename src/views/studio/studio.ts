@@ -286,6 +286,6 @@ export class Studio {
 
   public startCreateTestForSuiteFlow(data: { testSuiteId: string; testSuiteName: string; }) {
     console.log(' ::>> startCreateTestForSuiteFlow >>>>> ', data);
-    this.router.navigate('test-wizard' + (data.testSuiteId ? '/' + data.testSuiteId : ''));
+    this.router.navigate('test-wizard' + (data.testSuiteId ? '/' + data.testSuiteId : '/sub-test'));
   }
 }

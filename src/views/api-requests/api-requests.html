@@ -6,9 +6,20 @@
 
       <section class="flex" style="width: 100%;">
         <section
-          class="flex flex--wrap flex--justify-left flex--basis"
+          class="flex flex--wrap flex--basis flex--justify-left"
+          class.bind="requests.length === 0 ? 'flex--justify-center' : 'flex--justify-left'"
           style="padding: 0 5px;align-content: flex-start;"
         >
+          <div
+            style="width: 100px;"
+            if.bind="requests.length === 0 && dataStore.user"
+          >&nbsp;</div>
+          <div
+            if.bind="requests.length === 0"
+            class="no-data-message"
+          >
+            No api requests have been configured.
+          </div>
           <button
             class="button cta"
             click.trigger="selectRequest(request)"
@@ -107,7 +118,10 @@
       </section>
 
             
-      <section style="padding: 0 10px;">
+      <section
+        style="padding: 0 10px;"
+        if.bind="dataStore.user"
+      >
         <button
           class="pink button cta"
           click.trigger="addApiRequest()"

@@ -8,5 +8,6 @@ export function configure(config: FrameworkConfiguration): void {
 
     PLATFORM.moduleName('./step-3/create-step-template/text-config/text-config'),
     PLATFORM.moduleName('./step-3/create-step-template/click-config/click-config'),
+    PLATFORM.moduleName('./step-3/create-step-template/expect-config/expect-config'),
   ]);
 }

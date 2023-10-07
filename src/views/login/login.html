@@ -71,6 +71,7 @@
               disabled.bind="submitted"
               click.trigger="disableRegister()"
               if.bind="registerEnabled"
+              style="height: 45px;"
             >
               Cancel
             </button>
@@ -78,6 +79,7 @@
               class="button pink"
               disabled.bind="submitted"
               click.trigger="registerEnabled ? register() : login()"
+              style="height: 45px;"
             >
               <div if.bind="submitted" class="flex">
                 &nbsp;&nbsp;&nbsp;&nbsp;

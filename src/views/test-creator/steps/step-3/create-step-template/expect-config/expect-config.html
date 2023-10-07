@@ -1,0 +1,123 @@
+<template>
+  <section class="text-config dialog">
+    <section class="header">
+      Prompt user Text
+    </section>
+
+    <section
+      class="body flex flex--direction-cols flex--justify-between flex--basis"
+    >
+      <section>
+        <div class="margin-bottom-10">
+          <div class="margin-bottom-10 text-left">Does this prompt require pre-configured data?</div>
+
+          <switch
+            selected.two-way="requireConfigData"
+          ></switch>
+        </div>
+        <div
+          class="margin-bottom-10 selection flex flex--justify-center"
+          if.bind="requireConfigData"
+        >
+          <div
+            class="margin-bottom-10 flex flex--align-center option"
+            repeat.for="option of configureOptions"
+          >
+            <div
+              class="flex flex--direction-cols flex--align-center"
+              style="border-right: 2px solid grey;width: 70px;"
+            >
+              <div
+                innerhtml.bind="icons[option.icon]"
+                class="white"
+              ></div>
+              <div>${option.name}</div>
+            </div>
+
+            <div
+              class="flex flex--direction-cols flex--align-center sub-option"
+              class.bind="subOption.selected ? 'selected' : ''"
+              repeat.for="subOption of option.options"
+              click.trigger="selectSubOption(subOption, option)"
+            >
+              <div
+                innerhtml.bind="icons[subOption.icon]"
+                class="white"
+              ></div>
+              <div>${subOption.name}</div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-bottom-10" if.bind="!requireConfigData">
+          <div class="margin-bottom-10 text-left" style="margin-left: 40px;">Enter your text here:</div>
+          <div class="is-relative">
+            <input
+              type="text"
+              value.bind="value"
+            />
+          </div>
+        </div>
+        <div class="margin-bottom-10">
+          <div class="margin-bottom-10 text-left" style="margin-left: 40px;">What is the placeholder?</div>
+          <input
+            type="text"
+            value.bind="label"
+          />
+        </div>
+        
+
+        <section class="flex padding-top-20 action-buttons">
+          <button
+            class="pink-button flex flex--basis"
+            click.trigger="cancel()"
+            style="margin-right: 10px;"
+          >
+            <div
+              innerhtml.bind="icons.close"
+              class="margin-right--10 white"
+            ></div>
+            Discard
+          </button>
+          <button
+            class="blue-button flex flex--basis"
+            click.trigger="confirm()"
+          >
+            <div
+              innerhtml.bind="icons.plus"
+              class="margin-right--10 white"
+            ></div>
+            Insert
+          </button>
+        </section>
+      </section>
+    </section>
+
+    <section>
+      <section class="header">
+        Examples:
+      </section>
+      <div class="margin-bottom-10 padding-20 padding-bottom-unset">
+        <div class="margin-bottom-10 text-left">
+          Placeholder: <span class="text-blue">Type text here.</span>
+        </div>
+        <input
+          type="text"
+          readonly
+          placeholder="Type text here."
+          style="margin-left: 10px;cursor: default;"
+        />
+      </div>
+      <div class="padding-20 padding-top-unset">
+        <div class="margin-bottom-10 text-left">
+          Placeholder: <span class="text-blue">Email</span>
+        </div>
+        <input
+          type="text"
+          readonly
+          placeholder="Email"
+          style="margin-left: 10px;cursor: default;"
+        />
+      </div>
+    </section>
+  </section>
+</template>

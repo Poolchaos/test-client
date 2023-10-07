@@ -2,6 +2,7 @@ import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 
 import { ICONS } from 'resources/constants/icons';
+import { DataStore } from 'stores/data-store';
 
 @autoinject
 export class Users {
@@ -12,7 +13,8 @@ export class Users {
   public organisations: any = [];
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    public dataStore: DataStore
   ) {}
 
   public bind(): void {

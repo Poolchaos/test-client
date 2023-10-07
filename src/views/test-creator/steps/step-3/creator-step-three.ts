@@ -48,9 +48,9 @@ export class CreatorStepThree {
     ]
   }, {
     title: 'Verify page content',
-    expanded: false,
+    expanded: true,
     list: [
-      { name: STEP_CONSTANTS.CHECK_ELEMENT_CONTENT, icon: 'magnifyingGlass', disabled: true },
+      { name: 'HUD Is Visible', type: 'expect', icon: 'magnifyingGlass', disabled: false },
       { name: STEP_CONSTANTS.CHECK_ELEMENT_ATTRIBUTE, icon: 'magnifyingGlass', disabled: true },
       { name: STEP_CONSTANTS.CHECK_ELEMENT_PRESENCE, icon: 'roundedCheckMark', disabled: true },
       { name: STEP_CONSTANTS.CHECK_NO_TEXT_PRESENT, icon: 'ban', disabled: true },
