@@ -25,7 +25,7 @@ export class NewTestSuiteDialog {
     this.validation.validateTrigger = validateTrigger.change;
   }
 
-  public bind(): void {
+  public activate(): void {
     ValidationRules
       .customRule('uniqueName', (value) => {
         for (let name of this.names) {

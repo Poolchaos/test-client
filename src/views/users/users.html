@@ -31,9 +31,12 @@
         >
           No organisations have been set up.
         </div>
-        <section repeat.for="organisation of organisations">
+        <section
+          repeat.for="organisation of organisations"
+          class="margin-bottom-20"
+        >
           <h2
-            class="text-pink"
+            class="text-pink flex flex--align-center"
             style="
               text-align: left;
               margin: 5px 15px;
@@ -42,22 +45,19 @@
             ${organisation.name}
           </h2>
 
-          <section if.bind="organisation.users && organisation.users.length === 0">
-            Organisation has no users.
-          </section>
           <section class="flex">
+            <section
+              if.bind="!organisation.users || organisation.users.length === 0"
+              class="flex--basis button cta"
+              style="padding-top: 5px;height: 217px;cursor: default;"
+            >
+              Organisation has no users.
+            </section>
             <section
               if.bind="organisation.users.length > 0"
               class="flex flex--wrap flex--justify-left flex--basis"
               style="padding: 0 5px;"
             >
-              <div
-                if.bind="organisations.length === 0"
-                class="no-data-message"
-                style="text-align: left;"
-              >
-                No users have been set up.
-              </div>
               <button
                 class="button cta"
                 click.trigger="selectUser(user)"
@@ -78,12 +78,14 @@
               </button>
             </section>
             
-            <section style="padding: 0 10px;">
+            <section
+              style="padding: 0 10px;"
+              class="flex flex--direction-cols"
+            >
               <button
-                class="full-pink button cta"
-                class.bind="environment.selected ? 'pink' : 'pink-border'"
-                click.trigger="addUser(organsiation)"
-                style="padding: 10px;width: 80px;height: 230px;"
+                class="blue button cta margin-bottom-10"
+                click.trigger="addUser(organisation)"
+                style="padding: 10px;width: 80px;height: 110px; border-color: #1c86cc;"
                 title="Add user"
                 if.bind="dataStore.user"
               >
@@ -98,17 +100,31 @@
                   style="margin-right: 0;"
                 ></div>
               </button>
+              
+              <button
+                class="pink button cta"
+                class.bind="environment.selected ? 'pink' : 'pink-border'"
+                click.trigger="deleteOrganisation(organisation)"
+                style="padding: 10px;width: 80px;height: 110px;"
+                title="Add user"
+                if.bind="dataStore.user"
+              >
+                <div
+                  innerhtml.bind="icons.close"
+                  class="white svg config-icon"
+                  style="margin-right: 0;"
+                ></div>
+              </button>
             </section>
           </section>
         </section>
         
         <button
           class="pink button cta"
-          class.bind="environment.selected ? 'pink' : 'pink-border'"
-          click.trigger="addOrganisation(environment)"
+          click.trigger="addOrganisation()"
           style="padding: 10px;min-height: 80px; margin: 30px 10px 10px;"
           title="Add organisation"
-          if.bind="dataStore.user"
+          if.bind="dataStore.user && environments.length > 0"
         >
           <div
             innerhtml.bind="icons.plus"

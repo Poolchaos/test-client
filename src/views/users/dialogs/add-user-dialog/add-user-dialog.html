@@ -1,0 +1,72 @@
+<template>
+  <section class="dialog confirm">
+    <section class="header">
+      <div
+        innerhtml.bind="icons.user"
+        class="margin-right--10"
+        style="fill: #e51e5a;"
+      ></div>
+      Add a user
+      <button
+        class="pink"
+        click.trigger="close()"
+        innerhtml.bind="icons.close"
+      ></button>
+    </section>
+
+    <section class="body">
+      <div class="field-container is-relative flex flex--align-center margin-bottom-10 text-left">
+        <div style="width: 100px;">Name:</div> 
+        <input
+          type="string"
+          value.bind="name & validate"
+          placeholder="Enter the name here."
+          class="flex--basis"
+        />
+      </div>
+      
+      <div class="field-container is-relative flex flex--align-center margin-bottom-10 text-left">
+        <div style="width: 100px;">Email:</div> 
+        <input
+          type="string"
+          value.bind="email & validate"
+          placeholder="Enter the email here."
+          class="flex--basis"
+        />
+      </div>
+      
+      <div class="field-container is-relative flex flex--align-center margin-bottom-10 text-left">
+        <div style="width: 100px;">Password:</div> 
+        <input
+          type="string"
+          value.bind="password & validate"
+          placeholder="Enter the password here."
+          class="flex--basis"
+        />
+      </div>
+      
+      <div class="field-container is-relative flex flex--align-center margin-bottom-10 text-left">
+        <div style="width: 100px;">Role:</div> 
+        <select value.bind="role" class="flex--basis">
+          <option repeat.for="role of roles">${role}</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="footer">
+      <button
+        class="pink-button"
+        click.trigger="confirm()"
+        style="margin-right: 10px;"
+      >
+        Confirm
+      </button>
+      <button
+        class="blue-button"
+        click.trigger="close()"
+      >
+        Cancel
+      </button>
+    </section>
+  </section>
+</template>

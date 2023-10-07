@@ -624,8 +624,19 @@ svg, .browser-logo, .svg {
     &-10 {
       margin-bottom: 10px;
     }
+    &-20 {
+      margin-bottom: 20px;
+    }
     &-50 {
       margin-bottom: 50px;
+    }
+  }
+  &-left {
+    &-10 {
+      margin-left: 10px;
+    }
+    &-20 {
+      margin-left: 20px;
     }
   }
 }
