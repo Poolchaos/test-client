@@ -70,6 +70,9 @@ export class Environment {
   }
 
   public showConfirmDeleteEnvironment(environment: IEnvironemnt) {
+    if (!this.dataStore.user) {
+      return;
+    }
     this.dialogService
       .open({ viewModel: ConfirmDialog, model: 'This will delete your environment: ' + environment.name })
       .whenClosed(response => {

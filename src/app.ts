@@ -39,7 +39,8 @@ export class App {
   private secureFileConfigurations = [{
     name: 'Logout',
     icon: 'lock',
-    route: 'logout'
+    route: '',
+    customAction: 'logout'
   }];
   
   public secureEditConfigurations = [{
@@ -60,15 +61,13 @@ export class App {
   //   route: 'numbers'
   }];
 
-  public fileConfigurations = [];
-  
-  public editConfigurations = [{
+  private defaultFileConfigurations = [];
+  private defaultEditConfigurations = [{
     name: 'Create a Sub-Task',
     icon: 'puzzle',
     route: 'test-wizard/sub-test'
   }];
-  
-  public viewConfigurations = [{
+  private defaultViewConfigurations = [{
     name: 'Environments',
     icon: 'server',
     route: 'environments'
@@ -86,6 +85,10 @@ export class App {
   //   route: 'numbers'
   }];
 
+  public fileConfigurations = [];
+  public editConfigurations = [];
+  public viewConfigurations = [];
+
   constructor(
     private eventAggregator: EventAggregator,
     public dataStore: DataStore,
@@ -99,16 +102,23 @@ export class App {
     };
     this.eventAggregator.subscribe('toastr:success', message => toastr.success(message, 'Success'));
     this.eventAggregator.subscribe('toastr:error', message => toastr.error(message, 'Error'));
+    this.eventAggregator.subscribe(EVENTS.USER_UPDATED, message => this.setupTopMenu());
   }
 
   public activate(): void {
     this.dataStore.initialiseSubscriptions();
+    this.setupTopMenu();
+  }
+
+  private setupTopMenu(): void {
     if (this.dataStore.user) {
-      this.fileConfigurations = [].concat(this.secureFileConfigurations);
-      this.editConfigurations = [].concat(this.secureEditConfigurations);
+      this.fileConfigurations = this.defaultFileConfigurations.concat(this.secureFileConfigurations);
+      this.editConfigurations = this.defaultEditConfigurations.concat(this.secureEditConfigurations);
     } else {
-      this.fileConfigurations = [].concat(this.insecureFileConfigurations);
+      this.fileConfigurations = this.defaultFileConfigurations.concat(this.insecureFileConfigurations);
+      this.editConfigurations = this.defaultEditConfigurations.concat();
     }
+    this.viewConfigurations = [...this.defaultViewConfigurations];
   }
 
   public configureRouter(config, router: Router): void {
@@ -208,7 +218,16 @@ export class App {
     this.router.navigate(route);
   }
 
+  public customAction(menu: string, action: string): void {
+    this.menu[menu] = false;
+    if (action === 'logout') {
+      this.logout();
+    }
+  }
+
   public logout(): void {
     this.eventAggregator.publish(EVENTS.USER_LOGGED_OUT);
+    this.router.navigate('');
+    this.setupTopMenu();
   }
 }

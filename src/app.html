@@ -28,7 +28,7 @@
                   <li
                     class="flex"
                     repeat.for="item of fileConfigurations"
-                    click.trigger="navTo('file', item.route)"
+                    click.trigger="item.customAction ? customAction('file', item.customAction) : navTo('file', item.route)"
                   >
                     <div
                       innerhtml.bind="icons[item.icon]"

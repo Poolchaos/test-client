@@ -68,10 +68,10 @@ export class Users {
   }
   
   public hoverUser(user: any): void {
-    console.log(' ::>> this.dataStore.user >>>> ', this.dataStore.user);
     if (!this.dataStore.user) {
       return;
     }
+    console.log(' ::>> this.dataStore.user >>>> ', this.dataStore.user);
     user.isHovering = true
   }
 
@@ -100,6 +100,9 @@ export class Users {
   }
 
   public deleteUser(user: { _id: string; name: string }): void {
+    if (!this.dataStore.user) {
+      return;
+    }
     console.log(' ::>> user >>>>> ', user);
 
     this.dialogService
