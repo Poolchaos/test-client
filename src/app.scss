@@ -51,6 +51,7 @@ nav.menu {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex: 1;
 }
 
 .nav-list {
@@ -71,13 +72,17 @@ nav.menu {
 
 header.top-menu {
   background-color: #292a2d;
+  height: calc(62px - 2rem);
   color: #fff;
   padding: 1rem;
   position: relative;
+  display: flex;
+  align-items: center;
 
   .menu-list {
-    list-style: none;
     display: flex;
+    align-items: center;
+    list-style: none;
     gap: 1rem;
   }
 

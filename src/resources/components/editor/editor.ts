@@ -165,17 +165,19 @@ export class Editor {
   public userArray = [];
   public configureTestToRun(): void {
     this.configuringTest = true;
+    this.userArray = [];
+
+    let userCounter = 0;
+    let stepIndexEmail = [];
+    let stepIndexPassword = [];
+    let currentUser = null;
+
     console.log(' ::>> configureTestToRun >>>> >', {
       config: this.config,
       steps: this.config.steps
     });
     // // @ts-ignore
     // this.config.steps = mock_data;
-
-    let userCounter = 0; // Start with 0 users
-    let stepIndexEmail = [];
-    let stepIndexPassword = [];
-    let currentUser = null;
 
     for (let i = 0; i < this.config.steps.length; i++) {
       const step = this.config.steps[i];
@@ -314,7 +316,7 @@ export class Editor {
         this.configuringTest = false;
         // this.userArray = [];
 
-        this.eventAggregator.publish('toastr:success', `Started test: ${name}\nPlease continue while waiting fort he results.`);
+        this.eventAggregator.publish('toastr:success', `Started test: ${name}\nPlease continue while waiting for the results.`);
       })
       .catch(e => {
         console.error(e);
