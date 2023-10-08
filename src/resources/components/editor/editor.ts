@@ -312,7 +312,7 @@ export class Editor {
         console.log(' ::>> data >>>> ', data);
         this.loading = false;
         this.configuringTest = false;
-        this.userArray = [];
+        // this.userArray = [];
 
         this.eventAggregator.publish('toastr:success', `Started test: ${name}\nPlease continue while waiting fort he results.`);
       })

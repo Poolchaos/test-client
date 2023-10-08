@@ -223,6 +223,9 @@ export class Studio {
         _tab.selected = false;
       }
     });
+    if (tab.name === 'Welcome') {
+      tab.selected = true;
+    }
     
     sessionStorage.setItem('zai-test-config', JSON.stringify({
       studio: {

@@ -92,14 +92,21 @@
         </section>
         <section
           class="pass-value"
-          class.bind="result.testPassed ? 'passed' : 'failed'"
+          class.bind="result.testPassed && result.passed && result.passed === result.total ? 'passed' : 'failed'"
           if.bind="!result.ongoing"
         >
-          ${result.testPassed ? 'Passed' : 'Failed'}
+          ${result.testPassed && result.passed && result.passed === result.total ? 'Passed' : 'Failed'}
           <section
             class="score"
+            if.bind="result.testPassed && result.passed && result.passed === result.total"
           >
             ${result.passed}/${result.total}
+          </section>
+          <section
+            class="score"
+            if.bind="(!result.passed && result.passed !== 0) || (!result.total && result.total !== 0)"
+          >
+            0/1
           </section>
           <button
             class="blue"
