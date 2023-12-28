@@ -175,10 +175,11 @@
           margin-top: 20px;
           margin-bottom: 20px;
         "
+        if.bind="userArray.length > 0"
       >
         <span class="text-pink">
           ${userArray.length}
-        </span> &nbsp;User sign${userArray.length === 1 ? '' : "'s"} in detected
+        </span> &nbsp;User sign in${userArray.length === 1 ? '' : "'s"} detected
       </h2>
 
       <section repeat.for="user of userArray">
