@@ -57,7 +57,7 @@ export class ViewTestResult {
           const testResult = JSON.parse(data.response);
           console.log(' ::>> testResults >>>> ', testResult);
 
-          if (testResult.startTime.indexOf('Z') < 0) {
+          if (testResult.startTime && testResult.startTime.indexOf('Z') < 0) {
             testResult.startTime = parseInt(testResult.startTime);
           }
           console.log(' ::>> result.startTime >>>> ', testResult.startTime);
@@ -69,13 +69,13 @@ export class ViewTestResult {
           this.testResult = testResult;
           this.tests = testResult.fixtures[0].tests[0].steps;
 
-          setTimeout(() => {
-            Prism.highlight(
-              testResult.generatedTest,
-              Prism.languages.javascript,
-              'javascript'
-            );
-          }, 1000)
+          // setTimeout(() => {
+          //   Prism.highlight(
+          //     testResult.generatedTest,
+          //     Prism.languages.javascript,
+          //     'javascript'
+          //   );
+          // }, 1000)
 
           console.log(' ::>> this.tests >>>> ', this.tests);
         } catch(e) {
