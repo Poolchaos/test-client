@@ -36,6 +36,7 @@ interface IStep {
 @autoinject
 export class Editor {
   @bindable({ attribute: 'config' }) public config: IConfig;
+  private originalConfig: IConfig;
 
   public icons = ICONS;
   public loading: boolean = false;
@@ -55,7 +56,7 @@ export class Editor {
   ) {}
 
   public bind() {
-    console.log(' ::>> config = 1 ', this.config);
+    console.log(' ::>> first config >>> ', this.config);
     if (this.config.type === 'partial') {
       this.getSubTestConfig();
     } else if (this.config.type === 'complete') {
@@ -76,6 +77,7 @@ export class Editor {
             ...this.config,
             ...JSON.parse(data.response)
           };
+          this.originalConfig = JSON.parse(JSON.stringify(this.config));
           console.log(' ::>> query test data | data = ', this.config);
         } catch(e) {
           console.error(' ::>> Failed to get test config >>> ', e);
@@ -95,6 +97,7 @@ export class Editor {
             ...this.config,
             ...JSON.parse(data.response)
           };
+          this.originalConfig = JSON.parse(JSON.stringify(this.config));
           console.log(' ::>> query test data | data = ', this.config);
         } catch(e) {
           console.error(' ::>> Failed to get test config >>> ', e);
@@ -160,6 +163,7 @@ export class Editor {
   public configuringTest: boolean = false;
   public cancelConfigigureTest(): void {
     this.configuringTest = false;
+    this.config = JSON.parse(JSON.stringify(this.originalConfig));
   }
 
   public userArray = [];
@@ -305,6 +309,10 @@ export class Editor {
       ongoing: true
     });
 
+    console.log(' ::>> config.steps> >>> ', this.config.steps);
+
+
+
     this.httpClient
       .createRequest('automate')
       .asPost()
@@ -314,7 +322,8 @@ export class Editor {
         console.log(' ::>> data >>>> ', data);
         this.loading = false;
         this.configuringTest = false;
-        // this.userArray = [];
+        this.userArray = [];
+        this.config = JSON.parse(JSON.stringify(this.originalConfig));
 
         this.eventAggregator.publish('toastr:success', `Started test: ${name}\nPlease continue while waiting for the results.`);
       })
