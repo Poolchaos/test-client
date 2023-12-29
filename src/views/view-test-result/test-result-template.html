@@ -25,17 +25,17 @@
         width: 30px;
         height: 30px;
         border-bottom-right-radius: 8px;
-        background: #e51e5a;
         font-size: 11px;
         font-weight: 600;
         z-index: 10;
       "
+      style.bind="test.error.thumbnail ? 'width: 60px;background: #e51e5a;' : 'background: rgb(93, 204, 93);'"
     >
-      ${number}
+      ${number}${test.error.thumbnail ? ' - Error' : ''}
     </section> 
 
     <image
-      src.bind="'data:image/png;base64,' + test.thumbnail"
+      src.bind="'data:image/png;base64,' + (test.thumbnail || test.error.thumbnail)"
       class.bind="test.image ? 'hasImage' : ''"
       click.trigger="showimage(test, number)"
     />
@@ -49,29 +49,27 @@
         font-size: 11px;
       "
     >
-      <section if.bind="test.name === 'wait'">
+      <section if.bind="test.type === 'wait'">
         Wait for&nbsp;
         <span class="text-pink">${test.config.durationInSeconds}</span>
         &nbsp;seconds before continuing.
       </section>
 
-      <section if.bind="test.name === 'text'">
+      <section if.bind="test.type === 'text'">
         Type&nbsp;
         <span class="text-pink">${test.config.value}</span>
         &nbsp;into the&nbsp;<span class="text-pink">${test.config.label}</span>&nbsp;text field.
       </section>
 
-      <section if.bind="test.name === 'Click Element'">
-        Click the&nbsp;
-        <span class="text-pink">${test.config.targetType}</span>&nbsp;labelled&nbsp;
-        <span class="text-pink">${test.config.label}</span>.
+      <section if.bind="test.type === 'click'">
+        Click the button labelled&nbsp;
+        <span class="text-pink">${test.config.value}</span>.
       </section>
 
-      <section if.bind="test.name === 'Expect Content'">
+      <section if.bind="test.type === 'expect'">
         I expect to see the&nbsp;
-        <span if.bind="test.config.role">
-          <span class="text-pink">${test.config.role}</span>
-          &nbsp;dashboard.
+        <span if.bind="test.config.value === 'dashboard'">
+          <span class="text-pink">Dashboard</span>.
         </span>
         <span if.bind="test.config.selector">
           <span class="text-pink">${test.config.label}</span>
