@@ -22,16 +22,16 @@
         position: absolute;
         top: 0px;
         left: 0px;
-        width: 30px;
+        width: 60px;
         height: 30px;
         border-bottom-right-radius: 8px;
         font-size: 11px;
         font-weight: 600;
         z-index: 10;
       "
-      style.bind="test.error.thumbnail ? 'width: 60px;background: #e51e5a;' : 'background: rgb(93, 204, 93);'"
+      style.bind="test.error.thumbnail ? 'background: #e51e5a;' : 'background: rgb(93, 204, 93);'"
     >
-      ${number}${test.error.thumbnail ? ' - Error' : ''}
+      ${number} - ${test.error.thumbnail ? 'Failed' : 'Passed'}
     </section> 
 
     <image
