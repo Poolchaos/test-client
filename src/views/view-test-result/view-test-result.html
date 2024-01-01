@@ -55,7 +55,6 @@
           class="step"
           repeat.for="test of tests"
           style="
-            width: 610px;
             border-right: 1px solid #373737;
             overflow-y: auto;
             height: 100%;
@@ -66,7 +65,7 @@
             class.bind="test.groupName ? 'flex--justify-center' : ''"
             style.bind="test.groupName ? 'border: 1px solid #e51e5a;padding-top: 20px;margin: 20px 10px;border-radius: 5px;' : ''"
           >
-            <h2
+            <!-- <h2
               class="text-white"
               style="
                 position: absolute;
@@ -79,9 +78,9 @@
                 background: #171717;
               "
             >
-              <!-- ${$index + 1} - ${test.name || test.groupName} -->
-            </h2>
-            <section
+              ${$index + 1} - ${test.name || test.groupName}
+            </h2> -->
+            <!-- <section
               if.bind="test.groupName"
               repeat.for="groupTest of test.steps"
               class="is-relative;"
@@ -91,7 +90,7 @@
                 test.bind="groupTest"
                 showimage.bind="showImage"
               ></test-result-template>
-            </section>
+            </section> -->
             <test-result-template
               if.bind="!test.groupName"
               number.bind="$index + 1"
